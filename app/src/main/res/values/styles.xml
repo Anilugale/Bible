@@ -10,4 +10,9 @@
 
             <item name="android:background">#fff</item>
     </style>
+
+    <style name="bible" parent="@style/AppTheme" >
+        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_material_light</item>
+    </style>
 </resources>

@@ -160,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             langCol="verses";
 
         openDataBase();
-        Cursor cursor = myDataBase.rawQuery(" select id, verse_text from "+langCol+" where chapter_id=="+book_id+" and book_id=="+chapterId, new String[]{});
+        Cursor cursor = myDataBase.rawQuery(" select id, verse_text from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
         List<Verse>  data=new ArrayList<>();
 
         while (cursor.moveToNext()) {

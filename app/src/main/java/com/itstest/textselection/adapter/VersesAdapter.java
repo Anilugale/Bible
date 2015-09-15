@@ -53,6 +53,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
 
         holder.gdName.setText(mLst.get(position).getName());
+        holder.verses_no.setText(String.valueOf(position+1));
         // holder.gdTxt.setText(mLst.get(position).getStry());
         //holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
 
@@ -90,7 +91,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
         protected TextView gdPoint;
         protected TextView gdName;
-        protected TextView gdTxt;
+        protected TextView verses_no;
         protected ImageView gdImage;
 
         protected CardView relativeLayout;
@@ -102,6 +103,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
+            verses_no = (TextView) itemView.findViewById(R.id.verses_no);
 
             // gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
             // gdImage = (ImageView) itemView.findViewById(R.id.gdImage);

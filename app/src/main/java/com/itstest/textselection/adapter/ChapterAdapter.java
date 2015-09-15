@@ -14,7 +14,6 @@ import com.itstest.textselection.ChapterActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.model.Chapter;
-import com.itstest.textselection.model.Story;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_story,parent, false);
+                .inflate(R.layout.item_chapter,parent, false);
 
         return  new ViewHolder(itemLayoutView);
     }

@@ -3,5 +3,16 @@
    <color name="selected_color">#2d2ddc</color>
    <color name="black">#000</color>
    <color name="win_bg">#bebaba</color>
-
+   <color name="chapter_color">#393b40</color>
+   <color name="chapter_title_color">#FF236AAC</color>
+   <color name="primary_material_light">#46b3d1</color>
+   <color name="primary_dark_material_light">#18677d</color>
+   <color name="accent_material_light">#008cb3</color>
+   <color name="primary_text_material_light">#137b98</color>
+   <color name="secondary_text_material_light">#236aac</color>
+   <color name="statusBarColor">#155377</color>
+   <color name="primary_text_material_dark">#ffffff</color>
+   <color name="secondary_text_material_dark">#ffffff</color>
+   <color name="indicator_color">#51b6d1</color>
+   <color name="verses_background">#9ac5d9</color>
 </resources>
