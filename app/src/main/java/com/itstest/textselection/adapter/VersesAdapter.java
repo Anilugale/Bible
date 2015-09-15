@@ -53,24 +53,12 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
 
         holder.gdName.setText(mLst.get(position).getName());
-        // holder.gdTxt.setText(mLst.get(position).getStry());
-        //holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
-
-
-        ///    holder.gdImage.setTag(position);
-
-     /*   Picasso.with(context).load(mLst.get(position).getGoodie_image())
-                .transform(new CircleTransform())
-                .error(R.mipmap.default_profile_pic)
-                .into(holder.gdImage);*/
         context.registerForContextMenu(holder.gdName);
-
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-              /*  context.startActivity(new Intent(context, VersesActivity.class).putExtra(VersesActivity.BOOK_ID,mLst.get(position).getBookId()
-                ).putExtra(VersesActivity.CHAPTER_ID,mLst.get(position).getChapter_num()));*/
+
             }
         });
 
@@ -90,22 +78,15 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
         protected TextView gdPoint;
         protected TextView gdName;
-        protected TextView gdTxt;
-        protected ImageView gdImage;
 
         protected CardView relativeLayout;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
-
-            // gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
-            // gdImage = (ImageView) itemView.findViewById(R.id.gdImage);
-
         }
     }
 

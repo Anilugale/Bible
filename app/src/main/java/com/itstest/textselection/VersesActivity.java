@@ -84,16 +84,5 @@ public class VersesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        //user has long pressed your TextView
-        menu.add(0, v.getId(), 0, "Share the Verse");
 
-        //cast the received View to TextView so that you can get its text
-        TextView yourTextView = (TextView) v;
-
-        //place your TextView's text in clipboard
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        clipboard.setText(yourTextView.getText());
-    }
 }
