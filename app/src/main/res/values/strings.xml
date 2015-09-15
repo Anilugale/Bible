@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Bible</string>
+    <string name="hello_world">Lesson 2 dives into the concept of tangible surfaces, and how they establish hierarchy to make your UI more understandable. Lesson 3 looks at applying bold graphic design, or how the principles of space, color, typography and imagery help you to create a beautiful, branded experience. Lesson 4 studies the use of meaningful motion to bring your apps to life and create a seamless and more intuitive experience. Finally, lesson 5 shows how adaptive design makes your app shine on any screen size.!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_chapter">ChapterActivity</string>
+    <string name="title_activity_verses">VersesActivity</string>
+    <string name="title_activity_podcast">PodcastActivity</string>
+    <string name="title_activity_download">Download</string>
+</resources>

@@ -1,0 +1,42 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:background="#fff"
+    android:id="@+id/goodies_list_item"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:layout_margin="5dp"
+    card_view:cardElevation="2dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="4dp">
+    <LinearLayout
+        android:layout_margin="@dimen/margin_chapter"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="@dimen/textSize"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:id="@+id/gdName"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:text="Name" />
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/gdPoint"
+            android:gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

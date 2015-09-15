@@ -1,0 +1,203 @@
+package com.itstest.textselection.database;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.model.Verse;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ Created by Anil Ugale on 10/09/2015.
+ */
+public class DatabaseHelper extends SQLiteOpenHelper {
+
+    //The Android's default system path of your application database.
+    private static String DB_PATH = "/data/data/com.itstest.textselection/databases/";
+
+    private static String DB_NAME = "mydb.db";
+
+    private SQLiteDatabase myDataBase;
+
+    private final Context myContext;
+
+    public DatabaseHelper(Context context) {
+        super(context, DB_NAME, null, 1);
+        this.myContext = context;
+    }
+
+    public void createDataBase() throws IOException{
+        boolean dbExist = checkDataBase();
+
+        if(dbExist){
+            //do nothing - database already exist
+        }else{
+
+            //By calling this method and empty database will be created into the default system path
+            //of your application so we are gonna be able to overwrite that database with our database.
+            this.getReadableDatabase();
+
+            try {
+
+                copyDataBase();
+
+            } catch (IOException e) {
+
+                throw new Error("Error copying database");
+
+            }
+        }
+
+    }
+
+    /**
+     * Check if the database already exist to avoid re-copying the file each time you open the application.
+     * @return true if it exists, false if it doesn't
+     */
+    private boolean checkDataBase(){
+
+        SQLiteDatabase checkDB = null;
+
+        try{
+            String myPath = DB_PATH + DB_NAME;
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+
+        }catch(SQLiteException e){
+
+            //database does't exist yet.
+            e.printStackTrace();
+        }
+
+        if(checkDB != null){
+
+            checkDB.close();
+
+        }
+
+        return checkDB != null ? true : false;
+    }
+
+    /**
+     * Copies your database from your local assets-folder to the just created empty database in the
+     * system folder, from where it can be accessed and handled.
+     * This is done by transfering bytestream.
+     * */
+    private void copyDataBase() throws IOException {
+
+        //Open your local db as the input stream
+        InputStream myInput = myContext.getAssets().open(DB_NAME);
+
+        // Path to the just created empty db
+        String outFileName = DB_PATH + DB_NAME;
+
+        //Open the empty db as the output stream
+        OutputStream myOutput = new FileOutputStream(outFileName);
+
+        //transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = myInput.read(buffer))>0){
+            myOutput.write(buffer, 0, length);
+        }
+
+        //Close the streams
+        myOutput.flush();
+        myOutput.close();
+        myInput.close();
+
+    }
+
+    public void openDataBase() throws SQLException {
+
+        if(myDataBase==null) {
+            try {
+                createDataBase();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Open the database
+        String myPath = DB_PATH + DB_NAME;
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+
+    }
+
+    public List<Chapter> getDataBook(char langugae) throws IOException {
+        openDataBase();
+
+        String langCol="EnglishShortName";
+        if(langugae=='M')
+            langCol="MalayalamShortName";
+        Cursor cursor = myDataBase.rawQuery("select book_id,"+langCol+",num_chptr from books", new String[]{});
+        List<Chapter>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Chapter chapter=new Chapter();
+            chapter.setBookId(cursor.getInt(0));
+            chapter.setName(cursor.getString(1));
+            chapter.setChapter_num(cursor.getInt(2));
+            data.add(chapter);
+        }
+        cursor.close();
+        return data;
+    }
+
+
+    public List<Verse> getVerses(int book_id,int chapterId,char langugae)
+    {
+        String langCol="verses_asv";
+        if(langugae=='M')
+            langCol="verses";
+
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery(" select id, verse_text from "+langCol+" where chapter_id=="+book_id+" and book_id=="+chapterId, new String[]{});
+        List<Verse>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Verse verse=new Verse();
+            verse.setId(cursor.getInt(0));
+            verse.setName(cursor.getString(1));
+            data.add(verse);
+        }
+        cursor.close();
+        return data;
+    }
+
+
+
+    @Override
+    public synchronized void close() {
+
+        if(myDataBase != null)
+            myDataBase.close();
+
+        super.close();
+
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
+    // Add your public helper methods to access and get content from the database.
+    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
+    // to you to create adapters for your views.
+
+
+}
