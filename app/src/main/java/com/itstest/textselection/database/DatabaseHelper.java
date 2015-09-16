@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.itstest.textselection.model.Chapter;
 import com.itstest.textselection.model.Verse;
@@ -70,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         try{
             String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
         }catch(SQLiteException e){
 
@@ -128,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         //Open the database
         String myPath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
     }
 
@@ -160,13 +161,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             langCol="verses";
 
         openDataBase();
-        Cursor cursor = myDataBase.rawQuery(" select id, verse_text from "+langCol+" where chapter_id=="+book_id+" and book_id=="+chapterId, new String[]{});
+        Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
         List<Verse>  data=new ArrayList<>();
 
         while (cursor.moveToNext()) {
             Verse verse=new Verse();
             verse.setId(cursor.getInt(0));
             verse.setName(cursor.getString(1));
+            verse.setBookmar(cursor.getInt(2));
             data.add(verse);
         }
         cursor.close();
@@ -195,9 +197,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    // Add your public helper methods to access and get content from the database.
-    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-    // to you to create adapters for your views.
+    public void updateBookmark(char langugae,int verseID,int update) {
+        String langCol="verses_asv";
+        if(langugae=='M')
+            langCol="verses";
 
+        openDataBase();
+
+
+
+        Log.e("q","update " + langCol + "  set bookmark=" + update + " where id=" + verseID);
+
+        Cursor cursor=myDataBase.rawQuery(" update " + langCol + " set bookmark = ? where id = ? ",
+                new String[]{String.valueOf(update)
+                        ,
+                        String.valueOf(verseID)
+                });
+        System.out.print("Count" + cursor.getCount());
+        cursor.close();
+
+
+    }
+
+    public List<Verse> getBookMarkVerse(char langugae)
+    {
+        String langCol="verses_asv";
+        if(langugae=='M')
+            langCol="verses";
+
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select  id,verse_text from verses where bookmark=1", new String[]{});
+        List<Verse>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Verse verse=new Verse();
+            verse.setId(cursor.getInt(0));
+            verse.setName(cursor.getString(1));
+            verse.setBookmar(cursor.getInt(2));
+            data.add(verse);
+        }
+        cursor.close();
+        return data;
+    }
 
 }

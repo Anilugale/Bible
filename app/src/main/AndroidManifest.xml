@@ -19,7 +19,11 @@
         <activity
             android:name=".Splash"
             android:theme="@style/GalaxyZooThemeToolbarDarkOverflow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ChapterActivity"
@@ -36,11 +40,7 @@
         <activity
             android:name=".Download"
             android:label="@string/title_activity_download" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

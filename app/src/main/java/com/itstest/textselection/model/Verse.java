@@ -23,5 +23,13 @@ public class Verse {
 
     private int id;
     private String name;
+    private int bookmar;
 
+    public int getBookmar() {
+        return bookmar;
+    }
+
+    public void setBookmar(int bookmar) {
+        this.bookmar = bookmar;
+    }
 }

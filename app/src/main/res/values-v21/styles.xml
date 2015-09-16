@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="bible" parent="@style/AppTheme">
+        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_material_light</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_material_dark</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_material_dark</item>
+    </style>
+</resources>

@@ -53,6 +53,15 @@ public class VersesActivity extends AppCompatActivity {
 
          VersesAdapter storyAdapter = new VersesAdapter(this, dataStory);
           recyclerView.setAdapter(storyAdapter);
+
+
+
+          List<Verse> databookmark= db.getBookMarkVerse(lang);
+            for (Verse verse:databookmark)
+            {
+                System.out.println(verse.getName());
+                System.out.println(verse.getId());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

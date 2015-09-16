@@ -1,7 +1,7 @@
 package com.itstest.textselection.adapter;
 
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.itstest.textselection.ChapterActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
-import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.fragment.ShareDialog;
 import com.itstest.textselection.model.Verse;
 
 import java.util.ArrayList;
@@ -53,15 +52,13 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
 
         holder.gdName.setText(mLst.get(position).getName());
-        context.registerForContextMenu(holder.gdName);
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-
+        holder.verses_no.setText(String.valueOf(position + 1));
+        holder.menu.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               showDialog(mLst.get(position));
+           }
+       });
 
 
 
@@ -78,15 +75,23 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
         protected TextView gdPoint;
         protected TextView gdName;
+        protected TextView verses_no;
+        protected ImageView menu;
 
         protected CardView relativeLayout;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
+            verses_no = (TextView) itemView.findViewById(R.id.verses_no);
+            menu = (ImageView) itemView.findViewById(R.id.menu);
+
+
+
         }
     }
 
@@ -116,6 +121,14 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         return ;
 
 
+    }
+
+    void showDialog(Verse verse)
+    {
+        FragmentManager fm = context.getSupportFragmentManager();
+        ShareDialog editNameDialog = new ShareDialog();
+        editNameDialog.setData(verse);
+        editNameDialog.show(fm, "fragment_dialog");
     }
 
 
