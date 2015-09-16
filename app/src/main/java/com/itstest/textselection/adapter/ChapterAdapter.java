@@ -53,16 +53,8 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 
 
        holder.gdName.setText(mLst.get(position).getName());
-       // holder.gdTxt.setText(mLst.get(position).getStry());
         holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
 
-
-    ///    holder.gdImage.setTag(position);
-
-     /*   Picasso.with(context).load(mLst.get(position).getGoodie_image())
-                .transform(new CircleTransform())
-                .error(R.mipmap.default_profile_pic)
-                .into(holder.gdImage);*/
 
 
       holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +128,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 
 
     }
+
 
 
 }

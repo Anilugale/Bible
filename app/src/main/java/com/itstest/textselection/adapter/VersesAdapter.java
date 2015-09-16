@@ -1,7 +1,7 @@
 package com.itstest.textselection.adapter;
 
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.itstest.textselection.ChapterActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
-import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.fragment.ShareDialog;
 import com.itstest.textselection.model.Verse;
 
 import java.util.ArrayList;
@@ -53,28 +52,13 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
 
         holder.gdName.setText(mLst.get(position).getName());
-        holder.verses_no.setText(String.valueOf(position+1));
-        // holder.gdTxt.setText(mLst.get(position).getStry());
-        //holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
-
-
-        ///    holder.gdImage.setTag(position);
-
-     /*   Picasso.with(context).load(mLst.get(position).getGoodie_image())
-                .transform(new CircleTransform())
-                .error(R.mipmap.default_profile_pic)
-                .into(holder.gdImage);*/
-        context.registerForContextMenu(holder.gdName);
-
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-              /*  context.startActivity(new Intent(context, VersesActivity.class).putExtra(VersesActivity.BOOK_ID,mLst.get(position).getBookId()
-                ).putExtra(VersesActivity.CHAPTER_ID,mLst.get(position).getChapter_num()));*/
-            }
-        });
-
+        holder.verses_no.setText(String.valueOf(position + 1));
+        holder.menu.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               showDialog(mLst.get(position));
+           }
+       });
 
 
 
@@ -92,7 +76,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         protected TextView gdPoint;
         protected TextView gdName;
         protected TextView verses_no;
-        protected ImageView gdImage;
+        protected ImageView menu;
 
         protected CardView relativeLayout;
 
@@ -104,9 +88,9 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
             verses_no = (TextView) itemView.findViewById(R.id.verses_no);
+            menu = (ImageView) itemView.findViewById(R.id.menu);
 
-            // gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
-            // gdImage = (ImageView) itemView.findViewById(R.id.gdImage);
+
 
         }
     }
@@ -137,6 +121,14 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         return ;
 
 
+    }
+
+    void showDialog(Verse verse)
+    {
+        FragmentManager fm = context.getSupportFragmentManager();
+        ShareDialog editNameDialog = new ShareDialog();
+        editNameDialog.setData(verse);
+        editNameDialog.show(fm, "fragment_dialog");
     }
 
 
