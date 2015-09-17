@@ -1,5 +1,6 @@
 package com.itstest.textselection;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.itstest.textselection.adapter.ChapterAdapter;
 import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
+import com.itstest.textselection.fragment.ColorDialogBox;
 import com.itstest.textselection.model.Chapter;
 import com.itstest.textselection.model.Verse;
 
@@ -48,15 +50,11 @@ public class VersesActivity extends AppCompatActivity {
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
+            storyAdapter = new VersesAdapter(this, dataStory);
+            recyclerView.setAdapter(storyAdapter);
 
 
-
-          storyAdapter = new VersesAdapter(this, dataStory);
-          recyclerView.setAdapter(storyAdapter);
-
-
-
-          List<Verse> databookmark= db.getBookMarkVerse(lang);
+            List<Verse> databookmark= db.getBookMarkVerse(lang);
             for (Verse verse:databookmark)
             {
                 System.out.println(verse.getName());
@@ -80,29 +78,38 @@ public class VersesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-       switch(item.getItemId())
-       {
-           case R.id.font1:
+        switch(item.getItemId())
+        {
+            case R.id.font1:
+                storyAdapter.setFont(1);
+                storyAdapter.notifyDataSetChanged();
+                break;
+            case R.id.font2:
+                storyAdapter.setFont(2);
+                storyAdapter.notifyDataSetChanged();
+                break;
+            case R.id.font3:
+                storyAdapter.setFont(3);
+                storyAdapter.notifyDataSetChanged();
+                break;
 
-               storyAdapter.setFont(1);
-               storyAdapter.notifyDataSetChanged();
-               break;
-           case R.id.font2:
-               storyAdapter.setFont(2);
-               storyAdapter.notifyDataSetChanged();
-               break;
-           case R.id.font3:
-               storyAdapter.setFont(3);
-               storyAdapter.notifyDataSetChanged();
-               break;
-
-       }
-
-
-
-
+        }
         return  true;
     }
 
+   public TextView edtxt;
+   public int position;
 
+    public void onBrush(View view) {
+        int startIndex = edtxt.getSelectionStart();
+        int endIndex = edtxt.getSelectionEnd();
+        String  textString =edtxt.getText().toString();
+        System.out.println(startIndex+""+endIndex);
+
+        FragmentManager fm = getSupportFragmentManager();
+        ColorDialogBox editNameDialog = ColorDialogBox.newInstance();
+
+        editNameDialog.setData(edtxt,storyAdapter,position);
+        editNameDialog.show(fm,null);
+    }
 }

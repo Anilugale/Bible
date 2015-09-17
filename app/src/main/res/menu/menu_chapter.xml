@@ -10,7 +10,7 @@
     <item
         android:id="@+id/podcast"
         android:title="@string/podcast"
-        android:icon="@mipmap/ic_font3"
+        android:icon="@mipmap/ic_podcast"
         android:orderInCategory="100"
         app:showAsAction="always" />
 </menu>

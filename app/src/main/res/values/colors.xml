@@ -15,4 +15,17 @@
    <color name="secondary_text_material_dark">#ffffff</color>
    <color name="indicator_color">#51b6d1</color>
    <color name="verses_background">#9ac5d9</color>
+
+
+   <color name="holo_green_light">#ff99cc00</color>
+   <!-- A light Holo shade of red -->
+   <color name="holo_red_light">#ffff4444</color>
+   <!-- A dark Holo shade of blue -->
+   <color name="holo_blue_dark">#ff0099cc</color>
+
+   <!-- A Holo shade of purple -->
+   <color name="holo_purple">#ffaa66cc</color>
+   <!-- A light Holo shade of orange -->
+   <color name="holo_orange_light">#ffffbb33</color>
+
 </resources>

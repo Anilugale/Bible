@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-         >
+        >
         <android.support.v7.widget.Toolbar
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/toolbar"
@@ -19,15 +19,36 @@
             android:background="?attr/colorPrimaryDark"/>
     </android.support.design.widget.AppBarLayout>
 
-
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_margin="5dp"
-        android:id="@+id/list_verses"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+
+            android:layout_margin="5dp"
+            android:id="@+id/list_verses"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+
+           android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/red"
+            android:src="@mipmap/ic_brush"
+            android:onClick="onBrush"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@android:color/white"
+
+            app:elevation="4dp"   />
 
 
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

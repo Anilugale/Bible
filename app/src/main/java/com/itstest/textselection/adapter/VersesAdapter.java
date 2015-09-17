@@ -2,8 +2,11 @@ package com.itstest.textselection.adapter;
 
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.style.BackgroundColorSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +29,7 @@ import java.util.List;
 public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder> {
 
     VersesActivity context;
-    List<Verse> mLst;
+   public  List<Verse> mLst;
     List<Verse> mLst_bk;
     private int font;
 
@@ -47,7 +50,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.gdName.setText(mLst.get(position).getName());
         holder.verses_no.setText(String.valueOf(position + 1));
       switch (font)
@@ -69,6 +72,23 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
                 showDialog(mLst.get(position));
             }
         });
+
+        holder.gdName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                context.edtxt = holder.gdName;
+                context.position = position;
+
+                return true;
+            }
+        });
+
+        String  textString =holder.gdName.getText().toString();
+
+        Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+        if(mLst.get(position).getColor()!=0)
+        spanText.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, mLst.get(position).getColor())), mLst.get(position).getStart(), mLst.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        holder.gdName.setText(spanText);
     }
 
     @Override
@@ -97,6 +117,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
             verses_no = (TextView) itemView.findViewById(R.id.verses_no);
             menu = (ImageView) itemView.findViewById(R.id.menu);
+
        }
     }
 
@@ -135,6 +156,5 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         editNameDialog.setData(verse);
         editNameDialog.show(fm, "fragment_dialog");
     }
-
 
 }

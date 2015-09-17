@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         findViewById(R.id.lang4).setOnClickListener(this);
         findViewById(R.id.lang5).setOnClickListener(this);
         findViewById(R.id.podcast).setOnClickListener(this);
-
-
     }
 
     public void textselected(View view) {
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             startActivity(new Intent(this,ChapterActivity.class).putExtra(ChapterActivity.lang,'M'));
          else
             startActivity(new Intent(this,ChapterActivity.class));
-
 
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +21,12 @@ import java.util.List;
 /**
  Created by Anil Ugale on 01-07-2015.
  */
-public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHolder> {
+public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     PodcastActivity context;
     List<Podcast> mLst;
     List<Podcast> mLst_bk;
+    public static int page=0;
 
 
     public PodcastAdapter(PodcastActivity context, List<Podcast> par) {
@@ -37,39 +39,87 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHold
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_podcast, parent,false);
+        View itemLayoutView;
+        switch(viewType)
+        {
 
-        return  new ViewHolder(itemLayoutView);
+            case VIEW_TYPES.Normal:
+                itemLayoutView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_podcast, parent,false);
+                return  new ViewHolder(itemLayoutView);
+
+            case VIEW_TYPES.Footer:
+                itemLayoutView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_footer, parent,false);
+                return  new FooterViewHolder(itemLayoutView);
+            default:
+                itemLayoutView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_footer, parent,false);
+                return  new ViewHolder(itemLayoutView);
+
+        }
+
+
+
+
+
+
     }
 
+  //  @Override
+  /*  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+*/
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
+      if(holder instanceof PodcastAdapter.ViewHolder) {
 
-       holder.gdName.setText(mLst.get(position).getTtl());
+          PodcastAdapter.ViewHolder  holder1=(PodcastAdapter.ViewHolder) holder;
 
+          holder1.gdName.setText(mLst.get(position).getTtl());
+          holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  // context.startActivity(new Intent(context, VersesActivity.class).putExtra("tittle",mLst.get(position).getTtl()));
+                  Toast.makeText(context, mLst.get(position).getUrl(), Toast.LENGTH_SHORT).show();
+                  context.openSearchPkg(mLst.get(position).getUrl());
+              }
+          });
+      }else if(holder instanceof PodcastAdapter.FooterViewHolder)
+      {
+          PodcastAdapter.FooterViewHolder  holder1=(FooterViewHolder) holder;
+          holder1.loadMore.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show();
+                  page++;
+                  List<Podcast> dataStory=new ArrayList<Podcast>();
+                  for(int i=0;i<100;i++)
+                  {
+                      Podcast story=new Podcast();
+                      story.setId(i);
+                      story.setUrl("http://shanu.jelastic.elastx.net/wholesale/Kalimba.mp3");
+                      story.setTtl("Chapter page no:" + page+" :"+i);
+                      dataStory.add(story);
+                  }
+                  mLst.addAll(dataStory);
+                  notifyDataSetChanged();
 
+              }
+          });
 
-
-
-      holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               // context.startActivity(new Intent(context, VersesActivity.class).putExtra("tittle",mLst.get(position).getTtl()));
-                Toast.makeText(context,mLst.get(position).getUrl(),Toast.LENGTH_SHORT).show();
-                context.openSearchPkg(mLst.get(position).getUrl());
-            }
-        });
-
+      }
 
 
 
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -80,10 +130,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHold
     {
 
         protected TextView gdName;
-
-
         protected CardView relativeLayout;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -95,7 +142,32 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHold
         }
     }
 
+    private class VIEW_TYPES {
+
+        public static final int Normal = 1;
+        public static final int Footer = 2;
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
 
 
+        if((position+1)==mLst.size())
+            return VIEW_TYPES.Footer;
+        else
+            return VIEW_TYPES.Normal;
 
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        protected Button loadMore;
+        public FooterViewHolder(View itemView) {
+
+            super(itemView);
+            loadMore=(Button) itemView.findViewById(R.id.load_more);
+
+        }
+    }
 }

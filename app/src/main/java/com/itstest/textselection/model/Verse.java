@@ -5,6 +5,41 @@ package com.itstest.textselection.model;
  */
 public class Verse {
 
+
+    private int id;
+    private String name;
+    private int bookmar;
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    int color ;
+
+    public int getEnd() {
+        return end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    private int start;
+    private int end;
+
+
     public int getId() {
         return id;
     }
@@ -21,9 +56,7 @@ public class Verse {
         this.name = name;
     }
 
-    private int id;
-    private String name;
-    private int bookmar;
+
 
     public int getBookmar() {
         return bookmar;
