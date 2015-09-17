@@ -1,5 +1,6 @@
 package com.itstest.textselection;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +24,7 @@ public class ChapterActivity extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     LinearLayoutManager  linearLayoutManager;
-
+    char langugae;
     public static String lang="lang";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ChapterActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       char langugae = getIntent().getCharExtra(lang,'x');
+        char langugae = getIntent().getCharExtra(lang,'x');
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
@@ -50,23 +51,18 @@ public class ChapterActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_chapter, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+       switch(item.getItemId())
+        {
+            case R.id.podcast:
+                startActivity(new Intent(this,PodcastActivity.class).putExtra(lang,langugae));
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

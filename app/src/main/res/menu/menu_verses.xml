@@ -2,6 +2,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.itstest.textselection.VersesActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/font1"
+        android:title="@string/font1"
+        android:orderInCategory="100"
+        android:icon="@mipmap/ic_font1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/font2"
+        android:title="@string/font2"
+        android:icon="@mipmap/ic_font2"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/font3"
+        android:title="@string/font3"
+        android:icon="@mipmap/ic_font3"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
 </menu>

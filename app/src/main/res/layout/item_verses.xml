@@ -38,7 +38,7 @@
             <RelativeLayout
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
                 android:layout_below="@+id/gdName"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"

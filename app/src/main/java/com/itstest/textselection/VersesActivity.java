@@ -25,7 +25,7 @@ public class VersesActivity extends AppCompatActivity {
 
     public static String BOOK_ID="bookId";
     public static String CHAPTER_ID="CHAPTER_ID";
-
+    private VersesAdapter storyAdapter;
 
     RecyclerView recyclerView ;
     LinearLayoutManager linearLayoutManager;
@@ -51,7 +51,7 @@ public class VersesActivity extends AppCompatActivity {
 
 
 
-         VersesAdapter storyAdapter = new VersesAdapter(this, dataStory);
+          storyAdapter = new VersesAdapter(this, dataStory);
           recyclerView.setAdapter(storyAdapter);
 
 
@@ -73,24 +73,35 @@ public class VersesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_verses, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+       switch(item.getItemId())
+       {
+           case R.id.font1:
 
-        return super.onOptionsItemSelected(item);
+               storyAdapter.setFont(1);
+               storyAdapter.notifyDataSetChanged();
+               break;
+           case R.id.font2:
+               storyAdapter.setFont(2);
+               storyAdapter.notifyDataSetChanged();
+               break;
+           case R.id.font3:
+               storyAdapter.setFont(3);
+               storyAdapter.notifyDataSetChanged();
+               break;
+
+       }
+
+
+
+
+        return  true;
     }
 
 

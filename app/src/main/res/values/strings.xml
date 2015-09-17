@@ -7,4 +7,8 @@
     <string name="title_activity_verses">VersesActivity</string>
     <string name="title_activity_podcast">PodcastActivity</string>
     <string name="title_activity_download">Download</string>
+    <string name="font1">A+</string>
+    <string name="font2">A++</string>
+    <string name="font3">A+++</string>
+    <string name="podcast">Podcast</string>
 </resources>

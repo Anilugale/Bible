@@ -4,6 +4,7 @@ package com.itstest.textselection.adapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +28,10 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     VersesActivity context;
     List<Verse> mLst;
     List<Verse> mLst_bk;
+    private int font;
 
 
     public VersesAdapter(VersesActivity context, List<Verse> par) {
-
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
@@ -40,34 +41,43 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_verses, parent,false);
-
         return  new ViewHolder(itemLayoutView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
-
         holder.gdName.setText(mLst.get(position).getName());
         holder.verses_no.setText(String.valueOf(position + 1));
+      switch (font)
+      {
+          case 1:
+              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+              break;
+          case 2:
+              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+              break;
+          case 3:
+              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+              break;
+      }
+
         holder.menu.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               showDialog(mLst.get(position));
-           }
-       });
-
-
-
-
+            @Override
+            public void onClick(View v) {
+                showDialog(mLst.get(position));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mLst.size();
+    }
+
+    public void setFont(int font) {
+        this.font = font;
     }
 
     static class ViewHolder extends  RecyclerView.ViewHolder
@@ -77,22 +87,17 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         protected TextView gdName;
         protected TextView verses_no;
         protected ImageView menu;
-
         protected CardView relativeLayout;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
             verses_no = (TextView) itemView.findViewById(R.id.verses_no);
             menu = (ImageView) itemView.findViewById(R.id.menu);
-
-
-
-        }
+       }
     }
 
     public  void filter(String data)

@@ -217,6 +217,13 @@ public class PodcastActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
 
-        unregisterReceiver(downloadCompleteReceiver);
 
-}}
+
+}
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(downloadCompleteReceiver);
+        super.onDestroy();
+    }
+}
