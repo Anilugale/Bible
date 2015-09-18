@@ -1,21 +1,16 @@
 package com.itstest.textselection.adapter;
 
 
-import android.graphics.Typeface;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.CharacterStyle;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.fragment.ShareDialog;
@@ -64,7 +58,13 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.gdName.setText(mLst.get(position).getName());
+
+        holder.gdName.setCustomSelectionActionModeCallback(null);
+
+               holder.gdName.setText(mLst.get(position).getName());
+        holder.gdName.setSelected(true);
+        holder.gdName.setFocusable(true);
+
         holder.verses_no.setText(String.valueOf(position + 1));
         switch (font)
         {
@@ -86,7 +86,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             }
         });
 
-
+        final ActionMode[] aMode = {null};
         holder.gdName.setCustomSelectionActionModeCallback(new android.view.ActionMode.Callback() {
 
 
@@ -96,6 +96,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
                 menu.removeItem(android.R.id.selectAll);
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.style, menu);
+                aMode[0] =mode;
                 return true;
             }
 
@@ -133,7 +134,10 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
             @Override
             public void onDestroyActionMode(android.view.ActionMode mode) {
+                if( aMode[0] !=null)
+                aMode[0] =null;
 
+                Log.d("Anil", "destroy ");
             }
 
         });
