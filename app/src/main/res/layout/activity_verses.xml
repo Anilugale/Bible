@@ -33,20 +33,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
 
-           android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/red"
-            android:src="@mipmap/ic_brush"
-            android:onClick="onBrush"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@android:color/white"
-
-            app:elevation="4dp"   />
 
 
 

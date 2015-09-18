@@ -226,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             langCol="verses";
 
         openDataBase();
-        Cursor cursor = myDataBase.rawQuery("select  id,verse_text from verses where bookmark=1", new String[]{});
+        Cursor cursor = myDataBase.rawQuery("select  id,verse_text,bookmark from "+langCol+" where bookmark=1", new String[]{});
         List<Verse>  data=new ArrayList<>();
 
         while (cursor.moveToNext()) {

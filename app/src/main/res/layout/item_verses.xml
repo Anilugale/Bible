@@ -5,8 +5,7 @@
     android:layout_gravity="center"
     android:background="#fff"
     android:id="@+id/goodies_list_item"
-    android:descendantFocusability="beforeDescendants"
-    android:gravity="center_vertical"
+   android:gravity="center_vertical"
     android:layout_margin="5dp"
     card_view:cardElevation="2dp"
     card_view:cardCornerRadius="4dp">
@@ -25,6 +24,8 @@
             android:layout_height="wrap_content" />
         <TextView
             android:textIsSelectable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:paddingTop="20dp"
             android:layout_margin="@dimen/margin_chapter"
             android:textStyle="bold"

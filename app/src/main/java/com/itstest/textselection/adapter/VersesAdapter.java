@@ -1,14 +1,25 @@
 package com.itstest.textselection.adapter;
 
 
+import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.CharacterStyle;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,10 +37,12 @@ import java.util.List;
 /**
  Created by Anil Ugale on 01-07-2015.
  */
+
+
 public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder> {
 
     VersesActivity context;
-   public  List<Verse> mLst;
+    public  List<Verse> mLst;
     List<Verse> mLst_bk;
     private int font;
 
@@ -53,18 +66,18 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.gdName.setText(mLst.get(position).getName());
         holder.verses_no.setText(String.valueOf(position + 1));
-      switch (font)
-      {
-          case 1:
-              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-              break;
-          case 2:
-              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-              break;
-          case 3:
-              holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-              break;
-      }
+        switch (font)
+        {
+            case 1:
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                break;
+            case 2:
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                break;
+            case 3:
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                break;
+        }
 
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,21 +86,64 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             }
         });
 
-        holder.gdName.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                context.edtxt = holder.gdName;
-                context.position = position;
 
+        holder.gdName.setCustomSelectionActionModeCallback(new android.view.ActionMode.Callback() {
+
+
+            @Override
+            public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
+                Log.d("Anil", "onCreateActionMode");
+                menu.removeItem(android.R.id.selectAll);
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.style, menu);
                 return true;
             }
+
+            @Override
+            public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
+
+
+                int start = holder.gdName.getSelectionStart();
+                int end = holder.gdName.getSelectionEnd();
+                SpannableStringBuilder ssb = new SpannableStringBuilder(holder.gdName.getText());
+
+                switch (item.getItemId()) {
+
+                    case R.id.hightlight:
+
+                        holder.gdName.setText(ssb);
+                        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context,R.color.holo_orange_light)),
+                                start,
+                                end,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        holder.gdName.setText(ssb);
+
+                        return true;
+
+
+                }
+                return false;
+
+            }
+
+            @Override
+            public void onDestroyActionMode(android.view.ActionMode mode) {
+
+            }
+
         });
+
 
         String  textString =holder.gdName.getText().toString();
 
         Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
         if(mLst.get(position).getColor()!=0)
-        spanText.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, mLst.get(position).getColor())), mLst.get(position).getStart(), mLst.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spanText.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, mLst.get(position).getColor())), mLst.get(position).getStart(), mLst.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.gdName.setText(spanText);
     }
 
@@ -118,7 +174,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             verses_no = (TextView) itemView.findViewById(R.id.verses_no);
             menu = (ImageView) itemView.findViewById(R.id.menu);
 
-       }
+        }
     }
 
     public  void filter(String data)
