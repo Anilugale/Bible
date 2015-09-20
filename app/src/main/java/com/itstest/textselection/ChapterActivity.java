@@ -25,6 +25,7 @@ public class ChapterActivity extends AppCompatActivity {
     RecyclerView recyclerView ;
     LinearLayoutManager  linearLayoutManager;
     char langugae;
+
     public static String lang="lang";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ChapterActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        char langugae = getIntent().getCharExtra(lang,'x');
+         langugae = getIntent().getCharExtra(lang,'x');
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
@@ -61,6 +62,9 @@ public class ChapterActivity extends AppCompatActivity {
         {
             case R.id.podcast:
                 startActivity(new Intent(this,PodcastActivity.class).putExtra(lang,langugae));
+                break;
+            case R.id.bookmark:
+                startActivity(new Intent(this,BookmarkActivity.class).putExtra(lang,langugae));
                 break;
         }
         return true;

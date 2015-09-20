@@ -161,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             langCol="verses";
 
         openDataBase();
-        Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
+        Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark,start,end  from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
         List<Verse>  data=new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -169,6 +169,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             verse.setId(cursor.getInt(0));
             verse.setName(cursor.getString(1));
             verse.setBookmar(cursor.getInt(2));
+            verse.setStart(cursor.getInt(3));
+            verse.setEnd(cursor.getInt(2));
             data.add(verse);
         }
         cursor.close();
@@ -189,6 +191,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE books (\n" +
+                "  AlphaCode varchar(3) NOT NULL,\n" +
+                "  book_id int(2) NOT NULL,\n" +
+                "  EnglishShortName varchar(100) NOT NULL,\n" +
+                "  num_chptr varchar(100) NOT NULL,\n" +
+                "  MalayalamShortName varchar(100) NOT NULL,\n" +
+                "  MalayalamLongName varchar(200) NOT NULL,\n" +
+                "  Showstate int(1) NOT NULL)");
+        db.execSQL("CREATE TABLE \"verses\" (\n" +
+                "\t`id`\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\t`book_id`\tint(6) NOT NULL,\n" +
+                "\t`chapter_id`\tint(3) NOT NULL,\n" +
+                "\t`verse_id`\tint(3) NOT NULL,\n" +
+                "\t`verse_text`\ttext NOT NULL,\n" +
+                "\t`bookmark`\tNUMERIC\n" +
+                ")");
+        db.execSQL("CREATE TABLE \"verses_asv\" (\n" +
+                "\t`id`\tint(6) NOT NULL,\n" +
+                "\t`book_id`\tint(6) NOT NULL,\n" +
+                "\t`verse_text`\ttext NOT NULL,\n" +
+                "\t`verse_id`\tint(3) NOT NULL,\n" +
+                "\t`quote`\tvarchar(1) NOT NULL,\n" +
+                "\t`chapter_id`\tint(3) NOT NULL,\n" +
+                "\t`numref`\ttext NOT NULL,\n" +
+                "\t`time_stamp`\ttimestamp NOT NULL,\n" +
+                "\t`bookmark`\tNUMERIC\n" +
+                ")");
+        db.execSQL("CREATE TABLE \"verses_kjv\" (\n" +
+                "\t`id`\tint(6) NOT NULL,\n" +
+                "\t`book_id`\tint(6) NOT NULL,\n" +
+                "\t`verse_text`\ttext NOT NULL,\n" +
+                "\t`verse_id`\tint(3) NOT NULL,\n" +
+                "\t`quote`\tvarchar(1) NOT NULL,\n" +
+                "\t`chapter_id`\tint(3) NOT NULL,\n" +
+                "\t`numref`\ttext NOT NULL,\n" +
+                "\t`time_stamp`\ttimestamp NOT NULL,\n" +
+                "\t`bookmark`\tNUMERIC\n" +
+                ")");
 
     }
 
@@ -201,13 +241,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String langCol="verses_asv";
         if(langugae=='M')
             langCol="verses";
-
-        openDataBase();
-
-
-
-        Log.e("q","update " + langCol + "  set bookmark=" + update + " where id=" + verseID);
-
+       openDataBase();
+       Log.e("q","update " + langCol + "  set bookmark=" + update + " where id=" + verseID);
         Cursor cursor=myDataBase.rawQuery(" update " + langCol + " set bookmark = ? where id = ? ",
                 new String[]{String.valueOf(update)
                         ,
@@ -240,4 +275,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    public void updateHightLight(char lang,int id,int start,int end) {
+       //// update verses set start=1, end =10 where id =12
+        String langCol="verses_asv";
+        if(lang=='M')
+            langCol="verses";
+
+        openDataBase();
+Log.e("update Qery","update "+langCol+" set start="+start+", end="+end+" where id ="+id);
+
+
+        Cursor cursor=myDataBase.rawQuery("update "+langCol+" set start="+start+", end ="+end+" where id = ?",
+                new String[]{String.valueOf(id)
+                });
+        cursor.close();
+    }
 }

@@ -39,13 +39,15 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     public  List<Verse> mLst;
     List<Verse> mLst_bk;
     private int font;
+    private char lang;
 
 
-    public VersesAdapter(VersesActivity context, List<Verse> par) {
+    public VersesAdapter(VersesActivity context, List<Verse> par,char lang) {
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
+        this.lang=lang;
     }
 
 
@@ -61,21 +63,20 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
 
-               holder.gdName.setText(mLst.get(position).getName());
+        holder.gdName.setText(mLst.get(position).getName());
         holder.gdName.setSelected(true);
         holder.gdName.setFocusable(true);
 
         holder.verses_no.setText(String.valueOf(position + 1));
-        switch (font)
-        {
+        switch (font) {
             case 1:
-                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 break;
             case 2:
-                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 break;
             case 3:
-                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 break;
         }
 
@@ -86,69 +87,16 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
             }
         });
 
-        final ActionMode[] aMode = {null};
-        holder.gdName.setCustomSelectionActionModeCallback(new android.view.ActionMode.Callback() {
 
 
-            @Override
-            public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
-                Log.d("Anil", "onCreateActionMode");
-                menu.removeItem(android.R.id.selectAll);
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.style, menu);
-                aMode[0] =mode;
-                return true;
-            }
 
-            @Override
-            public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
-
-
-                int start = holder.gdName.getSelectionStart();
-                int end = holder.gdName.getSelectionEnd();
-                SpannableStringBuilder ssb = new SpannableStringBuilder(holder.gdName.getText());
-
-                switch (item.getItemId()) {
-
-                    case R.id.hightlight:
-
-                        holder.gdName.setText(ssb);
-                        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context,R.color.holo_orange_light)),
-                                start,
-                                end,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        holder.gdName.setText(ssb);
-
-                        return true;
-
-
-                }
-                return false;
-
-            }
-
-            @Override
-            public void onDestroyActionMode(android.view.ActionMode mode) {
-                if( aMode[0] !=null)
-                aMode[0] =null;
-
-                Log.d("Anil", "destroy ");
-            }
-
-        });
-
-
-        String  textString =holder.gdName.getText().toString();
-
-        Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
-        if(mLst.get(position).getColor()!=0)
-            spanText.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, mLst.get(position).getColor())), mLst.get(position).getStart(), mLst.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        holder.gdName.setText(spanText);
+        SpannableStringBuilder ssb = new SpannableStringBuilder(mLst.get(position).getName());
+        holder.gdName.setText(ssb);
+        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, R.color.holo_orange_light)),
+                mLst.get(position).getStart(),
+                mLst.get(position).getEnd(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        holder.gdName.setText(ssb);
     }
 
     @Override
@@ -213,7 +161,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     {
         FragmentManager fm = context.getSupportFragmentManager();
         ShareDialog editNameDialog = new ShareDialog();
-        editNameDialog.setData(verse);
+        editNameDialog.setData(verse,lang);
         editNameDialog.show(fm, "fragment_dialog");
     }
 

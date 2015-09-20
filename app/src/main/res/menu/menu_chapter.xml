@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.itstest.textselection.ChapterActivity">
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/bookmark"
+        android:title="@string/bookmark"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always" />
     <item
         android:id="@+id/podcast"
         android:title="@string/podcast"

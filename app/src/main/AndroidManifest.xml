@@ -35,6 +35,9 @@
             android:name=".PodcastActivity" >
         </activity>
         <activity
+            android:name=".BookmarkActivity" >
+        </activity>
+        <activity
             android:name=".Download">
 
         </activity>

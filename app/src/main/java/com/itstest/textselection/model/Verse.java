@@ -9,6 +9,8 @@ public class Verse {
     private int id;
     private String name;
     private int bookmar;
+    private int start;
+    private int end;
 
     public int getColor() {
         return color;
@@ -36,8 +38,7 @@ public class Verse {
         this.start = start;
     }
 
-    private int start;
-    private int end;
+
 
 
     public int getId() {

@@ -41,10 +41,8 @@ public class VersesActivity extends AppCompatActivity {
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
-            storyAdapter = new VersesAdapter(this, dataStory);
+            storyAdapter = new VersesAdapter(this, dataStory,lang);
             recyclerView.setAdapter(storyAdapter);
-
-
             List<Verse> databookmark= db.getBookMarkVerse(lang);
             for (Verse verse:databookmark)
             {
