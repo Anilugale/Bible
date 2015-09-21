@@ -1,5 +1,6 @@
 package com.itstest.textselection.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -170,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             verse.setName(cursor.getString(1));
             verse.setBookmar(cursor.getInt(2));
             verse.setStart(cursor.getInt(3));
-            verse.setEnd(cursor.getInt(2));
+            verse.setEnd(cursor.getInt(4));
             data.add(verse);
         }
         cursor.close();
@@ -191,44 +192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE books (\n" +
-                "  AlphaCode varchar(3) NOT NULL,\n" +
-                "  book_id int(2) NOT NULL,\n" +
-                "  EnglishShortName varchar(100) NOT NULL,\n" +
-                "  num_chptr varchar(100) NOT NULL,\n" +
-                "  MalayalamShortName varchar(100) NOT NULL,\n" +
-                "  MalayalamLongName varchar(200) NOT NULL,\n" +
-                "  Showstate int(1) NOT NULL)");
-        db.execSQL("CREATE TABLE \"verses\" (\n" +
-                "\t`id`\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "\t`book_id`\tint(6) NOT NULL,\n" +
-                "\t`chapter_id`\tint(3) NOT NULL,\n" +
-                "\t`verse_id`\tint(3) NOT NULL,\n" +
-                "\t`verse_text`\ttext NOT NULL,\n" +
-                "\t`bookmark`\tNUMERIC\n" +
-                ")");
-        db.execSQL("CREATE TABLE \"verses_asv\" (\n" +
-                "\t`id`\tint(6) NOT NULL,\n" +
-                "\t`book_id`\tint(6) NOT NULL,\n" +
-                "\t`verse_text`\ttext NOT NULL,\n" +
-                "\t`verse_id`\tint(3) NOT NULL,\n" +
-                "\t`quote`\tvarchar(1) NOT NULL,\n" +
-                "\t`chapter_id`\tint(3) NOT NULL,\n" +
-                "\t`numref`\ttext NOT NULL,\n" +
-                "\t`time_stamp`\ttimestamp NOT NULL,\n" +
-                "\t`bookmark`\tNUMERIC\n" +
-                ")");
-        db.execSQL("CREATE TABLE \"verses_kjv\" (\n" +
-                "\t`id`\tint(6) NOT NULL,\n" +
-                "\t`book_id`\tint(6) NOT NULL,\n" +
-                "\t`verse_text`\ttext NOT NULL,\n" +
-                "\t`verse_id`\tint(3) NOT NULL,\n" +
-                "\t`quote`\tvarchar(1) NOT NULL,\n" +
-                "\t`chapter_id`\tint(3) NOT NULL,\n" +
-                "\t`numref`\ttext NOT NULL,\n" +
-                "\t`time_stamp`\ttimestamp NOT NULL,\n" +
-                "\t`bookmark`\tNUMERIC\n" +
-                ")");
+
 
     }
 
@@ -276,18 +240,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void updateHightLight(char lang,int id,int start,int end) {
-       //// update verses set start=1, end =10 where id =12
+
         String langCol="verses_asv";
         if(lang=='M')
             langCol="verses";
 
         openDataBase();
-Log.e("update Qery","update "+langCol+" set start="+start+", end="+end+" where id ="+id);
+        ContentValues cv = new ContentValues();
+        cv.put("start", start);
+        cv.put("end", end);
+         int i= myDataBase.update(langCol,cv,"id="+id,null);
 
-
-        Cursor cursor=myDataBase.rawQuery("update "+langCol+" set start="+start+", end ="+end+" where id = ?",
-                new String[]{String.valueOf(id)
-                });
-        cursor.close();
+        System.out.println("update b"+i);
     }
 }
