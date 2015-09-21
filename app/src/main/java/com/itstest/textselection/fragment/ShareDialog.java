@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itstest.textselection.R;
+import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
 
@@ -83,7 +84,10 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         verseName.setText(ssb);
                         db=new DatabaseHelper(getActivity());
-                        db.updateHightLight(lang,verse.getId(),start,end);
+                        db.updateHightLight(lang, verse.getId(), start, end);
+                        verse.setStart(start);
+                        verse.setEnd(end);
+                        ((VersesActivity)getActivity()).onResumeList();
                         db.close();
                        return true;
                 }

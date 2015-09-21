@@ -1,8 +1,11 @@
 package com.itstest.textselection.adapter;
 
 
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,10 @@ import android.widget.Toast;
 
 import com.itstest.textselection.PodcastActivity;
 import com.itstest.textselection.R;
+import com.itstest.textselection.fragment.MusicDialog;
+import com.itstest.textselection.fragment.ShareDialog;
 import com.itstest.textselection.model.Podcast;
+import com.itstest.textselection.model.Verse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +33,16 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     List<Podcast> mLst;
     List<Podcast> mLst_bk;
     public static int page=0;
+    private char lang;
 
 
-    public PodcastAdapter(PodcastActivity context, List<Podcast> par) {
+    public PodcastAdapter(PodcastActivity context, List<Podcast> par, char lang) {
 
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
+        this.lang=lang;
     }
 
 
@@ -84,9 +92,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  // context.startActivity(new Intent(context, VersesActivity.class).putExtra("tittle",mLst.get(position).getTtl()));
-                  Toast.makeText(context, mLst.get(position).getUrl(), Toast.LENGTH_SHORT).show();
-                  context.openSearchPkg(mLst.get(position).getUrl());
+                  showDialog(mLst.get(position));
               }
           });
       }else if(holder instanceof PodcastAdapter.FooterViewHolder)
@@ -170,4 +176,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         }
     }
+
+     int back = 0;
+    void showDialog(Podcast verse)
+    {
+        FragmentManager fm = context.getSupportFragmentManager();
+        MusicDialog fragment = new MusicDialog();
+        fragment.setCancelable(false);
+        fragment.setData(verse, lang);
+        fragment.show(fm, "fragment_dialog");
+
+
+    }
+
 }

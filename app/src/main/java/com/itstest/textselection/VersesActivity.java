@@ -88,4 +88,7 @@ public class VersesActivity extends AppCompatActivity {
 
 
 
+    public void onResumeList() {
+        storyAdapter.notifyDataSetChanged();
+    }
 }

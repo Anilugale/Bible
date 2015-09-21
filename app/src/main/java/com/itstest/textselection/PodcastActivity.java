@@ -35,6 +35,7 @@ import java.util.List;
 public class PodcastActivity extends AppCompatActivity {
 
     long downloadID;
+    char lang;
 
     private String downloadCompleteIntentName = DownloadManager.ACTION_DOWNLOAD_COMPLETE;
     private IntentFilter downloadCompleteIntentFilter = new IntentFilter(downloadCompleteIntentName);
@@ -69,6 +70,10 @@ public class PodcastActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String name=getIntent().getStringExtra("tittle");
+
+        lang=getIntent().getCharExtra(ChapterActivity.lang, 'X');
+
         List<Podcast> dataStory=new ArrayList<>();
         download();
         for(int i=0;i<100;i++)
@@ -81,7 +86,7 @@ public class PodcastActivity extends AppCompatActivity {
         }
 
 
-        PodcastAdapter storyAdapter = new PodcastAdapter(this, dataStory);
+        PodcastAdapter storyAdapter = new PodcastAdapter(this, dataStory,lang);
         recyclerView.setAdapter(storyAdapter);
 
 

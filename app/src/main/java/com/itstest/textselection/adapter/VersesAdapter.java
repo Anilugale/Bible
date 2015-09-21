@@ -129,33 +129,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         }
     }
 
-    public  void filter(String data)
-    {
 
-        List<Verse> goodies1=new ArrayList<>();
-
-        if(data.equals(""))
-        {
-            mLst.addAll(mLst_bk);
-            this.notifyDataSetChanged();
-            return ;
-        }
-
-        if(data!=null) {
-            mLst.clear();
-            for (Verse g : mLst_bk) {
-                if (g.getName().toLowerCase().startsWith(data.toLowerCase()) )
-                    goodies1.add(g);
-
-            }
-        }
-        mLst.clear();
-        mLst.addAll(goodies1);
-        this.notifyDataSetChanged();
-        return ;
-
-
-    }
 
     void showDialog(Verse verse)
     {

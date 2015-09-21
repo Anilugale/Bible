@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,13 +31,10 @@ import com.itstest.textselection.model.Verse;
  */
 public class MusicDialog extends DialogFragment implements View.OnClickListener {
 
-    private TextView verseName;
-    CardView share,bookmark;
-    private Podcast podcast;
-    ImageView bookmark_icon;
-    char lang;
-    DatabaseHelper db;
 
+    private Podcast podcast;
+    char lang;
+    static int back = 0;
     public MusicDialog() { }
 
     @Override
@@ -45,6 +43,32 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.music_dialog, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
+
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK ) {
+                    if( back == 2){
+                        dismiss();
+                        return true;
+                    }
+
+                    else {
+                        back++;
+                        Toast.makeText(getActivity(), "press more back close the Music", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+
+                } else {
+
+                    return false;
+                }
+
+            }
+        });
 
         return view;
     }
