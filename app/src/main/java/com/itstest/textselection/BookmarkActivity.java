@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.itstest.textselection.adapter.BookmarkAdapter;
-import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
 
@@ -28,7 +27,7 @@ public class BookmarkActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         String name=getIntent().getStringExtra("tittle");
 
-        char lang=getIntent().getCharExtra(ChapterActivity.lang, 'X');
+        char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

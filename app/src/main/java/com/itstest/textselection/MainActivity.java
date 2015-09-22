@@ -4,18 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ActionMode;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import com.itstest.textselection.database.DatabaseHelper;
-import com.itstest.textselection.model.Chapter;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener,View.OnClickListener {
 
@@ -58,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             startActivity(new Intent(this,PodcastActivity.class));
         }
         else if(view.getId()==R.id.lang2)
-            startActivity(new Intent(this,ChapterActivity.class).putExtra(ChapterActivity.lang,'M'));
+            startActivity(new Intent(this,BookActivity.class).putExtra(BookActivity.lang,'M'));
          else
-            startActivity(new Intent(this,ChapterActivity.class));
+            startActivity(new Intent(this,BookActivity.class));
 
     }
 }

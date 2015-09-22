@@ -26,10 +26,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChapterActivity" >
+            android:name=".BookActivity" >
         </activity>
         <activity
             android:name=".VersesActivity" >
+        </activity>
+        <activity
+            android:name=".ChapterActivity" >
         </activity>
         <activity
             android:name=".PodcastActivity" >

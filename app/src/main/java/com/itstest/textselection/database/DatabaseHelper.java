@@ -251,6 +251,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put("end", end);
          int i= myDataBase.update(langCol,cv,"id="+id,null);
 
-        System.out.println("update b"+i);
+        System.out.println("update b" + i);
+    }
+
+    public List<Verse> getChapter(int bookId, char langugae) {
+        //
+        String langCol="verses_asv";
+        if(langugae=='M')
+            langCol="verses";
+
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select DISTINCT chapter_id  from "+langCol+" where book_id="+bookId+"  order by id  ", new String[]{});
+        List<Verse>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Verse verse=new Verse();
+            verse.setId(cursor.getInt(0));
+
+            data.add(verse);
+        }
+        cursor.close();
+        return data;
+
     }
 }

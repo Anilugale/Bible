@@ -18,15 +18,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.itstest.textselection.adapter.PodcastAdapter;
-import com.itstest.textselection.adapter.StoryAdapter;
 import com.itstest.textselection.model.Podcast;
-import com.itstest.textselection.model.Story;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,7 +66,7 @@ public class PodcastActivity extends AppCompatActivity {
 
         String name=getIntent().getStringExtra("tittle");
 
-        lang=getIntent().getCharExtra(ChapterActivity.lang, 'X');
+        lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 
         List<Podcast> dataStory=new ArrayList<>();
         download();

@@ -30,7 +30,7 @@ public class VersesActivity extends AppCompatActivity {
         String name=getIntent().getStringExtra("tittle");
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);
         int chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
-        char lang=getIntent().getCharExtra(ChapterActivity.lang, 'X');
+        char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -43,12 +43,7 @@ public class VersesActivity extends AppCompatActivity {
             List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
             storyAdapter = new VersesAdapter(this, dataStory,lang);
             recyclerView.setAdapter(storyAdapter);
-            List<Verse> databookmark= db.getBookMarkVerse(lang);
-            for (Verse verse:databookmark)
-            {
-                System.out.println(verse.getName());
-                System.out.println(verse.getId());
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

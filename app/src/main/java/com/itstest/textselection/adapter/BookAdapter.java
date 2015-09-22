@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.itstest.textselection.BookActivity;
+import com.itstest.textselection.ChapterActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
-import com.itstest.textselection.model.Story;
+import com.itstest.textselection.model.Chapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,20 @@ import java.util.List;
 /**
  Created by Anil Ugale on 01-07-2015.
  */
-public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> {
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     BookActivity context;
-    List<Story> mLst;
-    List<Story> mLst_bk;
+    List<Chapter> mLst;
+    List<Chapter> mLst_bk;
+    char lang;
 
-
-    public StoryAdapter(BookActivity context, List<Story> par) {
+    public BookAdapter(BookActivity context, List<Chapter> par, char lang) {
 
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
+        this.lang=lang;
     }
 
 
@@ -42,7 +44,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_chapter, null);
+                .inflate(R.layout.item_chapter,parent, false);
 
         return  new ViewHolder(itemLayoutView);
     }
@@ -51,24 +53,17 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
 
-       holder.gdName.setText(mLst.get(position).getTtl());
-        holder.gdTxt.setText(mLst.get(position).getStry());
-        holder.gdPoint.setText(mLst.get(position).getId()+"");
+       holder.gdName.setText(mLst.get(position).getName());
+        holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
 
-
-    ///    holder.gdImage.setTag(position);
-
-     /*   Picasso.with(context).load(mLst.get(position).getGoodie_image())
-                .transform(new CircleTransform())
-                .error(R.mipmap.default_profile_pic)
-                .into(holder.gdImage);*/
 
 
       holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                context.startActivity(new Intent(context, VersesActivity.class).putExtra("tittle",mLst.get(position).getTtl()));
+                context.startActivity(new Intent(context, ChapterActivity.class).putExtra(VersesActivity.BOOK_ID, mLst.get(position).getBookId()
+                ).putExtra(BookActivity.lang, lang));
             }
         });
 
@@ -101,8 +96,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
 
-         //   gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
-         //   gdImage = (ImageView) itemView.findViewById(R.id.gdImage);
+          //  gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
+          ///  gdImage = (ImageView) itemView.findViewById(R.id.gdImage);
 
         }
     }
@@ -110,7 +105,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
  public  void filter(String data)
     {
 
-        List<Story> goodies1=new ArrayList<>();
+        List<Chapter> goodies1=new ArrayList<>();
 
         if(data.equals(""))
         {
@@ -121,8 +116,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
 
         if(data!=null) {
             mLst.clear();
-            for (Story g : mLst_bk) {
-                if (g.getTtl().toLowerCase().startsWith(data.toLowerCase()) || g.getTtl().toLowerCase().startsWith(data.toLowerCase()))
+            for (Chapter g : mLst_bk) {
+                if (g.getName().toLowerCase().startsWith(data.toLowerCase()) )
                     goodies1.add(g);
 
             }
@@ -134,6 +129,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
 
 
     }
+
 
 
 }
