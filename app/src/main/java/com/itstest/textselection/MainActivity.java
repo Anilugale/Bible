@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
 import android.view.View;
@@ -16,14 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testDemo=(TextView)findViewById(R.id.testDemo) ;
-        testDemo.setOnLongClickListener(this);
+        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         findViewById(R.id.lang1).setOnClickListener(this);
         findViewById(R.id.lang2).setOnClickListener(this);
         findViewById(R.id.lang3).setOnClickListener(this);
         findViewById(R.id.lang4).setOnClickListener(this);
         findViewById(R.id.lang5).setOnClickListener(this);
-        findViewById(R.id.podcast).setOnClickListener(this);
+
     }
 
     public void textselected(View view) {
@@ -33,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
         spanText.setSpan(new BackgroundColorSpan(Color.YELLOW), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         testDemo.setText(spanText);
-        findViewById(R.id.btn).setVisibility(View.GONE);
+
     }
 
     @Override
     public boolean onLongClick(View view) {
-        findViewById(R.id.btn).setVisibility(View.VISIBLE);
+
         return false;
     }
 
