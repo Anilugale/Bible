@@ -6,5 +6,6 @@
     <dimen name="textSize">22sp</dimen>
     <dimen name="textSize_2">18sp</dimen>
     <dimen name="margin_chapter">15dp</dimen>
+    <dimen name="textSize_big">60sp</dimen>
     <dimen name="iconSize">60dp</dimen>
 </resources>

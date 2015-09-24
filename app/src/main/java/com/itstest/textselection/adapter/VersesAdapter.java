@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.itstest.textselection.R;
@@ -40,7 +42,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     List<Verse> mLst_bk;
     private int font;
     private char lang;
-
+    private int lastPosition = -1;
 
     public VersesAdapter(VersesActivity context, List<Verse> par,char lang) {
         this.context = context;
@@ -86,6 +88,12 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
                 showDialog(mLst.get(position));
             }
         });
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(mLst.get(position));
+            }
+        });
 
 
 
@@ -97,6 +105,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
                 mLst.get(position).getEnd(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.gdName.setText(ssb);
+        setAnimation(holder.relativeLayout, position);
     }
 
     @Override
@@ -138,5 +147,13 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         editNameDialog.setData(verse,lang);
         editNameDialog.show(fm, "fragment_dialog");
     }
+    private void setAnimation(View viewToAnimate, int position)
+    {
 
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+             animation.setDuration(500);
+            viewToAnimate.startAnimation(animation);
+
+
+    }
 }

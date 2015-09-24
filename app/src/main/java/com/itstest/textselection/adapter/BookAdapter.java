@@ -31,7 +31,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     char lang;
 
     public BookAdapter(BookActivity context, List<Chapter> par, char lang) {
-
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
@@ -54,11 +53,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
 
        holder.gdName.setText(mLst.get(position).getName());
-        holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
-
-
-
-      holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+       holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
+       holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -67,11 +63,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             }
         });
 
-
-
-
-
-    }
+   }
 
     @Override
     public int getItemCount() {

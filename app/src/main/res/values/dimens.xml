@@ -5,6 +5,6 @@
     <dimen name="textSize">18sp</dimen>
     <dimen name="textSize_2">15sp</dimen>
     <dimen name="margin_chapter">10dp</dimen>
-    <dimen name="textSize_big">60sp</dimen>
+    <dimen name="textSize_big">40sp</dimen>
     <dimen name="iconSize">40dp</dimen>
 </resources>

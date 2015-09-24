@@ -13,6 +13,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,7 +41,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     List<Verse> mLst_bk;
     private int book_id;
     private char lang;
-
+    private int lastPosition = -1;
 
     public ChapterAdapter(ChapterActivity context, List<Verse> par, char lang,int book_id) {
         this.context = context;
@@ -66,7 +68,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 
 
 
-        holder.gdName.setText(getChapterTrans(lang) +" > "+ mLst.get(position).getId());
+        holder.gdName.setText(getChapterTrans(lang) + " > " + mLst.get(position).getId());
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getId()));
             }
         });
+        setAnimation(holder.relativeLayout,position);
     }
 
     private String getChapterTrans(char lang) {
@@ -116,7 +119,15 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     }
 
 
+    private void setAnimation(View viewToAnimate, int position)
+    {
 
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            animation.setDuration(600);
+            viewToAnimate.startAnimation(animation);
+
+
+    }
 
 
 }
