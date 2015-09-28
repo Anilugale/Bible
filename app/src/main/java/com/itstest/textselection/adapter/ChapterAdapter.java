@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.itstest.textselection.BookActivity;
 import com.itstest.textselection.ChapterActivity;
+import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.fragment.ShareDialog;
@@ -42,14 +43,16 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     private int book_id;
     private char lang;
     private int lastPosition = -1;
+    private int color;
 
-    public ChapterAdapter(ChapterActivity context, List<Verse> par, char lang,int book_id) {
+    public ChapterAdapter(ChapterActivity context, List<Verse> par, char lang,int book_id,int color) {
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
         this.lang=lang;
         this.book_id=book_id;
+        this.color=color;
     }
 
 
@@ -76,10 +79,11 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
                 context.startActivity(new Intent(context, VersesActivity.class)
                         .putExtra(VersesActivity.BOOK_ID, book_id)
                         .putExtra(BookActivity.lang, lang)
+                        .putExtra(MainActivity.COLOR,color)
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getId()));
             }
         });
-        setAnimation(holder.relativeLayout,position);
+
     }
 
     private String getChapterTrans(char lang) {
@@ -119,15 +123,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     }
 
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
 
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            animation.setDuration(600);
-            viewToAnimate.startAnimation(animation);
-
-
-    }
 
 
 }

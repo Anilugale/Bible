@@ -19,5 +19,11 @@
 
    <!-- A light Holo shade of orange -->
    <color name="holo_orange_light">#ffffbb33</color>
-
+   <color name="first">#FF8000</color>
+   <color name="second">#01A9DB</color>
+   <color name="third">#01DFD7</color>
+   <color name="fourth">#FFBF00</color>
+   <color name="fifth">#B40431</color>
+   <color name="six">#088A08</color>
+   <color name="seven">#61210B</color>
 </resources>

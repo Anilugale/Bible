@@ -2,6 +2,7 @@ package com.itstest.textselection;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener,View.OnClickListener {
 
     TextView testDemo;
+    public static String COLOR="Color";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         findViewById(R.id.lang3).setOnClickListener(this);
         findViewById(R.id.lang4).setOnClickListener(this);
         findViewById(R.id.lang5).setOnClickListener(this);
+        findViewById(R.id.lang6).setOnClickListener(this);
+        findViewById(R.id.lang7).setOnClickListener(this);
 
     }
 
@@ -46,14 +50,48 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     @Override
     public void onClick(View view) {
 
-        if(view.getId()==R.id.podcast)
-        {
-            startActivity(new Intent(this,PodcastActivity.class));
+        switch(view.getId()) {
+
+            case R.id.lang2:
+
+                startActivity(new Intent(this, BookActivity.class).putExtra(BookActivity.lang, 'M')
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.second))
+                );
+                break;
+
+
+            case  R.id.lang1:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.first))
+                );
+                break;
+            case  R.id.lang3:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.third))
+                );
+                break;
+            case  R.id.lang4:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.fourth))
+                );
+                break;
+            case  R.id.lang5:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.fifth))
+                );
+                break;
+            case  R.id.lang6:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.six))
+                );
+                break;
+            case  R.id.lang7:
+                startActivity(new Intent(this, BookActivity.class)
+                                .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.seven))
+                );
+                break;
+
         }
-        else if(view.getId()==R.id.lang2)
-            startActivity(new Intent(this,BookActivity.class).putExtra(BookActivity.lang,'M'));
-         else
-            startActivity(new Intent(this,BookActivity.class));
 
     }
 }

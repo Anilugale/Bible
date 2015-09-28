@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.itstest.textselection.adapter.BookAdapter;
@@ -34,13 +35,22 @@ public class BookActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
+
          langugae = getIntent().getCharExtra(lang,'x');
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Chapter> dataStory =db.getDataBook(langugae);
-            BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae);
+            if(dataStory.size()>0){
+            BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,getIntent().getIntExtra(MainActivity.COLOR,0));
             recyclerView.setAdapter(storyAdapter);
+        }
+        else {
+            Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.itstest.textselection.BookActivity;
 import com.itstest.textselection.ChapterActivity;
+import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.model.Chapter;
@@ -29,13 +30,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     List<Chapter> mLst;
     List<Chapter> mLst_bk;
     char lang;
+    private int color;
 
-    public BookAdapter(BookActivity context, List<Chapter> par, char lang) {
+    public BookAdapter(BookActivity context, List<Chapter> par, char lang,int color) {
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
         this.lang=lang;
+        this.color=color;
     }
 
 
@@ -58,8 +61,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                context.startActivity(new Intent(context, ChapterActivity.class).putExtra(VersesActivity.BOOK_ID, mLst.get(position).getBookId()
-                ).putExtra(BookActivity.lang, lang));
+                context.startActivity(new Intent(context, ChapterActivity.class)
+                        .putExtra(VersesActivity.BOOK_ID, mLst.get(position).getBookId()
+                        ).putExtra(MainActivity.COLOR,color)
+                        .putExtra(BookActivity.lang, lang));
             }
         });
 

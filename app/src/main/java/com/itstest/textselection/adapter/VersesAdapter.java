@@ -105,7 +105,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
                 mLst.get(position).getEnd(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.gdName.setText(ssb);
-        setAnimation(holder.relativeLayout, position);
+
     }
 
     @Override
@@ -147,13 +147,5 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         editNameDialog.setData(verse,lang);
         editNameDialog.show(fm, "fragment_dialog");
     }
-    private void setAnimation(View viewToAnimate, int position)
-    {
 
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-             animation.setDuration(500);
-            viewToAnimate.startAnimation(animation);
-
-
-    }
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
@@ -28,6 +29,7 @@ public class VersesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verses);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         String name=getIntent().getStringExtra("tittle");
+        toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);
         int chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
         char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
@@ -41,8 +43,14 @@ public class VersesActivity extends AppCompatActivity {
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
-            storyAdapter = new VersesAdapter(this, dataStory,lang);
-            recyclerView.setAdapter(storyAdapter);
+            if(dataStory.size()>0) {
+                storyAdapter = new VersesAdapter(this, dataStory, lang);
+                recyclerView.setAdapter(storyAdapter);
+            }
+            else {
+                Toast.makeText(VersesActivity.this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
