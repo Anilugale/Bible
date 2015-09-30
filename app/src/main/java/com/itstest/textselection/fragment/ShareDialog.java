@@ -1,6 +1,8 @@
 package com.itstest.textselection.fragment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -52,6 +54,13 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
         bookmark.setOnClickListener(this);
         db =new DatabaseHelper(getActivity());
         verseName.setText(verse.getName());
+        if(lang=='M') {
+            if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                Typeface type = Typeface.createFromAsset(getActivity().getAssets(), "m.ttf");
+                verseName.setTypeface(type);
+            }
+        }
+
         if (verse.getBookmar()==1) {
             bookmark_icon.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.mipmap.ic_bookmark1));
         }

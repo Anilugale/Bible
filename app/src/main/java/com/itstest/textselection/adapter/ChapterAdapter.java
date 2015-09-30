@@ -2,6 +2,9 @@ package com.itstest.textselection.adapter;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -67,11 +70,17 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
-
+        holder.gdName.setTextColor(color);
 
 
 
         holder.gdName.setText(getChapterTrans(lang) + " > " + mLst.get(position).getId());
+        if(lang=='M') {
+            if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                Typeface type = Typeface.createFromAsset(context.getAssets(), "m.ttf");
+                holder.gdName.setTypeface(type);
+            }
+        }
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +88,13 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
                 context.startActivity(new Intent(context, VersesActivity.class)
                         .putExtra(VersesActivity.BOOK_ID, book_id)
                         .putExtra(BookActivity.lang, lang)
-                        .putExtra(MainActivity.COLOR,color)
+                        .putExtra(MainActivity.COLOR, color)
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getId()));
             }
         });
-
+        GradientDrawable sd = (GradientDrawable) holder.leftArrow.getBackground().mutate();
+        sd.setColor(color);
+        sd.invalidateSelf();
     }
 
     private String getChapterTrans(char lang) {
@@ -111,13 +122,14 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
         protected TextView gdName;
 
         protected CardView relativeLayout;
+        protected ImageView leftArrow;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
-
+            leftArrow = (ImageView) itemView.findViewById(R.id.leftArrow);
 
         }
     }

@@ -1,6 +1,8 @@
 package com.itstest.textselection.adapter;
 
 
+import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -42,14 +44,16 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     List<Verse> mLst_bk;
     private int font;
     private char lang;
+    private int color;
     private int lastPosition = -1;
 
-    public VersesAdapter(VersesActivity context, List<Verse> par,char lang) {
+    public VersesAdapter(VersesActivity context, List<Verse> par,char lang,int color) {
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
         this.lang=lang;
+        this.color=color;
     }
 
 
@@ -64,12 +68,16 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
-
+        holder.gdName.setTextColor(color);
         holder.gdName.setText(mLst.get(position).getName());
-        holder.gdName.setSelected(true);
-        holder.gdName.setFocusable(true);
-
+        if(lang=='M') {
+            if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                Typeface type = Typeface.createFromAsset(context.getAssets(), "m.ttf");
+                holder.gdName.setTypeface(type);
+            }
+        }
         holder.verses_no.setText(String.valueOf(position + 1));
+        holder.verses_no.setTextColor(color);
         switch (font) {
             case 1:
                 holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

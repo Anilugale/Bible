@@ -23,6 +23,7 @@ public class BookActivity extends AppCompatActivity {
     RecyclerView recyclerView ;
     LinearLayoutManager  linearLayoutManager;
     char langugae;
+    int color;
 
     public static String lang="lang";
     @Override
@@ -34,8 +35,8 @@ public class BookActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
+color=getIntent().getIntExtra(MainActivity.COLOR,0);
+        toolbar.setBackgroundColor(color);
 
          langugae = getIntent().getCharExtra(lang,'x');
 
@@ -43,7 +44,7 @@ public class BookActivity extends AppCompatActivity {
         try {
             List<Chapter> dataStory =db.getDataBook(langugae);
             if(dataStory.size()>0){
-            BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,getIntent().getIntExtra(MainActivity.COLOR,0));
+            BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,color);
             recyclerView.setAdapter(storyAdapter);
         }
         else {
@@ -71,7 +72,8 @@ public class BookActivity extends AppCompatActivity {
                 startActivity(new Intent(this,PodcastActivity.class).putExtra(lang,langugae));
                 break;
             case R.id.bookmark:
-                startActivity(new Intent(this,BookmarkActivity.class).putExtra(lang,langugae));
+                startActivity(new Intent(this,BookmarkActivity.class).putExtra(lang,langugae)
+                .putExtra(MainActivity.COLOR, color));
                 break;
         }
         return true;

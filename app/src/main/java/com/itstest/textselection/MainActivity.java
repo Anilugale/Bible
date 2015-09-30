@@ -1,19 +1,18 @@
 package com.itstest.textselection;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnLongClickListener,View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView testDemo;
+
     public static String COLOR="Color";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +28,41 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         findViewById(R.id.lang6).setOnClickListener(this);
         findViewById(R.id.lang7).setOnClickListener(this);
 
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+
+        TextView telgu_char=(TextView) findViewById(R.id.telgu_char);
+        TextView telgu_name=(TextView) findViewById(R.id.telgu_name);
+
+        Typeface typeTelgu = Typeface.createFromAsset(getAssets(), "telgu.ttf");
+
+        telgu_char.setTypeface(typeTelgu);
+        telgu_name.setTypeface(typeTelgu);
+
+
+        TextView malya_name=(TextView) findViewById(R.id.malya_name);
+        TextView malya_char=(TextView) findViewById(R.id.malya_char);
+
+
+
+        Typeface typeMalya = Typeface.createFromAsset(getAssets(), "m.ttf");
+        malya_name.setTypeface(typeMalya);
+        malya_char.setTypeface(typeMalya);
+
+        TextView kannada_name=(TextView) findViewById(R.id.kannada_name);
+        TextView kannada_char=(TextView) findViewById(R.id.kannada_char);
+
+
+
+        Typeface typeKannad = Typeface.createFromAsset(getAssets(), "k.ttf");
+        kannada_name.setTypeface(typeKannad);
+        kannada_char.setTypeface(typeKannad);
+
+
+        }
     }
 
-    public void textselected(View view) {
-        int startIndex = testDemo.getSelectionStart();
-        int endIndex = testDemo.getSelectionEnd();
-        String  textString =testDemo.getText().toString();
-        Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
-        spanText.setSpan(new BackgroundColorSpan(Color.YELLOW), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        testDemo.setText(spanText);
 
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-
-        return false;
-    }
 
     @Override
     public void onClick(View view) {

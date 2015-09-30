@@ -33,12 +33,13 @@ public class BookmarkActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
-
+         int color=getIntent().getIntExtra(MainActivity.COLOR,0);
+        toolbar.setBackgroundColor(color);
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Verse> databookmark= db.getBookMarkVerse(lang);
-            adapter=new BookmarkAdapter(this,databookmark,lang);
+            adapter=new BookmarkAdapter(this,databookmark,lang,color);
             recyclerView.setAdapter(adapter);
 
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.itstest.textselection.adapter;
 
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,17 +57,23 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
 
        holder.gdName.setText(mLst.get(position).getName());
-       holder.gdPoint.setText(mLst.get(position).getChapter_num()+"");
+        holder.gdName.setTextColor(color);
+       holder.gdPoint.setText(mLst.get(position).getChapter_num() + "");
        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+           @Override
+           public void onClick(View v) {
 
-                context.startActivity(new Intent(context, ChapterActivity.class)
-                        .putExtra(VersesActivity.BOOK_ID, mLst.get(position).getBookId()
-                        ).putExtra(MainActivity.COLOR,color)
-                        .putExtra(BookActivity.lang, lang));
-            }
-        });
+               context.startActivity(new Intent(context, ChapterActivity.class)
+                       .putExtra(VersesActivity.BOOK_ID, mLst.get(position).getBookId()
+                       ).putExtra(MainActivity.COLOR, color)
+                       .putExtra(BookActivity.lang, lang));
+           }
+       });
+
+
+        GradientDrawable sd = (GradientDrawable) holder.leftArrow.getBackground().mutate();
+        sd.setColor(color);
+        sd.invalidateSelf();
 
    }
 
@@ -81,7 +88,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         protected TextView gdPoint;
         protected TextView gdName;
         protected TextView gdTxt;
-        protected ImageView gdImage;
+        protected ImageView leftArrow;
 
         protected CardView relativeLayout;
 
@@ -93,7 +100,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             gdPoint = (TextView) itemView.findViewById(R.id.gdPoint);
 
-          //  gdTxt = (TextView) itemView.findViewById(R.id.gdMsg);
+            leftArrow = (ImageView) itemView.findViewById(R.id.leftArrow);
           ///  gdImage = (ImageView) itemView.findViewById(R.id.gdImage);
 
         }

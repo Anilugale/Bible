@@ -37,12 +37,14 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     private int font;
     private char lang;
+    private int color;
 
 
-    public BookmarkAdapter(BookmarkActivity context, List<Verse> par, char lang) {
+    public BookmarkAdapter(BookmarkActivity context, List<Verse> par, char lang,int color) {
         this.context = context;
         this.mLst = par;
         this.lang=lang;
+        this.color=color;
     }
 
 
@@ -58,11 +60,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
 
-               holder.gdName.setText(mLst.get(position).getName());
-        holder.gdName.setSelected(true);
-        holder.gdName.setFocusable(true);
+        holder.gdName.setText(mLst.get(position).getName());
+        holder.gdName.setTextColor(color);
+
 
         holder.verses_no.setText(String.valueOf(position + 1));
+        holder.verses_no.setTextColor(color);
         switch (font)
         {
             case 1:

@@ -44,7 +44,7 @@ public class VersesActivity extends AppCompatActivity {
         try {
             List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
             if(dataStory.size()>0) {
-                storyAdapter = new VersesAdapter(this, dataStory, lang);
+                storyAdapter = new VersesAdapter(this, dataStory, lang,getIntent().getIntExtra(MainActivity.COLOR,0));
                 recyclerView.setAdapter(storyAdapter);
             }
             else {
