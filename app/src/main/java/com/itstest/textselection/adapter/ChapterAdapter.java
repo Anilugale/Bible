@@ -70,7 +70,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
-        holder.gdName.setTextColor(color);
+
 
 
 
@@ -117,14 +117,9 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 
     static class ViewHolder extends  RecyclerView.ViewHolder
     {
-
-
         protected TextView gdName;
-
         protected CardView relativeLayout;
         protected ImageView leftArrow;
-
-
         public ViewHolder(View itemView) {
             super(itemView);
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);

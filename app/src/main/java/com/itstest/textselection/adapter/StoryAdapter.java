@@ -107,33 +107,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         }
     }
 
- public  void filter(String data)
-    {
 
-        List<Story> goodies1=new ArrayList<>();
-
-        if(data.equals(""))
-        {
-            mLst.addAll(mLst_bk);
-            this.notifyDataSetChanged();
-            return ;
-        }
-
-        if(data!=null) {
-            mLst.clear();
-            for (Story g : mLst_bk) {
-                if (g.getTtl().toLowerCase().startsWith(data.toLowerCase()) || g.getTtl().toLowerCase().startsWith(data.toLowerCase()))
-                    goodies1.add(g);
-
-            }
-        }
-        mLst.clear();
-        mLst.addAll(goodies1);
-        this.notifyDataSetChanged();
-        return ;
-
-
-    }
 
 
 }

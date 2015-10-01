@@ -35,22 +35,22 @@ public class BookActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-color=getIntent().getIntExtra(MainActivity.COLOR,0);
+        color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
 
-         langugae = getIntent().getCharExtra(lang,'x');
+        langugae = getIntent().getCharExtra(lang,'x');
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
             List<Chapter> dataStory =db.getDataBook(langugae);
             if(dataStory.size()>0){
-            BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,color);
-            recyclerView.setAdapter(storyAdapter);
-        }
-        else {
-            Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+                BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,color);
+                recyclerView.setAdapter(storyAdapter);
+            }
+            else {
+                Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,14 +66,14 @@ color=getIntent().getIntExtra(MainActivity.COLOR,0);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       switch(item.getItemId())
+        switch(item.getItemId())
         {
             case R.id.podcast:
                 startActivity(new Intent(this,PodcastActivity.class).putExtra(lang,langugae));
                 break;
             case R.id.bookmark:
                 startActivity(new Intent(this,BookmarkActivity.class).putExtra(lang,langugae)
-                .putExtra(MainActivity.COLOR, color));
+                        .putExtra(MainActivity.COLOR, color));
                 break;
         }
         return true;

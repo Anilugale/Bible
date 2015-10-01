@@ -27,7 +27,7 @@ public class ChapterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verses);
+        setContentView(R.layout.activity_chaper);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         String name=getIntent().getStringExtra("tittle");
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);

@@ -71,39 +71,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.lang2:
 
-                startActivity(new Intent(this, BookActivity.class).putExtra(BookActivity.lang, 'M')
+                startActivity(new Intent(this, ChooseActivity.class).putExtra(BookActivity.lang, 'M')
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.second))
                 );
                 break;
 
 
             case  R.id.lang1:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.first))
                 );
                 break;
             case  R.id.lang3:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.third))
                 );
                 break;
             case  R.id.lang4:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.fourth))
                 );
                 break;
             case  R.id.lang5:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.fifth))
                 );
                 break;
             case  R.id.lang6:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.six))
                 );
                 break;
             case  R.id.lang7:
-                startActivity(new Intent(this, BookActivity.class)
+                startActivity(new Intent(this, ChooseActivity.class)
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.seven))
                 );
                 break;

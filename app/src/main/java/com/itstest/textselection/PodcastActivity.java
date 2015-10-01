@@ -50,6 +50,7 @@ public class PodcastActivity extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     LinearLayoutManager linearLayoutManager;
+    int color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +64,10 @@ public class PodcastActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        color=getIntent().getIntExtra(MainActivity.COLOR,0);
+        toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
-
+        toolbar.setTitle(name);
         lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 
         List<Podcast> dataStory=new ArrayList<>();

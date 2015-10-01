@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -25,25 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".BookActivity" >
+        <activity android:name=".BookActivity" >
         </activity>
-        <activity
-            android:name=".VersesActivity" >
+        <activity android:name=".VersesActivity" >
         </activity>
-        <activity
-            android:name=".ChapterActivity" >
+        <activity android:name=".ChapterActivity" >
         </activity>
-        <activity
-            android:name=".PodcastActivity" >
+        <activity android:name=".PodcastActivity" >
         </activity>
-        <activity
-            android:name=".BookmarkActivity" >
+        <activity android:name=".BookmarkActivity" >
         </activity>
+        <activity android:name=".Download" >
+        </activity>
+
+        <service android:name=".service.LocalService" />
+
         <activity
-            android:name=".Download">
-          </activity>
-        <service android:name=".service.LocalService"/>
+            android:name=".ChooseActivity" >
+        </activity>
     </application>
 
 </manifest>

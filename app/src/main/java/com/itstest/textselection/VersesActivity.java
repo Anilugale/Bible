@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.itstest.textselection.adapter.VersesAdapter;
@@ -22,6 +25,7 @@ public class VersesActivity extends AppCompatActivity {
     private VersesAdapter storyAdapter;
 
     RecyclerView recyclerView ;
+    EditText searchEdt;
     LinearLayoutManager linearLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,26 @@ public class VersesActivity extends AppCompatActivity {
         int chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
         char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
+        searchEdt=(EditText) findViewById(R.id.searchEdt);
+
+        searchEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                    storyAdapter.filter(searchEdt.getText().toString().trim());
+
+            }
+        });
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setTitle(name);

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.fragment.ShareDialog;
+import com.itstest.textselection.model.Story;
 import com.itstest.textselection.model.Verse;
 
 import java.util.ArrayList;
@@ -155,5 +156,31 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         editNameDialog.setData(verse,lang);
         editNameDialog.show(fm, "fragment_dialog");
     }
+    public  void filter(String data)
+    {
 
+        List<Verse> goodies1=new ArrayList<>();
+
+        if(data.equals(""))
+        {
+            mLst.addAll(mLst_bk);
+            this.notifyDataSetChanged();
+            return ;
+        }
+
+        if(data!=null) {
+            mLst.clear();
+            for (Verse g : mLst_bk) {
+                if (g.getName().toLowerCase().contains(data.toLowerCase()) || g.getName().toLowerCase().startsWith(data.toLowerCase()))
+                    goodies1.add(g);
+
+            }
+        }
+        mLst.clear();
+        mLst.addAll(goodies1);
+        this.notifyDataSetChanged();
+        return ;
+
+
+    }
 }
