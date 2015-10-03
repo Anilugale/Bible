@@ -69,7 +69,7 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.gdName.setCustomSelectionActionModeCallback(null);
-        holder.gdName.setTextColor(color);
+    //    holder.gdName.setTextColor(color);
         holder.gdName.setText(mLst.get(position).getName());
         if(lang=='M') {
             if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {

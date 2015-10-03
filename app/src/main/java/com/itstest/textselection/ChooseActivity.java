@@ -50,7 +50,9 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
                         .putExtra(MainActivity.COLOR,color));
                 break;
             case R.id.podcast:
-                startActivity(new Intent(this,PodcastActivity.class).putExtra(BookActivity.lang,lang));
+                startActivity(new Intent(this,PodcastActivity.class).putExtra(BookActivity.lang,lang)
+                        .putExtra(MainActivity.COLOR, color)
+                );
                 break;
 
 

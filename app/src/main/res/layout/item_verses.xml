@@ -25,7 +25,7 @@
         <TextView
             android:paddingTop="20dp"
             android:layout_margin="@dimen/margin_chapter"
-            android:textStyle="bold"
+
             android:id="@+id/gdName"
             android:textSize="@dimen/textSize"
             android:layout_width="match_parent"

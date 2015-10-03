@@ -1,25 +1,23 @@
 package com.itstest.textselection.fragment;
 
+import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -29,12 +27,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
-import com.itstest.textselection.database.DatabaseHelper;
-import com.itstest.textselection.model.Podcast;
-import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.model.Music;
 import com.itstest.textselection.service.LocalService;
+import com.itstest.textselection.util.CommanMethod;
 
 /**
  Created by Anil Ugale on 16/09/2015.
@@ -42,7 +38,7 @@ import com.itstest.textselection.service.LocalService;
 public class MusicDialog extends DialogFragment implements View.OnClickListener {
 
 
-    private Podcast podcast;
+    private Music podcast;
     char lang;
     static int back = 0;
     LocalService mService;
@@ -52,6 +48,10 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     ProgressDialog pd;
     ProgressBar process;
     FloatingActionButton fab;
+    private long enqueue;
+    private DownloadManager dm;
+    BroadcastReceiver receiver;
+    TextView sName,sSingerName,sSingerContact,sSingerEmail,sSingerDetails;
     public MusicDialog() { }
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -74,12 +74,54 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.music_dialog, container);
+      final   View view = inflater.inflate(R.layout.music_dialog, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         fab=(FloatingActionButton) view.findViewById(R.id.myFAB);
         fab.setOnClickListener(this);
         process= (ProgressBar) view.findViewById(R.id.process);
+
+        System.out.println(podcast.toString());
+        sName= (TextView) view.findViewById(R.id.sName);
+        sSingerName= (TextView) view.findViewById(R.id.sSingerName);
+        sSingerContact= (TextView) view.findViewById(R.id.sSingerContact);
+        sSingerEmail= (TextView) view.findViewById(R.id.sSingerEmail);
+        sSingerDetails= (TextView) view.findViewById(R.id.sSingerDetails);
+        view.findViewById(R.id.download).setOnClickListener(this);
+
+        sName.setText(podcast.getName());
+        sSingerName.setText(podcast.getSinger_name());
+        sSingerContact.setText(podcast.getSinger_mobile_no());
+        sSingerEmail.setText(podcast.getSinger_email());
+        sSingerDetails.setText(podcast.getSinger_details());
+
+        sSingerContact.setOnClickListener(this);
+        sSingerEmail.setOnClickListener(this);
+
+
+;
+
+
+
         seekBar= (SeekBar) view.findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(mBound)
+                {
+                    mService.setSeekto(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
@@ -110,7 +152,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         return view;
     }
 
-    public void setData(Podcast podcast,char lang) {
+    public void setData(Music podcast,char lang) {
 
         this.podcast=podcast;
         this.lang=lang;
@@ -131,6 +173,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         super.onStop();
         // Unbind from the service
         if (mBound) {
+            mService.stopSong();
             getActivity().unbindService(mConnection);
             mBound = false;
         }
@@ -166,6 +209,23 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
                 }
                 break;
+
+            case R.id.sSingerContact:
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + podcast.getSinger_mobile_no()));
+                startActivity(intent);
+                break;
+            case R.id.sSingerEmail:
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", podcast.getSinger_email(), null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                break;
+            case R.id.download:
+
+                Download();
+
+                break;
         }
 
     }
@@ -183,6 +243,31 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
 
     }
+
+    void Download()
+    {
+
+        dm = (DownloadManager) getActivity().getSystemService(Activity.DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(
+                Uri.parse(podcast.getUrl()));
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        enqueue = dm.enqueue(request);
+        Toast.makeText(getActivity(), "Look Notification bar fr download progress", Toast.LENGTH_LONG).show();
+    }
+
+
+    public void updateSeekBar(final int currentPosition,final  int duration) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("status",currentPosition+"    "+duration);
+                seekBar.setMax(duration);
+                seekBar.setProgress(currentPosition);
+            }
+        });
+    }
+
 
 
 }

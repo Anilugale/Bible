@@ -17,22 +17,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-
+            android:id="@+id/sName"
             android:textSize="@dimen/textSize"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:text="A. R Reheman.mp3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-
+            android:id="@+id/sSingerName"
             android:textSize="@dimen/textSize_2"
             android:textColor="@android:color/white"
-            android:text="A. R Reheman.mp3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
+        <TextView
+            android:id="@+id/sSingerContact"
+            android:textSize="@dimen/textSize_2"
+            android:textColor="@android:color/white"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textStyle="italic"
+            android:id="@+id/sSingerEmail"
+            android:textSize="@dimen/textSize_2"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/sSingerDetails"
+            android:textSize="@dimen/textSize_2"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
@@ -67,5 +84,14 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:layout_alignParentRight="true"
+        android:id="@+id/download"
+        android:text="Download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>

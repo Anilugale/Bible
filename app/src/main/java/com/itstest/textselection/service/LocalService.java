@@ -11,6 +11,9 @@ import android.widget.SeekBar;
 import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.fragment.MusicDialog;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  Created by anil ugale  on 21/09/2015.
  */
@@ -39,46 +42,25 @@ public class LocalService extends Service {
         return mBinder;
     }
 
-    public int initSong(String url,MusicDialog fragment,SeekBar seekBar) {
+    public int initSong(String url, final MusicDialog fragment,SeekBar seekBar) {
         try {
+            System.out.println(url
+            );
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepare();
             fragment.progressBar(false);
             this.seekBar=seekBar;
             this.seekBar.setMax(mediaPlayer.getDuration());
-           /* mediaPlayer.start();
-           final  Handler mHandler = new Handler();
-
-            fragment.getActivity().runOnUiThread(new Runnable() {
+            mediaPlayer.start();
+            Timer mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
 
                 @Override
                 public void run() {
-                    if (mediaPlayer != null) {
-                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
-                        LocalService.this.seekBar.setProgress(mCurrentPosition);
-                    }
-                    mHandler.postDelayed(this, 1000);
+                    if(mediaPlayer!=null)
+                        fragment.updateSeekBar(mediaPlayer.getCurrentPosition(),mediaPlayer.getDuration());
                 }
-            });
-            this.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if (mediaPlayer != null && fromUser) {
-                        mediaPlayer.seekTo(progress * 1000);
-                    }
-                }
-            });*/
+            }, 1000);
 
 
             return 1;
@@ -89,20 +71,29 @@ public class LocalService extends Service {
         }
     }
 
+
     public int controller()
     {
         if(!isPlaying){
             mediaPlayer.start();
             isPlaying=true;
+            System.out.println("start");
         }
         else{
+            System.out.println("pause");
             mediaPlayer.pause();
             isPlaying=false;
         }
+
         return 1;
     }
 
 
+    public void setSeekto(int goTo)
+    {
+
+        mediaPlayer.seekTo(goTo);
+    }
 
 
     public int stopSong()
