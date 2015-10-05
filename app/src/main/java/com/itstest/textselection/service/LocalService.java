@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.SeekBar;
 
 import com.itstest.textselection.MainActivity;
@@ -52,16 +53,24 @@ public class LocalService extends Service {
             this.seekBar=seekBar;
             this.seekBar.setMax(mediaPlayer.getDuration());
             mediaPlayer.start();
-            Timer mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
+
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
 
                 @Override
-                public void run() {
-                    if(mediaPlayer!=null)
-                        fragment.updateSeekBar(mediaPlayer.getCurrentPosition(),mediaPlayer.getDuration());
-                }
-            }, 1000);
+                public void onPrepared(MediaPlayer mp) {
 
+                    Timer mTimer = new Timer();
+                    mTimer.schedule(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            if (mediaPlayer != null)
+                                fragment.updateSeekBar(mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
+                        }
+                    },1000,1000);
+                }
+                });
 
             return 1;
         } catch (Exception e)
@@ -94,7 +103,15 @@ public class LocalService extends Service {
     public void setSeekto(int goTo)
     {
 
+
         mediaPlayer.seekTo(goTo);
+       /* mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
+            @Override
+            public void onSeekComplete(MediaPlayer mp) {
+                Log.d("VID_PLAYER", "Seek Complete. Current Position: " + mp.getCurrentPosition());
+                mp.start();
+            }
+        });*/
     }
 
 

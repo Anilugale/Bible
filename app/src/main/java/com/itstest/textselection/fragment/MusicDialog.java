@@ -33,6 +33,8 @@ import com.itstest.textselection.model.Music;
 import com.itstest.textselection.service.LocalService;
 import com.itstest.textselection.util.CommanMethod;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  Created by Anil Ugale on 16/09/2015.
  */
@@ -52,7 +54,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     private long enqueue;
     private DownloadManager dm;
     BroadcastReceiver receiver;
-    TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails;
+    TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails,time;
 
     public MusicDialog() {
     }
@@ -89,6 +91,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         sSingerContact = (TextView) view.findViewById(R.id.sSingerContact);
         sSingerEmail = (TextView) view.findViewById(R.id.sSingerEmail);
         sSingerDetails = (TextView) view.findViewById(R.id.sSingerDetails);
+        time = (TextView) view.findViewById(R.id.time);
         view.findViewById(R.id.download).setOnClickListener(this);
 
         sName.setText(podcast.getName());
@@ -101,7 +104,6 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         sSingerEmail.setOnClickListener(this);
 
 
-        ;
 
 
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
@@ -258,13 +260,33 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
     public void updateSeekBar(final int currentPosition, final int duration) {
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("status", currentPosition + "    " + duration);
-                seekBar.setMax(duration);
-                seekBar.setProgress(currentPosition);
-            }
-        });
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e("status", currentPosition + "    " + duration);
+                            seekBar.setMax(duration);
+                            seekBar.setProgress(currentPosition);
+
+                            String time1 = String.format("%d : %d ",
+                                    TimeUnit.MILLISECONDS.toMinutes(currentPosition),
+                                    TimeUnit.MILLISECONDS.toSeconds(currentPosition) -
+                                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(currentPosition))
+                            );
+                            time.setText(time1);
+
+                            Log.e("time", time1);
+                        }
+                    });
+                }
+            }).start();
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
