@@ -78,14 +78,16 @@ public class LocalService extends Service {
             mediaPlayer.start();
             isPlaying=true;
             System.out.println("start");
+            return 1;
         }
         else{
             System.out.println("pause");
             mediaPlayer.pause();
             isPlaying=false;
+            return 0;
         }
 
-        return 1;
+
     }
 
 

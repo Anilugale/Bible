@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.itstest.textselection.adapter.BookAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.model.Search;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,6 +53,7 @@ public class BookActivity extends AppCompatActivity {
                 finish();
             }
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +71,9 @@ public class BookActivity extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.podcast:
-                startActivity(new Intent(this,PodcastActivity.class).putExtra(lang,langugae));
+                startActivity(new Intent(this,SearchActivity.class).putExtra(lang,langugae)
+                .putExtra(MainActivity.COLOR, color)
+                );
                 break;
             case R.id.bookmark:
                 startActivity(new Intent(this,BookmarkActivity.class).putExtra(lang,langugae)

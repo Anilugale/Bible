@@ -1,16 +1,21 @@
 package com.itstest.textselection.util;
 
 import android.content.Context;
+import android.nfc.Tag;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.itstest.textselection.AppController;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,8 +30,6 @@ public class NetworkRequest {
 
     public static String BaseUrl="http://www.getwebcare.in/bible_app/music/";
    public static String SongSrc="http://www.getwebcare.in/bible_app/podcast.php";
-   // public static String SongSrc="https://api.myjson.com/bins/2bx1m";
-    public static  String data="[{\"name\":\"music\",\"url\":\"http://www.getwebcare.in/bible_app/music/first.mp3\",\"singer_name\":\"Artif Aslam\",\"singer_email\":\"\",\"singer_mobile_no\":\"9856985314\",\"singer_details\":\"\"},{\"name\":\"Test Music\",\"url\":\"http://www.getwebcare.in/bible_app/music/ARRehman-MaaTujheSalam.mp3\",\"singer_name\":\"Singer1\",\"singer_email\":\"singer@gmail.com\",\"singer_mobile_no\":\"9856239856\",\"singer_details\":\"Sad songs\"}]";
 
 
     public static Gson gson=new Gson();
@@ -41,22 +44,21 @@ public class NetworkRequest {
                                           int method
     )
     {
+        Log.e(TAG,url);
         String tag_json_obj = "json_obj_req";
-         JsonObjectRequest jsonObjReq = new JsonObjectRequest(method,
+         JsonArrayRequest jsonObjReq = new JsonArrayRequest(method,
                 url ,
                 jsonRequest.toString(),
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         VolleyLog.e(TAG, response.toString());
-                        try {
-                            if(response.getInt(RESULT)==0)
-                            {
+
+
+
                                 responce.success(response,responseCode);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
 
                     }
                 }, new Response.ErrorListener() {

@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".Download" >
         </activity>
+        <activity android:name=".SearchActivity"/>
+
 
         <service android:name=".service.LocalService" />
 

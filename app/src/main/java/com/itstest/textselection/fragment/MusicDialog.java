@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,15 +45,17 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     LocalService mService;
     boolean mBound = false;
     SeekBar seekBar;
-    boolean init=false;
+    boolean init = false;
     ProgressDialog pd;
     ProgressBar process;
     FloatingActionButton fab;
     private long enqueue;
     private DownloadManager dm;
     BroadcastReceiver receiver;
-    TextView sName,sSingerName,sSingerContact,sSingerEmail,sSingerDetails;
-    public MusicDialog() { }
+    TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails;
+
+    public MusicDialog() {
+    }
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -74,18 +77,18 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      final   View view = inflater.inflate(R.layout.music_dialog, container);
+        final View view = inflater.inflate(R.layout.music_dialog, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        fab=(FloatingActionButton) view.findViewById(R.id.myFAB);
+        fab = (FloatingActionButton) view.findViewById(R.id.myFAB);
         fab.setOnClickListener(this);
-        process= (ProgressBar) view.findViewById(R.id.process);
+        process = (ProgressBar) view.findViewById(R.id.process);
 
         System.out.println(podcast.toString());
-        sName= (TextView) view.findViewById(R.id.sName);
-        sSingerName= (TextView) view.findViewById(R.id.sSingerName);
-        sSingerContact= (TextView) view.findViewById(R.id.sSingerContact);
-        sSingerEmail= (TextView) view.findViewById(R.id.sSingerEmail);
-        sSingerDetails= (TextView) view.findViewById(R.id.sSingerDetails);
+        sName = (TextView) view.findViewById(R.id.sName);
+        sSingerName = (TextView) view.findViewById(R.id.sSingerName);
+        sSingerContact = (TextView) view.findViewById(R.id.sSingerContact);
+        sSingerEmail = (TextView) view.findViewById(R.id.sSingerEmail);
+        sSingerDetails = (TextView) view.findViewById(R.id.sSingerDetails);
         view.findViewById(R.id.download).setOnClickListener(this);
 
         sName.setText(podcast.getName());
@@ -98,16 +101,14 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         sSingerEmail.setOnClickListener(this);
 
 
-;
+        ;
 
 
-
-        seekBar= (SeekBar) view.findViewById(R.id.seekBar);
+        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(mBound)
-                {
+                if (mBound) {
                     mService.setSeekto(i);
                 }
             }
@@ -127,15 +128,13 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK ) {
-                    if( back == 2){
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (back == 2) {
 
                         mService.stopSong();
                         dismiss();
                         return true;
-                    }
-
-                    else {
+                    } else {
                         back++;
                         Toast.makeText(getActivity(), "press more back close the Music", Toast.LENGTH_SHORT).show();
                         return false;
@@ -152,10 +151,10 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         return view;
     }
 
-    public void setData(Music podcast,char lang) {
+    public void setData(Music podcast, char lang) {
 
-        this.podcast=podcast;
-        this.lang=lang;
+        this.podcast = podcast;
+        this.lang = lang;
 
     }
 
@@ -182,14 +181,13 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        switch(v.getId())
-        {
+        switch (v.getId()) {
 
 
             case R.id.myFAB:
                 if (mBound) {
 
-                    if(!init) {
+                    if (!init) {
                         fab.setVisibility(View.GONE);
                         process.setVisibility(View.VISIBLE);
 
@@ -197,15 +195,20 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                int num = mService.initSong(podcast.getUrl(), MusicDialog.this,seekBar);
-
+                                int num = mService.initSong(podcast.getUrl(), MusicDialog.this, seekBar);
+                                fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_pause));
                             }
                         }).start();
 
-                        init=true;
+                        init = true;
+                    } else {
+                        int flag = mService.controller();
+                        if (flag == 1)
+
+                            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_pause));
+                        else
+                            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_play));
                     }
-                    else
-                        mService.controller();
 
                 }
                 break;
@@ -230,8 +233,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
     }
 
-    public void progressBar(boolean status)
-    {
+    public void progressBar(boolean status) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -241,11 +243,9 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         });
 
 
-
     }
 
-    void Download()
-    {
+    void Download() {
 
         dm = (DownloadManager) getActivity().getSystemService(Activity.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(
@@ -256,18 +256,15 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     }
 
 
-    public void updateSeekBar(final int currentPosition,final  int duration) {
+    public void updateSeekBar(final int currentPosition, final int duration) {
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.e("status",currentPosition+"    "+duration);
+                Log.e("status", currentPosition + "    " + duration);
                 seekBar.setMax(duration);
                 seekBar.setProgress(currentPosition);
             }
         });
     }
-
-
-
 }

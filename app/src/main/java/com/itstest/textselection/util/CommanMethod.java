@@ -47,24 +47,39 @@ public  class CommanMethod {
         return fmtOut.format(date);
     }
 
-    public static  void download(String url,String nameOfSong,Context context)
+    public static int languageCode(char lang)
     {
 
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+         switch (lang)
+         {
+             case 'E':
+                 return 1;
+             case 'T':
+                 return 2;
+
+             case 'H':
+                 return 3;
+              case 't':
+                 return 4;
+
+             case 'K':
+                 return 5;
+
+             case 'M':
+                 return 6;
+
+              case 'm':
+                 return 7;
+
+             default:
+                 return 1;
 
 
-        request.setTitle("Example");
-        request.setDescription("Downloading a very large zip");
 
-// we just want to download silently
-        request.setVisibleInDownloadsUi(true);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-        request.setDestinationInExternalFilesDir(context, null, nameOfSong);
 
-// enqueue this request
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        downloadManager.enqueue(request);
+         }
 
     }
+
 
 }

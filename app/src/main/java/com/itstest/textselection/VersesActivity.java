@@ -23,7 +23,7 @@ public class VersesActivity extends AppCompatActivity {
     public static String BOOK_ID="bookId";
     public static String CHAPTER_ID="CHAPTER_ID";
     private VersesAdapter storyAdapter;
-
+    int V_ID;
     RecyclerView recyclerView ;
     EditText searchEdt;
     LinearLayoutManager linearLayoutManager;
@@ -37,6 +37,7 @@ public class VersesActivity extends AppCompatActivity {
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);
         int chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
         char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
+         V_ID=getIntent().getIntExtra("V_ID", 0);
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         searchEdt=(EditText) findViewById(R.id.searchEdt);
 
@@ -59,6 +60,7 @@ public class VersesActivity extends AppCompatActivity {
             }
         });
         linearLayoutManager=new LinearLayoutManager(this);
+
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
@@ -70,6 +72,9 @@ public class VersesActivity extends AppCompatActivity {
             if(dataStory.size()>0) {
                 storyAdapter = new VersesAdapter(this, dataStory, lang,getIntent().getIntExtra(MainActivity.COLOR,0));
                 recyclerView.setAdapter(storyAdapter);
+                V_ID--;
+                recyclerView.scrollToPosition(V_ID);
+
             }
             else {
                 Toast.makeText(VersesActivity.this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();

@@ -11,11 +11,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.reflect.TypeToken;
 import com.itstest.textselection.PodcastActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.fragment.MusicDialog;
 import com.itstest.textselection.model.Music;
+import com.itstest.textselection.util.CommanMethod;
+import com.itstest.textselection.util.JsonCallBack;
+import com.itstest.textselection.util.NetworkRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,23 +32,25 @@ import java.util.List;
 /**
  Created by Anil Ugale on 01-07-2015.
  */
-public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements JsonCallBack {
 
     PodcastActivity context;
     List<Music> mLst;
     List<Music> mLst_bk;
-    public static int page=0;
-    private char lang;
 
+    private char lang;
+    int index=1;
+    int RequestCodePodcast=12121;
 
     public PodcastAdapter(PodcastActivity context, List<Music> par, char lang) {
 
         this.context = context;
         this.mLst = par;
-        mLst.add(mLst.size(),new Music());
+
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
         this.lang=lang;
+        mLst.add(mLst.size(),new Music());
     }
 
 
@@ -66,18 +77,9 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         }
 
-
-
-
-
-
     }
 
-  //  @Override
-  /*  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-    }
-*/
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
@@ -99,18 +101,9 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
               @Override
               public void onClick(View v) {
                   Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show();
-                  page++;
-               /*   List<Podcast> dataStory=new ArrayList<Podcast>();
-                  for(int i=0;i<100;i++)
-                  {
-                      Podcast story=new Podcast();
-                      story.setId(i);
-                      story.setUrl("http://shanu.jelastic.elastx.net/wholesale/Kalimba.mp3");
-                      story.setTtl("Chapter page no:" + page+" :"+i);
-                      dataStory.add(story);
-                  }
-                  mLst.addAll(dataStory);*/
-                  notifyDataSetChanged();
+
+                  NetworkRequest.SimpleJsonRequest(context, new JSONObject(), NetworkRequest.SongSrc + "?index=" + index + "&language=" + CommanMethod.languageCode(lang), PodcastAdapter.this, RequestCodePodcast, 1);
+                //  index++;
 
               }
           });
@@ -123,6 +116,27 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
+    @Override
+    public void success(JSONArray response, int responseCode) {
+
+        if(RequestCodePodcast==responseCode)
+        {
+            System.out.println(response.toString());
+
+            Type listType = new TypeToken<List<Music>>(){}.getType();
+           List<Music> dataPodcast=NetworkRequest.gson.fromJson(response.toString(),listType);
+            mLst_bk.addAll(dataPodcast);
+            mLst.clear();
+            mLst.addAll(mLst_bk);
+            mLst.add(mLst_bk.size(),new Music());
+            notifyDataSetChanged();
+        }
+    }
+    @Override
+    public void failer(VolleyError response, int responseCode) {
+
+        Toast.makeText(context, "Problem in loading", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public int getItemCount() {

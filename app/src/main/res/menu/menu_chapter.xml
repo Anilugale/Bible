@@ -10,8 +10,8 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/podcast"
-        android:title="@string/podcast"
-        android:icon="@mipmap/ic_podcast"
+        android:title="@string/search"
+        android:icon="@mipmap/ic_search"
         android:orderInCategory="100"
         app:showAsAction="always" />
 </menu>

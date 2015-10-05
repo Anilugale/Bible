@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.model.Search;
 import com.itstest.textselection.model.Verse;
 
 import java.io.FileOutputStream;
@@ -172,6 +173,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             verse.setBookmar(cursor.getInt(2));
             verse.setStart(cursor.getInt(3));
             verse.setEnd(cursor.getInt(4));
+            data.add(verse);
+        }
+        cursor.close();
+        return data;
+    }
+
+
+
+  public List<Search> getSearch(char langugae,String query)
+    {
+        System.out.println(langugae);
+        String langCol="verses_asv";
+        String bookCol="EnglishShortName";
+        if(langugae=='M')
+        {
+            langCol = "verses";
+            bookCol="MalayalamShortName";
+        }
+
+        openDataBase();
+        System.out.println("select  "+langCol+".verse_id,"+langCol+".book_id,"+langCol+".chapter_id,books."+bookCol+", "+langCol+".verse_text from "+langCol+"  join books on  "+langCol+".verse_text like '%"+query+"%' and books.book_id=="+langCol+".book_id");
+        Cursor cursor = myDataBase.rawQuery("select  "+langCol+".verse_id,"+langCol+".book_id,"+langCol+".chapter_id,books."+bookCol+", "+langCol+".verse_text from "+langCol+"  join books on  "+langCol+".verse_text like '%"+query+"%' and books.book_id=="+langCol+".book_id", new String[]{});
+        List<Search>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Search verse=new Search();
+            verse.setVerse_id(cursor.getInt(0));
+            verse.setBook_id(cursor.getInt(1));
+            verse.setChapter_id(cursor.getInt(2));
+            verse.setChapterName(cursor.getString(3));
+            verse.setVerse_text(cursor.getString(4));
+
             data.add(verse);
         }
         cursor.close();
