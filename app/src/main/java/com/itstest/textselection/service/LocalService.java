@@ -2,6 +2,7 @@ package com.itstest.textselection.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Handler;
@@ -48,6 +49,7 @@ public class LocalService extends Service {
             System.out.println(url
             );
             mediaPlayer.setDataSource(url);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.prepare();
             fragment.progressBar(false);
             this.seekBar=seekBar;
@@ -65,10 +67,12 @@ public class LocalService extends Service {
 
                         @Override
                         public void run() {
-                            if (mediaPlayer != null)
-                                fragment.updateSeekBar(mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
+                            while(mediaPlayer.isPlaying()) {
+                                if (mediaPlayer != null)
+                                    fragment.updateSeekBar(mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
+                            }
                         }
-                    },1000,1000);
+                    },1000);
                 }
                 });
 
@@ -105,13 +109,7 @@ public class LocalService extends Service {
 
 
         mediaPlayer.seekTo(goTo);
-       /* mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-            @Override
-            public void onSeekComplete(MediaPlayer mp) {
-                Log.d("VID_PLAYER", "Seek Complete. Current Position: " + mp.getCurrentPosition());
-                mp.start();
-            }
-        });*/
+
     }
 
 
