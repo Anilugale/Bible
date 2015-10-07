@@ -1,0 +1,148 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/main_content"
+    android:background="#3C3F41"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+        <android.support.v7.widget.Toolbar
+
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryDark"/>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <RelativeLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+
+        <LinearLayout
+
+            android:id="@+id/audio_info"
+       android:layout_above="@+id/seekBar"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/sName"
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/sSingerName"
+                android:textSize="@dimen/textSize_2"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/sSingerContact"
+                android:textSize="@dimen/textSize_2"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="italic"
+                android:id="@+id/sSingerEmail"
+                android:textSize="@dimen/textSize_2"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/sSingerDetails"
+                android:textSize="@dimen/textSize_2"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_below="@+id/audio_info"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_margin="5dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/process"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_play" />
+
+        </RelativeLayout>
+        <SeekBar
+            android:layout_centerInParent="true"
+            android:id="@+id/seekBar"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@+id/seekBar"
+            android:id="@+id/time"
+            android:gravity="right"
+            android:textSize="@dimen/textSize_2"
+            android:text="0.0"
+            android:textColor="@android:color/white"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/download"
+            android:text="Download"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+             android:layout_above="@+id/download"
+            android:id="@+id/forward"
+            android:text="@string/forward"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+        <Button
+
+            android:layout_above="@+id/download"
+            android:id="@+id/backward"
+            android:text="@string/backward"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/myFAB"
+            android:text="Play"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

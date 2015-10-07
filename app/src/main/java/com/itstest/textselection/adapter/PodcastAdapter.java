@@ -1,6 +1,7 @@
 package com.itstest.textselection.adapter;
 
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
+import com.itstest.textselection.MusicPlayer;
 import com.itstest.textselection.PodcastActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.fragment.MusicDialog;
@@ -191,13 +193,19 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      int back = 0;
     void showDialog(Music verse)
     {
-        FragmentManager fm = context.getSupportFragmentManager();
+      /*  FragmentManager fm = context.getSupportFragmentManager();
         MusicDialog fragment = new MusicDialog();
         fragment.setCancelable(false);
         fragment.setData(verse, lang);
         fragment.show(fm, "fragment_dialog");
 
 
+*/
+
+        MusicPlayer.music=verse;
+        MusicPlayer.lang=lang;
+
+        context.startActivity(new Intent(context, MusicPlayer.class));
     }
 
 }

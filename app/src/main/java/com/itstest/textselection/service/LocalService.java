@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.fragment.MusicDialog;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,37 +45,84 @@ public class LocalService extends Service {
         return mBinder;
     }
 
-    public int initSong(String url, final MusicDialog fragment,SeekBar seekBar) {
+    public int initSong(String url, final MusicDialog fragment,final SeekBar seekBar,final Handler updateRunnableHandler) {
         try {
-            System.out.println(url
-            );
-            mediaPlayer.setDataSource(url);
+
+
+
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.prepare();
-            fragment.progressBar(false);
-            this.seekBar=seekBar;
-            this.seekBar.setMax(mediaPlayer.getDuration());
-            mediaPlayer.start();
-
-
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-
+            try {
+                mediaPlayer.setDataSource(url);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.prepareAsync();
+            // You can show progress dialog here untill it prepared to play
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void onPrepared(MediaPlayer mp) {
+                public void onPrepared(final MediaPlayer mp) {
 
-                    Timer mTimer = new Timer();
-                    mTimer.schedule(new TimerTask() {
+                    mp.start();
 
+                    isPlaying=true;
+
+                    fragment.progressBar(isPlaying);
+
+                    final Thread mUpdateRunnable = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            while(mediaPlayer.isPlaying()) {
-                                if (mediaPlayer != null)
-                                    fragment.updateSeekBar(mediaPlayer.getCurrentPosition(), mediaPlayer.getDuration());
-                            }
+                            if (mp != null){
+                                int progressTimel=mp.getCurrentPosition();
+                               fragment.updateSeekBar(progressTimel);
+
+                                seekBar.setProgress(mp.getCurrentPosition());
+                              }
+                            updateRunnableHandler.postDelayed(this, 1000);
                         }
-                    },1000);
+                    });
+
+
+
+                    updateRunnableHandler.postDelayed(mUpdateRunnable, 1000);
                 }
-                });
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    // dissmiss progress bar here. It will come here when
+                    // MediaPlayer
+                    // is not able to play file. You can show error message to user
+                    return false;
+                }
+            });
+
+
+           /* mediaPlayer.setDataSource(url);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.prepare();
+
+            this.seekBar=seekBar;
+            this.
+
+            mediaPlayer.start();
+            isPlaying=true;
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(final MediaPlayer mp) {
+
+                }
+            });
+
+*/
+            // mediaPlayer.prepareAsync();
+
 
             return 1;
         } catch (Exception e)

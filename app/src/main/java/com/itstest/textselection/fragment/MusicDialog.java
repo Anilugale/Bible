@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -33,6 +36,7 @@ import com.itstest.textselection.model.Music;
 import com.itstest.textselection.service.LocalService;
 import com.itstest.textselection.util.CommanMethod;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,37 +48,23 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     private Music podcast;
     char lang;
     static int back = 0;
-    LocalService mService;
-    boolean mBound = false;
+
+
     SeekBar seekBar;
-    boolean init = false;
-    ProgressDialog pd;
     ProgressBar process;
     FloatingActionButton fab;
-    private long enqueue;
+    Handler updateRunnableHandler;
     private DownloadManager dm;
-    BroadcastReceiver receiver;
     TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails,time;
+
+    private Handler myHandler = new Handler();
+
+    MediaPlayer mediaPlayer;
 
     public MusicDialog() {
     }
 
-    private ServiceConnection mConnection = new ServiceConnection() {
 
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-
-            LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
-            mService = binder.getService();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,16 +93,15 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         sSingerContact.setOnClickListener(this);
         sSingerEmail.setOnClickListener(this);
 
-
-
+         updateRunnableHandler = new Handler();
+        mediaPlayer=new MediaPlayer();
 
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (mBound) {
-                    mService.setSeekto(i);
-                }
+                setSeekto(i);
+
             }
 
             @Override
@@ -133,7 +122,6 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     if (back == 2) {
 
-                        mService.stopSong();
                         dismiss();
                         return true;
                     } else {
@@ -161,24 +149,6 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Bind to LocalService
-        Intent intent = new Intent(getActivity(), LocalService.class);
-        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        // Unbind from the service
-        if (mBound) {
-            mService.stopSong();
-            getActivity().unbindService(mConnection);
-            mBound = false;
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -187,32 +157,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
 
             case R.id.myFAB:
-                if (mBound) {
-
-                    if (!init) {
-                        fab.setVisibility(View.GONE);
-                        process.setVisibility(View.VISIBLE);
-
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                int num = mService.initSong(podcast.getUrl(), MusicDialog.this, seekBar);
-                                fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_pause));
-                            }
-                        }).start();
-
-                        init = true;
-                    } else {
-                        int flag = mService.controller();
-                        if (flag == 1)
-
-                            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_pause));
-                        else
-                            fab.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_play));
-                    }
-
-                }
+                playMusic(podcast.getUrl());
                 break;
 
             case R.id.sSingerContact:
@@ -227,20 +172,31 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
                 break;
             case R.id.download:
-
-                Download();
-
+                  Download();
                 break;
         }
 
     }
 
-    public void progressBar(boolean status) {
+    public void setSeekto(int goTo)
+    {
+        mediaPlayer.seekTo(goTo);
+    }
+
+
+
+    public void progressBar(final boolean status) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                process.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
+                if(status) {
+                    process.setVisibility(View.GONE);
+                    fab.setVisibility(View.VISIBLE);
+                }
+                else {
+                    process.setVisibility(View.VISIBLE);
+                    fab.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -253,23 +209,14 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(podcast.getUrl()));
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        enqueue = dm.enqueue(request);
+        dm.enqueue(request);
         Toast.makeText(getActivity(), "Look Notification bar fr download progress", Toast.LENGTH_LONG).show();
     }
 
 
-    public void updateSeekBar(final int currentPosition, final int duration) {
+    public void updateSeekBar( int currentPosition) {
 
-        try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.e("status", currentPosition + "    " + duration);
-                            seekBar.setMax(duration);
-                            seekBar.setProgress(currentPosition);
+        seekBar.setProgress(currentPosition);
 
                             String time1 = String.format("%d : %d ",
                                     TimeUnit.MILLISECONDS.toMinutes(currentPosition),
@@ -278,15 +225,73 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
                             );
                             time.setText(time1);
 
-                            Log.e("time", time1);
-                        }
-                    });
-                }
-            }).start();
 
-        }catch (Exception e)
+    }
+
+    private void playMusic(final String url) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(url);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    e.printStackTrace();
+                }
+                try {
+                    mediaPlayer.prepareAsync();
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+                }
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.start();
+                        seekBar.setMax(mp.getDuration());
+
+
+                        Runnable dataupdate=new Runnable() {
+                            @Override
+                            public void run() {
+                                int progress=mediaPlayer.getCurrentPosition();
+                                System.out.println(progress);
+                                seekBar.setProgress(progress);
+                                myHandler.postDelayed(this,1000);
+                            }
+                        };
+                        myHandler.postDelayed(dataupdate,1000);
+
+
+                    }
+                });
+
+
+            }
+        }).start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mediaPlayer!=null)
         {
-            e.printStackTrace();
+            mediaPlayer.start();
+            mediaPlayer=null;
+
         }
     }
 }
