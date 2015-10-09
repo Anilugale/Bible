@@ -36,17 +36,13 @@
         </activity>
         <activity android:name=".BookmarkActivity" >
         </activity>
-        <activity android:name=".Download" >
-        </activity>
         <activity android:name=".SearchActivity" />
-
-        <service android:name=".service.LocalService" />
 
         <activity android:name=".ChooseActivity" >
         </activity>
         <activity
             android:name=".MusicPlayer"
-            android:label="@string/title_activity_music_plaer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme" >
         </activity>
     </application>

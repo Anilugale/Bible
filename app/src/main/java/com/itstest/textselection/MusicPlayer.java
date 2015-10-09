@@ -1,22 +1,16 @@
 package com.itstest.textselection;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -34,28 +28,22 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
 
     static int back = 0;
-
-
     public static Music music;
-
     public static char lang;
     boolean isPause;
-
     SeekBar seekBar;
-    ProgressBar process;
     Button fab;
     Handler updateRunnableHandler;
     private DownloadManager dm;
-    TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails, time;
-
+    TextView sName, sSingerName, sSingerContact, sSingerEmail, sSingerDetails, time,totalTime;
     private Handler myHandler = new Handler();
-ProgressDialog pd;
+    ProgressDialog pd;
     MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_plaer);
+        setContentView(R.layout.activity_music_player);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(music!=null)
@@ -72,15 +60,16 @@ ProgressDialog pd;
 
         fab = (Button) findViewById(R.id.myFAB);
         fab.setOnClickListener(this);
-        process = (ProgressBar) findViewById(R.id.process);
 
-        System.out.println(music.toString());
+
+
         sName = (TextView) findViewById(R.id.sName);
         sSingerName = (TextView) findViewById(R.id.sSingerName);
         sSingerContact = (TextView) findViewById(R.id.sSingerContact);
         sSingerEmail = (TextView) findViewById(R.id.sSingerEmail);
         sSingerDetails = (TextView) findViewById(R.id.sSingerDetails);
         time = (TextView) findViewById(R.id.time);
+        totalTime = (TextView) findViewById(R.id.totalTime);
         findViewById(R.id.download).setOnClickListener(this);
 
         sName.setText(music.getName());
@@ -96,6 +85,25 @@ ProgressDialog pd;
         mediaPlayer = new MediaPlayer();
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mediaPlayer.isPlaying()&& fromUser) {
+                    pd=ProgressDialog.show(MusicPlayer.this,"","Loading",true,false);
+                    mediaPlayer.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         findViewById(R.id.forward).setOnClickListener(this);
         findViewById(R.id.backward).setOnClickListener(this);
@@ -122,7 +130,7 @@ ProgressDialog pd;
                     mediaPlayer.start();
                 }
                 else
-                playMusic(music.getUrl());
+                    playMusic(music.getUrl());
                 break;
 
             case R.id.sSingerContact:
@@ -222,23 +230,30 @@ ProgressDialog pd;
                     @Override
                     public void onPrepared(MediaPlayer mp) {
                         pd.dismiss();
+                        totalTime.setText(String.format("%d : %d ",
+                                TimeUnit.MILLISECONDS.toMinutes(mp.getDuration()),
+                                TimeUnit.MILLISECONDS.toSeconds(mp.getDuration()) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mp.getDuration()))
+                        ));
                         mp.start();
                         seekBar.setMax(mp.getDuration());
-
 
                         Runnable dataupdate=new Runnable() {
                             @Override
                             public void run() {
+                                if(pd.isShowing())
+                                {
+                                    pd.dismiss();
+                                }
                                 if(mediaPlayer!=null) {
                                     int progress = mediaPlayer.getCurrentPosition();
-                                    System.out.println(progress);
+
                                     updateSeekBar(progress);
                                     myHandler.postDelayed(this, 1000);
                                 }
                             }
                         };
                         myHandler.postDelayed(dataupdate,1000);
-
 
                     }
                 });
@@ -253,7 +268,7 @@ ProgressDialog pd;
         super.onDestroy();
         if(mediaPlayer!=null)
         {
-            mediaPlayer.start();
+            mediaPlayer.stop();
             mediaPlayer=null;
 
         }

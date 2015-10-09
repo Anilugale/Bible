@@ -2,7 +2,6 @@ package com.itstest.textselection.adapter;
 
 
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 import com.itstest.textselection.MusicPlayer;
 import com.itstest.textselection.PodcastActivity;
 import com.itstest.textselection.R;
-import com.itstest.textselection.fragment.MusicDialog;
 import com.itstest.textselection.model.Music;
 import com.itstest.textselection.util.CommanMethod;
 import com.itstest.textselection.util.JsonCallBack;
@@ -41,7 +39,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     List<Music> mLst_bk;
 
     private char lang;
-    int index=1;
+    int index=2;
     int RequestCodePodcast=12121;
 
     public PodcastAdapter(PodcastActivity context, List<Music> par, char lang) {
@@ -105,7 +103,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                   Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show();
 
                   NetworkRequest.SimpleJsonRequest(context, new JSONObject(), NetworkRequest.SongSrc + "?index=" + index + "&language=" + CommanMethod.languageCode(lang), PodcastAdapter.this, RequestCodePodcast, 1);
-                //  index++;
+                index++;
 
               }
           });
@@ -127,11 +125,15 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             Type listType = new TypeToken<List<Music>>(){}.getType();
            List<Music> dataPodcast=NetworkRequest.gson.fromJson(response.toString(),listType);
-            mLst_bk.addAll(dataPodcast);
-            mLst.clear();
-            mLst.addAll(mLst_bk);
-            mLst.add(mLst_bk.size(),new Music());
-            notifyDataSetChanged();
+            if(dataPodcast.size()>0) {
+                mLst_bk.addAll(dataPodcast);
+                mLst.clear();
+                mLst.addAll(mLst_bk);
+                mLst.add(mLst_bk.size(), new Music());
+                notifyDataSetChanged();
+            }
+            else
+                Toast.makeText(context, "No more songs available.", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -193,14 +195,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      int back = 0;
     void showDialog(Music verse)
     {
-      /*  FragmentManager fm = context.getSupportFragmentManager();
-        MusicDialog fragment = new MusicDialog();
-        fragment.setCancelable(false);
-        fragment.setData(verse, lang);
-        fragment.show(fm, "fragment_dialog");
 
-
-*/
 
         MusicPlayer.music=verse;
         MusicPlayer.lang=lang;
