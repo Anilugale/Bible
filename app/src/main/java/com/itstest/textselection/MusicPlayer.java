@@ -11,9 +11,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -272,7 +273,38 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             mediaPlayer=null;
 
         }
-    }/// done
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_music, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId())
+        {
+            case R.id.share:
+               Intent shareIntent=new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+
+                String shareString = music.getName()+"\n"+
+                        music.getSinger_email()+"\n"+
+                        music.getSinger_mobile_no()+"\n"+
+                        music.getUrl();
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT,shareString);
+                startActivity(Intent.createChooser(shareIntent,"Share Using"));
+
+
+                break;
+
+
+        }
+        return  true;
+    }
 
     @Override
     public void onBackPressed() {

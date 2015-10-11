@@ -18,4 +18,5 @@
     <string name="mp_error">Sorry some happen Bye! Try Again</string>
     <string name="backward"><![CDATA[<<]]></string>
     <string name="forward"><![CDATA[>>]]></string>
+    <string name="share">Share</string>
 </resources>
