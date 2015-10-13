@@ -81,6 +81,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
         sSingerContact.setOnClickListener(this);
         sSingerEmail.setOnClickListener(this);
+        findViewById(R.id.share).setOnClickListener(this);
 
         updateRunnableHandler = new Handler();
         mediaPlayer = new MediaPlayer();
@@ -136,7 +137,6 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
             case R.id.sSingerContact:
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + music.getSinger_mobile_no()));
-
                 startActivity(intent);
                 break;
             case R.id.sSingerEmail:
@@ -163,6 +163,11 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                 if(backwardPosition>0)
                     mediaPlayer.seekTo((int) backwardPosition);
                 break;
+            case R.id.share:
+                shareSong();
+                break;
+
+
         }
 
     }
@@ -265,6 +270,35 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onStop() {
+        if(mediaPlayer!=null)
+        {
+            if(!isPause) {
+                mediaPlayer.pause();
+                fab.setText("Play");
+                isPause = true;
+            }
+
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        if(mediaPlayer!=null)
+        {
+            if(isPause) {
+                mediaPlayer.start();
+                fab.setText("Pause");
+                isPause = false;
+            }
+
+        }
+
+        super.onRestart();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if(mediaPlayer!=null)
@@ -286,24 +320,24 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         switch(item.getItemId())
         {
             case R.id.share:
-               Intent shareIntent=new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-
-                String shareString = music.getName()+"\n"+
-                        music.getSinger_email()+"\n"+
-                        music.getSinger_mobile_no()+"\n"+
-                        music.getUrl();
-
-                shareIntent.putExtra(Intent.EXTRA_TEXT,shareString);
-                startActivity(Intent.createChooser(shareIntent,"Share Using"));
-
-
-                break;
-
-
+              shareSong();
+               break;
         }
         return  true;
+    }
+
+    private void shareSong() {
+        Intent shareIntent=new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+
+        String shareString = music.getName()+"\n"+
+                music.getSinger_email()+"\n"+
+                music.getSinger_mobile_no()+"\n"+
+                music.getUrl();
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT,shareString);
+        startActivity(Intent.createChooser(shareIntent,"Share Using"));
     }
 
     @Override
