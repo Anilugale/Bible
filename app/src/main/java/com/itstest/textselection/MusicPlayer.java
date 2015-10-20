@@ -319,11 +319,18 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
         switch(item.getItemId())
         {
-            case R.id.share:
-              shareSong();
+            case R.id.home:
+              gotoHome();
                break;
         }
         return  true;
+    }
+
+    private void gotoHome() {
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void shareSong() {

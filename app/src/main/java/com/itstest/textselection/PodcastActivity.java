@@ -131,7 +131,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     private void setData() {
         progress.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        PodcastAdapter storyAdapter = new PodcastAdapter(this, dataPodcast,lang);
+        PodcastAdapter storyAdapter = new PodcastAdapter(this, dataPodcast,lang,color);
         recyclerView.setAdapter(storyAdapter);
     }
 

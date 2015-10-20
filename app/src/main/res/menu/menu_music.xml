@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.itstest.textselection.BookActivity">
 
-    <item android:id="@+id/share"
-        android:title="@string/share"
+    <item android:id="@+id/home"
+        android:title="@string/home"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_action_name"
         app:showAsAction="always" />
 
 </menu>

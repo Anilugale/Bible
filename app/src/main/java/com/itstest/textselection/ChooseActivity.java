@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class ChooseActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -25,13 +26,15 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
         toolbar.setTitle(name);
-        color=getIntent().getIntExtra(MainActivity.COLOR,0);
-                toolbar.setBackgroundColor(color);
+
 
          lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 
         bible=(CardView) findViewById(R.id.bible);
         podcast=(CardView) findViewById(R.id.podcast);
+
+        bible.setCardBackgroundColor(color);
+        podcast.setCardBackgroundColor(color);
 
         bible.setOnClickListener(this);
         podcast.setOnClickListener(this);

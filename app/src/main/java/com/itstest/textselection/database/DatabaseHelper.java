@@ -138,9 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Chapter> getDataBook(char langugae) throws IOException {
         openDataBase();
 
-        String langCol="EnglishShortName";
-        if(langugae=='M')
-            langCol="MalayalamShortName";
+        String langCol=getColoumnBook(langugae);
         Cursor cursor = myDataBase.rawQuery("select book_id,"+langCol+",num_chptr from books", new String[]{});
         List<Chapter>  data=new ArrayList<>();
 
@@ -158,9 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Verse> getVerses(int book_id,int chapterId,char langugae)
     {
-        String langCol="verses_asv";
-        if(langugae=='M')
-            langCol="verses";
+        String langCol=getColoumnName(langugae);
 
         openDataBase();
         Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark,start,end  from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
@@ -181,19 +177,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-  public List<Search> getSearch(char langugae,String query)
+    public List<Search> getSearch(char langugae,String query)
     {
         System.out.println(langugae);
-        String langCol="verses_asv";
-        String bookCol="EnglishShortName";
-        if(langugae=='M')
-        {
-            langCol = "verses";
-            bookCol="MalayalamShortName";
-        }
+        String langCol=getColoumnName(langugae);
+        String bookCol=getColoumnBook(langugae);
 
         openDataBase();
-        System.out.println("select  "+langCol+".verse_id,"+langCol+".book_id,"+langCol+".chapter_id,books."+bookCol+", "+langCol+".verse_text from "+langCol+"  join books on  "+langCol+".verse_text like '%"+query+"%' and books.book_id=="+langCol+".book_id");
+
         Cursor cursor = myDataBase.rawQuery("select  "+langCol+".verse_id,"+langCol+".book_id,"+langCol+".chapter_id,books."+bookCol+", "+langCol+".verse_text from "+langCol+"  join books on  "+langCol+".verse_text like '%"+query+"%' and books.book_id=="+langCol+".book_id", new String[]{});
         List<Search>  data=new ArrayList<>();
 
@@ -235,11 +226,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void updateBookmark(char langugae,int verseID,int update) {
-        String langCol="verses_asv";
-        if(langugae=='M')
-            langCol="verses";
-       openDataBase();
-       Log.e("q","update " + langCol + "  set bookmark=" + update + " where id=" + verseID);
+        String langCol=getColoumnName(langugae);
+
+        openDataBase();
+        Log.e("q","update " + langCol + "  set bookmark=" + update + " where id=" + verseID);
         Cursor cursor=myDataBase.rawQuery(" update " + langCol + " set bookmark = ? where id = ? ",
                 new String[]{String.valueOf(update)
                         ,
@@ -253,9 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Verse> getBookMarkVerse(char langugae)
     {
-        String langCol="verses_asv";
-        if(langugae=='M')
-            langCol="verses";
+        String langCol=getColoumnName(langugae);
 
         openDataBase();
         Cursor cursor = myDataBase.rawQuery("select  id,verse_text,bookmark from "+langCol+" where bookmark=1", new String[]{});
@@ -274,15 +262,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void updateHightLight(char lang,int id,int start,int end) {
 
-        String langCol="verses_asv";
-        if(lang=='M')
-            langCol="verses";
+        String langCol=getColoumnName(lang);
 
         openDataBase();
         ContentValues cv = new ContentValues();
         cv.put("start", start);
         cv.put("end", end);
-         int i= myDataBase.update(langCol,cv,"id="+id,null);
+        int i= myDataBase.update(langCol,cv,"id="+id,null);
 
         System.out.println("update b" + i);
     }
@@ -305,6 +291,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return data;
+
+    }
+
+
+    String getColoumnName(char c)
+    {
+        String column;
+
+        switch (c)
+        {
+            case 'M':
+                column= "verses";
+                break;
+
+            case 'H':
+                column= "verses_hindi";
+                break;
+
+            default:
+                return "verses_asv";
+
+        }
+
+
+        return column;
+
+    }
+
+
+    String getColoumnBook(char c)
+    {
+        String column;
+
+        switch (c)
+        {
+            case 'M':
+                column= "MalayalamShortName";
+                break;
+
+            case 'H':
+                column= "HindiShortName";
+                break;
+
+            default:
+                return "EnglishShortName";
+
+        }
+
+
+        return column;
 
     }
 }

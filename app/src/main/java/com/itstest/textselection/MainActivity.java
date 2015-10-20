@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.lang2:
 
-                startActivity(new Intent(this, ChooseActivity.class).putExtra(BookActivity.lang, 'M')
+                startActivity(new Intent(this, ChooseActivity.class)
+                                .putExtra(BookActivity.lang, 'M')
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.second))
                 );
                 break;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case  R.id.lang3:
                 startActivity(new Intent(this, ChooseActivity.class)
+                                .putExtra(BookActivity.lang, 'H')
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.third))
                 );
                 break;

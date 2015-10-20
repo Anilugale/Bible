@@ -10,7 +10,7 @@
     <string name="font1">A+</string>
     <string name="font2">A++</string>
     <string name="font3">A+++</string>
-    <string name="podcast">Podcast</string>
+    <string name="podcast">Listen </string>
     <string name="bookmark">Bookmark</string>
     <string name="search">Search</string>
     <string name="title_activity_choose">ChooseActivity</string>
@@ -19,4 +19,5 @@
     <string name="backward"><![CDATA[<<]]></string>
     <string name="forward"><![CDATA[>>]]></string>
     <string name="share">Share</string>
+    <string name="home">Home</string>
 </resources>

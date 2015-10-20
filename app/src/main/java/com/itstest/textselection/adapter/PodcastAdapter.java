@@ -41,8 +41,9 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private char lang;
     int index=2;
     int RequestCodePodcast=12121;
+    int color;
 
-    public PodcastAdapter(PodcastActivity context, List<Music> par, char lang) {
+    public PodcastAdapter(PodcastActivity context, List<Music> par, char lang,  int color) {
 
         this.context = context;
         this.mLst = par;
@@ -50,6 +51,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.mLst_bk=new ArrayList<>();
         this.mLst_bk.addAll(mLst);
         this.lang=lang;
+        this.color=color;
         mLst.add(mLst.size(),new Music());
     }
 
@@ -88,6 +90,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           PodcastAdapter.ViewHolder  holder1=(PodcastAdapter.ViewHolder) holder;
 
           holder1.gdName.setText(mLst.get(position).getName());
+          holder1.gdName.setTextColor(color);
           holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
