@@ -120,6 +120,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     public void failer(VolleyError response, int responseCode) {
 
         setError();
+        response.printStackTrace();
     }
 
     public void setError() {

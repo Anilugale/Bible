@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/main_content"
-    android:background="#3C3F41"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -42,7 +42,7 @@
             <Button
                 android:layout_margin="5dp"
                 android:background="@drawable/btn_bk"
-                android:textColor="@color/chapter_color"
+                android:textColor="@android:color/white"
                 android:id="@+id/myFAB"
                 android:text="Play"
                 android:layout_width="0dp"
@@ -53,7 +53,7 @@
             <Button
                 android:layout_margin="5dp"
                 android:background="@drawable/btn_bk"
-                android:textColor="@color/chapter_color"
+                android:textColor="@android:color/white"
                android:id="@+id/share"
                 android:text="Share"
                 android:layout_width="0dp"
@@ -63,7 +63,7 @@
             <Button
                 android:layout_margin="5dp"
                 android:background="@drawable/btn_bk"
-                android:textColor="@color/chapter_color"
+                android:textColor="@android:color/white"
                 android:id="@+id/download"
                 android:text="Download"
                 android:layout_width="0dp"

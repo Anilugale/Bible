@@ -33,8 +33,12 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         bible=(CardView) findViewById(R.id.bible);
         podcast=(CardView) findViewById(R.id.podcast);
 
-        bible.setCardBackgroundColor(color);
-        podcast.setCardBackgroundColor(color);
+    //    bible.setCardBackgroundColor(color);
+     //   podcast.setCardBackgroundColor(color);
+        ((TextView)findViewById(R.id.podcast_text)).setTextColor(color);
+        ((TextView)findViewById(R.id.bible_text)).setTextColor(color);
+
+
 
         bible.setOnClickListener(this);
         podcast.setOnClickListener(this);
