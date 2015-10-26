@@ -59,8 +59,8 @@ public  class CommanMethod {
 
              case 'H':
                  return 3;
-              case 't':
-                 return 4;
+             case 't':
+                return 4;
 
              case 'K':
                  return 5;
