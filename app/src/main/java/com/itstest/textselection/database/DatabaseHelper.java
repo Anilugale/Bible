@@ -308,17 +308,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case 'H':
                 column= "verses_hindi";
                 break;
+            case 'm':
+                column= "verses_marathi";
+                break;
+            case 'T':
+                column= "verses_telugu";
+                break;
+            case 't':
+                column= "verses_tamil";
+                break;
 
             default:
                 return "verses_asv";
-
         }
-
-
         return column;
-
     }
-
 
     String getColoumnBook(char c)
     {
@@ -333,14 +337,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case 'H':
                 column= "HindiShortName";
                 break;
+            case 'm':
+                column= "MarathiShortName";
+                break;
+            case 'T':
+                column= "TeluguShortName";
+                break;
+            case 't':
+                column= "TamilShortName";
+                break;
 
             default:
                 return "EnglishShortName";
-
         }
-
-
         return column;
-
     }
 }
