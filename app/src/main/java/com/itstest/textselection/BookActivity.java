@@ -1,5 +1,6 @@
 package com.itstest.textselection;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,23 +42,52 @@ public class BookActivity extends AppCompatActivity {
 
         langugae = getIntent().getCharExtra(lang,'x');
 
-        DatabaseHelper db=new DatabaseHelper(this);
-        try {
-            List<Chapter> dataStory =db.getDataBook(langugae);
-            if(dataStory.size()>0){
-                BookAdapter storyAdapter = new BookAdapter(this, dataStory,langugae,color);
-                recyclerView.setAdapter(storyAdapter);
-            }
-            else {
-                Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+      loadData();
+    }
+
+    private void loadData() {
+      final   ProgressDialog pd=ProgressDialog.show(this,"","Loading...",true,false);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseHelper db=new DatabaseHelper(BookActivity.this);
+                try {
+                   final  List<Chapter> dataStory =db.getDataBook(langugae);
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        db.close();
+                    BookActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(dataStory.size()>0){
+                                BookAdapter storyAdapter = new BookAdapter(BookActivity.this, dataStory,langugae,color);
+                                recyclerView.setAdapter(storyAdapter);
+
+                            }
+                            else {
+                                Toast.makeText(BookActivity.this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                            pd.dismiss();
+                        }
+                    });
+
+
+                } catch (IOException e) {
+                    BookActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pd.dismiss();
+                            finish();
+                        }
+                    });
+
+                    e.printStackTrace();
+                }
+                db.close();
+            }
+        }).start();
+
     }
 
     @Override
