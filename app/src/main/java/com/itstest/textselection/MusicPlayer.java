@@ -91,7 +91,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mediaPlayer.isPlaying()&& fromUser) {
-                    pd=ProgressDialog.show(MusicPlayer.this,"","Loading",true,false);
+                   // pd=ProgressDialog.show(MusicPlayer.this,"","Loading",true,false);
                     mediaPlayer.seekTo(progress);
                 }
             }

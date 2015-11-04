@@ -54,7 +54,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/btn_bk"
                 android:textColor="@android:color/white"
-               android:id="@+id/share"
+                android:id="@+id/share"
                 android:text="Share"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -73,7 +73,8 @@
 
         <SeekBar
             android:layout_below="@+id/btn_container"
-
+            android:progressDrawable="@drawable/style"
+            android:thumb="@drawable/thumb"
             android:id="@+id/seekBar"
             android:layout_margin="5dp"
             android:layout_width="match_parent"

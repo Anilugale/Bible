@@ -8,5 +8,6 @@
     <dimen name="textSize_big">40sp</dimen>
     <dimen name="iconSize">40dp</dimen>
     <dimen name="gridHeight">120dp</dimen>
+    <dimen name="cardHeight">100dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

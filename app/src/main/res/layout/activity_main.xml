@@ -30,333 +30,314 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
+
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/gridHeight">
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:id="@+id/lang1"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/lang1"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardElevation="2dp"
-                    card_view:cardBackgroundColor="@color/first"
-                    card_view:cardCornerRadius="4dp">
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardElevation="2dp"
+                card_view:cardBackgroundColor="@color/first"
+                card_view:cardCornerRadius="4dp">
 
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="E" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="E" />
 
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/textSize"
-                            android:textStyle="bold"
-                            android:id="@+id/gdName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="English" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                   android:layout_gravity="center"
-                    android:id="@+id/lang2"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    card_view:cardBackgroundColor="@color/second"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/textSize"
+                        android:textStyle="bold"
+                        android:id="@+id/gdName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/malya_char"
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="മ" />
-                        <TextView
-                            android:id="@+id/malya_name"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="English" />
+                </LinearLayout>
 
-                            android:text="മലയാളം" />
-                    </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/gridHeight">
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#fff"
-                    android:id="@+id/lang3"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    card_view:cardBackgroundColor="@color/third"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:id="@+id/lang2"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                card_view:cardBackgroundColor="@color/second"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/malya_char"
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="हि" />
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/textSize"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="हिन्दी" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#fff"
-                    android:id="@+id/lang4"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/fourth"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="മ" />
+                    <TextView
+                        android:id="@+id/malya_name"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:includeFontPadding="false"
-                            android:id="@+id/telgu_char"
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="త" />
-                        <TextView
-                            android:includeFontPadding="false"
-                           android:id="@+id/telgu_name"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="తెలుగు" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
 
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-            <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
+                        android:text="മലയാളം" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/gridHeight">
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#fff"
-                    android:id="@+id/lang5"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/fifth"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:background="#fff"
+                android:id="@+id/lang3"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                card_view:cardBackgroundColor="@color/third"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="म" />
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-
-                            android:text="मराठी" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#fff"
-                    android:id="@+id/lang6"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/six"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="हि" />
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/textSize"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="த" />
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="தமிழ்" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="हिन्दी" />
+                </LinearLayout>
 
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/gridHeight">
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#fff"
-                    android:id="@+id/lang7"
-                    android:descendantFocusability="blocksDescendants"
-                    android:gravity="center_horizontal"
-                    android:layout_margin="5dp"
-
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/seven"
-                    card_view:cardElevation="2dp"
-                    card_view:cardCornerRadius="4dp">
-                    <LinearLayout
-
-                        android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:background="#fff"
+                android:id="@+id/lang4"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/fourth"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:includeFontPadding="false"
+                        android:id="@+id/telgu_char"
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/kannada_char"
-                            android:textColor="@android:color/white"
-                            android:layout_margin="5dp"
-                            android:textSize="@dimen/textSize_big"
-                            android:textStyle="bold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="ಕ" />
-                        <TextView
-                            android:id="@+id/kannada_name"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textSize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="త" />
+                    <TextView
+                        android:includeFontPadding="false"
+                        android:id="@+id/telgu_name"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="తెలుగు" />
+                </LinearLayout>
 
-                            android:text="ಕನ್ನಡ" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:background="#fff"
+                android:id="@+id/lang5"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/fifth"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="म" />
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+
+                        android:text="मराठी" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:background="#fff"
+                android:id="@+id/lang6"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/six"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="த" />
+                    <TextView
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="தமிழ்" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="@dimen/cardHeight"
+                android:layout_gravity="center"
+                android:background="#fff"
+                android:id="@+id/lang7"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_horizontal"
+                android:layout_margin="3dp"
+
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/seven"
+                card_view:cardElevation="2dp"
+                card_view:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/kannada_char"
+                        android:textColor="@android:color/white"
+                        android:layout_margin="1dp"
+                        android:textSize="@dimen/textSize_big"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="ಕ" />
+                    <TextView
+                        android:id="@+id/kannada_name"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/textSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="ಕನ್ನಡ" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
 
 
-            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
