@@ -41,7 +41,6 @@
                 android:descendantFocusability="blocksDescendants"
                 android:gravity="center_vertical"
                 android:layout_margin="3dp"
-
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 card_view:cardElevation="2dp"
@@ -50,7 +49,8 @@
 
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -58,9 +58,10 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="E" />
 
                     <TextView
@@ -68,10 +69,11 @@
                         android:textSize="@dimen/textSize"
                         android:textStyle="bold"
                         android:id="@+id/gdName"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="English" />
+                        android:gravity="left"
+                        android:text="-English" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -92,7 +94,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -101,20 +104,23 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="മ" />
                     <TextView
                         android:id="@+id/malya_name"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="left"
 
-                        android:text="മലയാളം" />
+                        android:text="-മലയാളം" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -136,7 +142,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -144,18 +151,20 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="हि" />
                     <TextView
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/textSize"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="हिन्दी" />
+                        android:gravity="left"
+                        android:text="-हिन्दी" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -176,7 +185,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -186,9 +196,10 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="త" />
                     <TextView
                         android:includeFontPadding="false"
@@ -196,10 +207,11 @@
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="తెలుగు" />
+                        android:gravity="left"
+                        android:text="-తెలుగు" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -222,7 +234,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -230,19 +243,20 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="म" />
                     <TextView
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-
-                        android:text="मराठी" />
+                        android:gravity="left"
+                        android:text="-मराठी" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -265,7 +279,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -273,18 +288,20 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="த" />
                     <TextView
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="தமிழ்" />
+                        android:gravity="left"
+                        android:text="-தமிழ்" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -308,7 +325,8 @@
                 card_view:cardCornerRadius="4dp">
                 <LinearLayout
                     android:layout_margin="3dp"
-                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -317,19 +335,21 @@
                         android:layout_margin="1dp"
                         android:textSize="@dimen/textSize_big"
                         android:textStyle="bold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:text="ಕ" />
                     <TextView
                         android:id="@+id/kannada_name"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="@dimen/textSize"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="ಕನ್ನಡ" />
+                        android:gravity="left"
+                        android:text="-ಕನ್ನಡ" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
