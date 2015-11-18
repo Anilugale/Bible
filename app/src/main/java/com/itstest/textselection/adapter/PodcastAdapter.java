@@ -90,6 +90,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           PodcastAdapter.ViewHolder  holder1=(PodcastAdapter.ViewHolder) holder;
 
           holder1.gdName.setText(mLst.get(position).getName());
+          holder1.singerName.setText(mLst.get(position).getSinger_name());
           holder1.gdName.setTextColor(color);
           holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -112,9 +113,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           });
 
       }
-
-
-
 
     }
 
@@ -153,7 +151,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     static class ViewHolder extends  RecyclerView.ViewHolder
     {
 
-        protected TextView gdName;
+        protected TextView gdName,singerName;
         protected CardView relativeLayout;
 
         public ViewHolder(View itemView) {
@@ -161,6 +159,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
+            singerName = (TextView) itemView.findViewById(R.id.singerName);
 
 
         }
@@ -198,11 +197,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      int back = 0;
     void showDialog(Music verse)
     {
-
-
         MusicPlayer.music=verse;
         MusicPlayer.lang=lang;
-
         context.startActivity(new Intent(context, MusicPlayer.class));
     }
 

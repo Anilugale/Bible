@@ -9,5 +9,5 @@
     <dimen name="textSize_big">60sp</dimen>
     <dimen name="iconSize">60dp</dimen>
     <dimen name="gridHeight">180dp</dimen>
-    <dimen name="cardHeight">130dp</dimen>
+    <dimen name="cardHeight">100dp</dimen>
 </resources>
