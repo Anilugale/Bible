@@ -81,13 +81,13 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         holder.verses_no.setTextColor(color);
         switch (font) {
             case 1:
-                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                break;
-            case 2:
                 holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 break;
-            case 3:
+            case 2:
                 holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                break;
+            case 3:
+                holder.gdName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
                 break;
         }
 

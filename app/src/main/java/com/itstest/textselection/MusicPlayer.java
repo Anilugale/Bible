@@ -110,7 +110,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.forward).setOnClickListener(this);
         findViewById(R.id.backward).setOnClickListener(this);
 
-
+        playMusic(music.getUrl());
 
     }
 
@@ -130,6 +130,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                     isPause=false;
                     fab.setText("Pause");
                     mediaPlayer.start();
+                    Toast.makeText(MusicPlayer.this, "Pause", Toast.LENGTH_SHORT).show();
                 }
                 else
                     playMusic(music.getUrl());
@@ -179,7 +180,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
 
     void Download() {
-
+        Toast.makeText(MusicPlayer.this, "Song is downloading..", Toast.LENGTH_SHORT).show();
         dm = (DownloadManager)this.getSystemService(Activity.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(music.getUrl()));
@@ -303,6 +304,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         super.onDestroy();
         if(mediaPlayer!=null)
         {
+            Toast.makeText(MusicPlayer.this, "Stop Playing", Toast.LENGTH_SHORT).show();
             mediaPlayer.stop();
             mediaPlayer=null;
 
