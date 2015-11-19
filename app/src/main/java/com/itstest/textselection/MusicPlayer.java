@@ -75,7 +75,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
         sName.setText(music.getName());
         sSingerName.setText(music.getSinger_name());
-        sSingerContact.setText(music.getSinger_mobile_no());
+        sSingerContact.setText(String.format("For contact – Call on +91 %s", music.getSinger_mobile_no()));
         sSingerEmail.setText(music.getSinger_email());
         sSingerDetails.setText(music.getSinger_details());
 
@@ -91,7 +91,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mediaPlayer.isPlaying()&& fromUser) {
-                   // pd=ProgressDialog.show(MusicPlayer.this,"","Loading",true,false);
+                    // pd=ProgressDialog.show(MusicPlayer.this,"","Loading",true,false);
                     mediaPlayer.seekTo(progress);
                 }
             }
@@ -109,6 +109,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
         findViewById(R.id.forward).setOnClickListener(this);
         findViewById(R.id.backward).setOnClickListener(this);
+        findViewById(R.id.contact_holder).setOnClickListener(this);
 
         playMusic(music.getUrl());
 
@@ -167,6 +168,9 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             case R.id.share:
                 shareSong();
                 break;
+            case R.id.contact_holder:
+                call();
+                break;
 
 
         }
@@ -174,7 +178,11 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     }
 
 
-
+    public void call() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+music.getSinger_mobile_no()));
+        startActivity(callIntent);
+    }
 
 
 
@@ -322,8 +330,8 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         switch(item.getItemId())
         {
             case R.id.home:
-              gotoHome();
-               break;
+                gotoHome();
+                break;
         }
         return  true;
     }
