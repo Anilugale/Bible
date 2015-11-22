@@ -1,6 +1,8 @@
 package com.itstest.textselection;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.itstest.textselection.adapter.BookmarkAdapter;
+import com.itstest.textselection.adapter.PagerAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
 
@@ -26,13 +29,46 @@ public class BookmarkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         String name=getIntent().getStringExtra("tittle");
-
+        toolbar.setTitle(name);
+        int color=getIntent().getIntExtra(MainActivity.COLOR, 0);
+        toolbar.setBackgroundColor(color);
+        setSupportActionBar(toolbar);
         char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
-        recyclerView=(RecyclerView)findViewById(R.id.list_verses);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setBackgroundColor(color);
+        tabLayout.addTab(tabLayout.newTab().setText("Chapter Bookmark"));
+        tabLayout.addTab(tabLayout.newTab().setText("Verses Bookmark"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(),lang,color);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+       /* recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setTitle(name);
-        setSupportActionBar(toolbar);
+
          int color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
 
@@ -46,7 +82,7 @@ public class BookmarkActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         db.close();
-
+*/
 
 
     }

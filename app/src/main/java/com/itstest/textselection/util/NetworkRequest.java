@@ -30,6 +30,7 @@ public class NetworkRequest {
 
     public static String BaseUrl="http://www.getwebcare.in/bible_app/music/";
    public static String SongSrc="http://www.getwebcare.in/bible_app/podcast.php";
+   public static String PREST="http://www.getwebcare.in/bible_app/podcast_prest.php";
 
 
     public static Gson gson=new Gson();

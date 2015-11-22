@@ -21,4 +21,9 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/bookmark"
+        android:title="@string/bookmark"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
 </menu>

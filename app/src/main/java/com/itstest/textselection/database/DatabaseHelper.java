@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.itstest.textselection.model.Chapter;
+import com.itstest.textselection.model.ChapterBookmark;
 import com.itstest.textselection.model.Search;
 import com.itstest.textselection.model.Verse;
 
@@ -294,6 +295,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public List<ChapterBookmark> getChapter( char langugae) {
+
+
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select chapter_bookmark.id,chapter_bookmark.book_id,chapter_bookmark.chapter_id,books."+getColoumnBook(langugae)+"  chapter_bookmark from chapter_bookmark join books on lang = '"+langugae+"' and books.book_id=chapter_bookmark.book_id", new String[]{});
+        List<ChapterBookmark>  data=new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            ChapterBookmark verse=new ChapterBookmark();
+            verse.setId(cursor.getInt(0));
+            verse.setBook_id(cursor.getInt(1));
+            verse.setChapter_id(cursor.getInt(2));
+            verse.setBookName(cursor.getString(3));
+
+
+            data.add(verse);
+        }
+        cursor.close();
+        return data;
+
+    }
+
 
     String getColoumnName(char c)
     {
@@ -351,5 +374,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return "EnglishShortName";
         }
         return column;
+    }
+
+    public void deleteCbook(int id) {
+
+        String sql="delete from chapter_bookmark where id ="+id;
+        System.out.println(sql);
+        openDataBase();
+
+        System.out.println(myDataBase.delete("chapter_bookmark", "id" + "=" + id, null));
+    }
+
+    public void makeChapterBookmark(int bookId,int chapterId,char lang) {
+
+
+        String sql="insert into chapter_bookmark ('book_id','chapter_id','lang')" +
+                "values("+bookId+","+chapterId+",'"+lang+"')";
+        openDataBase();
+        myDataBase.execSQL(sql,new String[]{});
     }
 }

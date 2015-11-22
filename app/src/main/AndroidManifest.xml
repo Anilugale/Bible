@@ -40,6 +40,8 @@
 
         <activity android:name=".ChooseActivity" >
         </activity>
+        <activity android:name=".PodcastActivity1" >
+        </activity>
         <activity
             android:name=".MusicPlayer"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -1,6 +1,7 @@
 package com.itstest.textselection.adapter;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -34,16 +35,17 @@ import java.util.List;
  */
 public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements JsonCallBack {
 
-    PodcastActivity context;
+    Activity context;
     List<Music> mLst;
     List<Music> mLst_bk;
+
 
     private char lang;
     int index=2;
     int RequestCodePodcast=12121;
     int color;
 
-    public PodcastAdapter(PodcastActivity context, List<Music> par, char lang,  int color) {
+    public PodcastAdapter(Activity context, List<Music> par, char lang,  int color) {
 
         this.context = context;
         this.mLst = par;
@@ -201,5 +203,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         MusicPlayer.lang=lang;
         context.startActivity(new Intent(context, MusicPlayer.class));
     }
+
 
 }

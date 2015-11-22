@@ -56,13 +56,34 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
                 );
                 break;
             case R.id.podcast:
-                startActivity(new Intent(this,PodcastActivity.class).putExtra(BookActivity.lang,lang)
+                startActivity(new Intent(this,PodcastActivity1.class).putExtra(BookActivity.lang,lang)
                         .putExtra(MainActivity.COLOR, color)
                 );
                 break;
-
-
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_chapter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.podcast:
+                startActivity(new Intent(this,SearchActivity.class).putExtra(BookActivity.lang,lang)
+                                .putExtra(MainActivity.COLOR, color)
+                );
+                break;
+            case R.id.bookmark:
+                startActivity(new Intent(this,BookmarkActivity.class).putExtra(BookActivity.lang,lang)
+                        .putExtra(MainActivity.COLOR, color));
+                break;
+        }
+        return true;
     }
 }

@@ -27,6 +27,9 @@ public class VersesActivity extends AppCompatActivity {
     RecyclerView recyclerView ;
     EditText searchEdt;
     LinearLayoutManager linearLayoutManager;
+    List<Verse> dataStory;
+    int bookId,chapterId;
+    char lang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +37,10 @@ public class VersesActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         String name=getIntent().getStringExtra("tittle");
         toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
-        int bookId=getIntent().getIntExtra(BOOK_ID, 0);
-        int chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
-        char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
-         V_ID=getIntent().getIntExtra("V_ID", 0);
+        bookId=getIntent().getIntExtra(BOOK_ID, 0);
+        chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
+        lang=getIntent().getCharExtra(BookActivity.lang, 'X');
+        V_ID=getIntent().getIntExtra("V_ID", 0);
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         searchEdt=(EditText) findViewById(R.id.searchEdt);
 
@@ -55,7 +58,7 @@ public class VersesActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                    storyAdapter.filter(searchEdt.getText().toString().trim());
+                storyAdapter.filter(searchEdt.getText().toString().trim());
 
             }
         });
@@ -68,7 +71,7 @@ public class VersesActivity extends AppCompatActivity {
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
-            List<Verse> dataStory =db.getVerses(bookId,chapterId,lang);
+            dataStory =db.getVerses(bookId,chapterId,lang);
             if(dataStory.size()>0) {
                 storyAdapter = new VersesAdapter(this, dataStory, lang,getIntent().getIntExtra(MainActivity.COLOR,0));
                 recyclerView.setAdapter(storyAdapter);
@@ -112,6 +115,14 @@ public class VersesActivity extends AppCompatActivity {
             case R.id.font3:
                 storyAdapter.setFont(3);
                 storyAdapter.notifyDataSetChanged();
+                break;
+            case R.id.bookmark:
+                Toast.makeText(this, "marked as bookmarked", Toast.LENGTH_SHORT).show();
+                DatabaseHelper db=new DatabaseHelper(this);
+                if(dataStory!=null)
+                    db.makeChapterBookmark(bookId,chapterId,lang);
+
+                db.close();
                 break;
 
         }

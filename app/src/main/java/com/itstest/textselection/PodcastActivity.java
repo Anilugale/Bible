@@ -42,6 +42,8 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
 
 
     char lang;
+    public static String ID="id";
+    String id;
     int RequestCodePodcast=121212;
     List<Music> dataPodcast;
     TextView error;
@@ -83,6 +85,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
+        id=getIntent().getStringExtra(ID);
         toolbar.setTitle(name);
         lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 

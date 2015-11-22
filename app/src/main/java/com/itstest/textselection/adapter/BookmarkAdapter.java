@@ -1,6 +1,7 @@
 package com.itstest.textselection.adapter;
 
 
+import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -32,7 +33,7 @@ import java.util.List;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> {
 
-    BookmarkActivity context;
+    Activity context;
     public  List<Verse> mLst;
 
     private int font;
@@ -40,7 +41,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     private int color;
 
 
-    public BookmarkAdapter(BookmarkActivity context, List<Verse> par, char lang,int color) {
+    public BookmarkAdapter(Activity context, List<Verse> par, char lang,int color) {
         this.context = context;
         this.mLst = par;
         this.lang=lang;
