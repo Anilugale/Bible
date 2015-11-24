@@ -23,7 +23,6 @@ public class ChapterActivity extends AppCompatActivity {
     public static String BOOK_ID="bookId";
     public static String CHAPTER_ID="CHAPTER_ID";
     private ChapterAdapter storyAdapter;
-    boolean ischapter_book;
     RecyclerView recyclerView ;
     LinearLayoutManager linearLayoutManager;
     @Override
@@ -42,7 +41,7 @@ public class ChapterActivity extends AppCompatActivity {
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
 
-        ischapter_book = getIntent().getBooleanExtra(BookActivity.isChapterBookmark,false);
+
 
 
         DatabaseHelper db=new DatabaseHelper(this);
@@ -65,7 +64,7 @@ public class ChapterActivity extends AppCompatActivity {
 
         db.close();
 
-        if(ischapter_book)
+        if(CommanMethod.ischapter_book)
         {
             startActivity(new Intent(this, VersesActivity.class)
                     .putExtra(VersesActivity.BOOK_ID, CommanMethod.bookmarkCahpter.getBook_id())
@@ -73,6 +72,15 @@ public class ChapterActivity extends AppCompatActivity {
                     .putExtra(MainActivity.COLOR, getIntent().getIntExtra(MainActivity.COLOR,0))
                     .putExtra(ChapterActivity.CHAPTER_ID,CommanMethod.bookmarkCahpter.getChapter_id()));
             CommanMethod.bookmarkCahpter=null;
+        }
+        if(CommanMethod.isVerses_BookMark)
+        {
+            startActivity(new Intent(this, VersesActivity.class)
+                    .putExtra(VersesActivity.BOOK_ID,CommanMethod.versesBookmark.getBook_id())
+                    .putExtra(BookActivity.lang, lang)
+                    .putExtra(MainActivity.COLOR, getIntent().getIntExtra(MainActivity.COLOR,0))
+                    .putExtra(ChapterActivity.CHAPTER_ID,CommanMethod.versesBookmark.getChapter_id()));
+
         }
     }
 

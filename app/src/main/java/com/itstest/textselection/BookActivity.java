@@ -27,7 +27,7 @@ public class BookActivity extends AppCompatActivity {
     LinearLayoutManager  linearLayoutManager;
     char langugae;
     int color;
-    boolean ischapter_book,isVerses_BookMark;
+
 
     public static String lang="lang";
     public static String isChapterBookmark="isChapterBookmark";
@@ -45,27 +45,26 @@ public class BookActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(color);
 
         langugae = getIntent().getCharExtra(lang, 'x');
-        ischapter_book = getIntent().getBooleanExtra(isChapterBookmark, false);
-        isVerses_BookMark = getIntent().getBooleanExtra(isVersesBookMark,false);
+
 
 
 
       loadData();
-        if(ischapter_book)
+        if(CommanMethod.ischapter_book)
         {
             startActivity(new Intent(this, ChapterActivity.class)
                     .putExtra(VersesActivity.BOOK_ID, CommanMethod.bookmarkCahpter.getBook_id()
                     ).putExtra(MainActivity.COLOR, color)
-                    .putExtra(isChapterBookmark,true)
-                    .putExtra(BookActivity.lang, lang));
+
+                    .putExtra(BookActivity.lang, langugae));
         }
-        if(isVerses_BookMark)
+        if(CommanMethod.isVerses_BookMark)
         {
-           /* startActivity(new Intent(this, ChapterActivity.class)
-                    .putExtra(VersesActivity.BOOK_ID, CommanMethod.ver.getBook_id()
+           startActivity(new Intent(this, ChapterActivity.class)
+                    .putExtra(VersesActivity.BOOK_ID, CommanMethod.versesBookmark.getBook_id()
                     ).putExtra(MainActivity.COLOR, color)
-                    .putExtra(isChapterBookmark,true)
-                    .putExtra(BookActivity.lang, lang));*/
+
+                    .putExtra(BookActivity.lang, langugae));
         }
     }
 

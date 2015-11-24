@@ -160,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String langCol=getColoumnName(langugae);
 
         openDataBase();
-        Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark,start,end  from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
+        Cursor cursor = myDataBase.rawQuery(" select id, verse_text , bookmark,start,end ,book_id ,chapter_id ,verse_id  from "+langCol+" where book_id =="+book_id+" and chapter_id=="+chapterId, new String[]{});
         List<Verse>  data=new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -170,6 +170,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             verse.setBookmar(cursor.getInt(2));
             verse.setStart(cursor.getInt(3));
             verse.setEnd(cursor.getInt(4));
+            verse.setBook_id(cursor.getInt(5));
+            verse.setChapter_id(cursor.getInt(6));
+            verse.setVerses_id(cursor.getInt(7));
             data.add(verse);
         }
         cursor.close();

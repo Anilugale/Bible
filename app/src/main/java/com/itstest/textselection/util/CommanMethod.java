@@ -23,7 +23,7 @@ public  class CommanMethod {
 
     public static ChapterBookmark bookmarkCahpter;
     public static Verse versesBookmark;
-
+    public static boolean  ischapter_book,isVerses_BookMark;
     public static void share(Context context,String shareSting)
  {
      Intent shareIntent = new Intent();
