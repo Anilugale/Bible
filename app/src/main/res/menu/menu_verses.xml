@@ -7,23 +7,23 @@
         android:title="@string/font1"
         android:orderInCategory="100"
         android:icon="@mipmap/ic_font1"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/font2"
         android:title="@string/font2"
         android:icon="@mipmap/ic_font2"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/font3"
         android:title="@string/font3"
         android:icon="@mipmap/ic_font3"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/bookmark"
         android:title="@string/bookmark"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

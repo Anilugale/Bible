@@ -1,5 +1,6 @@
 package com.itstest.textselection.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.itstest.textselection.BookActivity;
+import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.adapter.BookmarkAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.ui.EmptyRecyclerView;
+import com.itstest.textselection.ui.RecyclerItemClickListener;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.util.List;
 
@@ -23,7 +29,8 @@ public class VersesBookmarkFragment extends Fragment {
     char lang;
     int color;
     private BookmarkAdapter adapter;
-    RecyclerView recyclerView ;
+    EmptyRecyclerView recyclerView ;
+    List<Verse> databookmark;
     LinearLayoutManager linearLayoutManager;
     private static VersesBookmarkFragment instance;
     public static VersesBookmarkFragment newInstance(char lang,int color)
@@ -44,7 +51,8 @@ public class VersesBookmarkFragment extends Fragment {
     }
 
     private void init(View view) {
-        recyclerView=(RecyclerView)view.findViewById(R.id.list_verses);
+        recyclerView=(EmptyRecyclerView)view.findViewById(R.id.list_verses);
+        recyclerView.setEmptyView(view.findViewById(R.id.no_data));
         linearLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -52,7 +60,7 @@ public class VersesBookmarkFragment extends Fragment {
 
         DatabaseHelper db=new DatabaseHelper(getActivity());
         try {
-            List<Verse> databookmark= db.getBookMarkVerse(lang);
+            databookmark= db.getBookMarkVerse(lang);
             adapter=new BookmarkAdapter(getActivity(),databookmark,lang,color);
             recyclerView.setAdapter(adapter);
 
@@ -60,5 +68,14 @@ public class VersesBookmarkFragment extends Fragment {
             e.printStackTrace();
         }
         db.close();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                CommanMethod.versesBookmark=databookmark.get(position);
+                startActivity(new Intent(getActivity(), BookActivity.class).putExtra(BookActivity.lang, lang)
+                        .putExtra(MainActivity.COLOR, color).putExtra(BookActivity.isVersesBookMark,true));
+            }
+        }));
     }
 }

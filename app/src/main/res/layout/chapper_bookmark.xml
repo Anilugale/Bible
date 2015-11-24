@@ -9,18 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-
+        <com.itstest.textselection.ui.EmptyRecyclerView
             android:layout_margin="5dp"
             android:id="@+id/list_verses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/no_data"
+            android:visibility="gone"
+            android:textColor="#ff4d44"
+            android:text="No Data Found"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-
-
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 </LinearLayout>

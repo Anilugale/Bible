@@ -1,5 +1,6 @@
 package com.itstest.textselection;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import com.itstest.textselection.adapter.ChapterAdapter;
 import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ChapterActivity extends AppCompatActivity {
     public static String BOOK_ID="bookId";
     public static String CHAPTER_ID="CHAPTER_ID";
     private ChapterAdapter storyAdapter;
-
+    boolean ischapter_book;
     RecyclerView recyclerView ;
     LinearLayoutManager linearLayoutManager;
     @Override
@@ -40,24 +42,38 @@ public class ChapterActivity extends AppCompatActivity {
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
 
+        ischapter_book = getIntent().getBooleanExtra(BookActivity.isChapterBookmark,false);
+
 
         DatabaseHelper db=new DatabaseHelper(this);
         try {
 
             List<Verse> dataStory =db.getChapter(bookId,lang);
             if(dataStory.size()>0){
-            storyAdapter = new ChapterAdapter(this, dataStory,lang,bookId,getIntent().getIntExtra(MainActivity.COLOR,0));
-            recyclerView.setAdapter(storyAdapter);
-        }
-        else {
-            Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+                storyAdapter = new ChapterAdapter(this, dataStory,lang,bookId,getIntent().getIntExtra(MainActivity.COLOR,0));
+                recyclerView.setAdapter(storyAdapter);
+            }
+            else {
+                Toast.makeText(this, "Error in loading please try again...", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         db.close();
+
+        if(ischapter_book)
+        {
+            startActivity(new Intent(this, VersesActivity.class)
+                    .putExtra(VersesActivity.BOOK_ID, CommanMethod.bookmarkCahpter.getBook_id())
+                    .putExtra(BookActivity.lang, lang)
+                    .putExtra(MainActivity.COLOR, getIntent().getIntExtra(MainActivity.COLOR,0))
+                    .putExtra(ChapterActivity.CHAPTER_ID,CommanMethod.bookmarkCahpter.getChapter_id()));
+            CommanMethod.bookmarkCahpter=null;
+        }
     }
 
 

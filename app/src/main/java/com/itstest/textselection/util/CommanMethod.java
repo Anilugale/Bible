@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 
 
+import com.itstest.textselection.model.ChapterBookmark;
+import com.itstest.textselection.model.Verse;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,8 +21,10 @@ import java.util.List;
 public  class CommanMethod {
 
 
+    public static ChapterBookmark bookmarkCahpter;
+    public static Verse versesBookmark;
 
- public static void share(Context context,String shareSting)
+    public static void share(Context context,String shareSting)
  {
      Intent shareIntent = new Intent();
      shareIntent.setAction(Intent.ACTION_SEND);

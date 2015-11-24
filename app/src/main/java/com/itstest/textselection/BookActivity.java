@@ -16,6 +16,7 @@ import com.itstest.textselection.adapter.BookAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Chapter;
 import com.itstest.textselection.model.Search;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,8 +27,11 @@ public class BookActivity extends AppCompatActivity {
     LinearLayoutManager  linearLayoutManager;
     char langugae;
     int color;
+    boolean ischapter_book,isVerses_BookMark;
 
     public static String lang="lang";
+    public static String isChapterBookmark="isChapterBookmark";
+    public static String isVersesBookMark="isVersesBookMark";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +44,29 @@ public class BookActivity extends AppCompatActivity {
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
 
-        langugae = getIntent().getCharExtra(lang,'x');
+        langugae = getIntent().getCharExtra(lang, 'x');
+        ischapter_book = getIntent().getBooleanExtra(isChapterBookmark, false);
+        isVerses_BookMark = getIntent().getBooleanExtra(isVersesBookMark,false);
+
+
 
       loadData();
+        if(ischapter_book)
+        {
+            startActivity(new Intent(this, ChapterActivity.class)
+                    .putExtra(VersesActivity.BOOK_ID, CommanMethod.bookmarkCahpter.getBook_id()
+                    ).putExtra(MainActivity.COLOR, color)
+                    .putExtra(isChapterBookmark,true)
+                    .putExtra(BookActivity.lang, lang));
+        }
+        if(isVerses_BookMark)
+        {
+           /* startActivity(new Intent(this, ChapterActivity.class)
+                    .putExtra(VersesActivity.BOOK_ID, CommanMethod.ver.getBook_id()
+                    ).putExtra(MainActivity.COLOR, color)
+                    .putExtra(isChapterBookmark,true)
+                    .putExtra(BookActivity.lang, lang));*/
+        }
     }
 
     private void loadData() {
