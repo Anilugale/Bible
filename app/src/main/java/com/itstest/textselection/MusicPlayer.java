@@ -214,7 +214,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
     private void playMusic(final String url) {
         fab.setText("Pause");
-        pd=ProgressDialog.show(this,"","Loading",true,false);
+        pd=ProgressDialog.show(this,"","Please wait… Fetching Devotions…",true,false);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -1,5 +1,6 @@
 package com.itstest.textselection;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.util.List;
 
@@ -89,6 +91,20 @@ public class VersesActivity extends AppCompatActivity {
         }
         db.close();
 
+
+        if(CommanMethod.isVerses_BookMark && dataStory!=null)
+        {
+            int i=0;
+            for (Verse v:dataStory) {
+
+                if(CommanMethod.versesBookmark.getVerses_id()==v.getVerses_id())
+                {
+                    linearLayoutManager.scrollToPosition(i);
+                    break;
+                }
+                i++;
+            }
+        }
 
 
     }

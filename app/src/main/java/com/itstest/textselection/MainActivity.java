@@ -2,6 +2,7 @@ package com.itstest.textselection;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.lang5).setOnClickListener(this);
         findViewById(R.id.lang6).setOnClickListener(this);
         findViewById(R.id.lang7).setOnClickListener(this);
+        findViewById(R.id.contact_us).setOnClickListener(this);
+        findViewById(R.id.email_us).setOnClickListener(this);
 
         if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 
@@ -113,6 +116,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 .putExtra(MainActivity.COLOR, ContextCompat.getColor(this, R.color.seven))
                 );
                 break;
+
+            case  R.id.contact_us:
+
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:+91  9822915522" ));
+                startActivity(callIntent);
+                break;
+            case  R.id.email_us:
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","ss12r06@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                break;
+
 
         }
 
