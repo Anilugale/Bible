@@ -37,8 +37,8 @@ public class BookmarkActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setBackgroundColor(color);
-        tabLayout.addTab(tabLayout.newTab().setText("Chapter Bookmark"));
-        tabLayout.addTab(tabLayout.newTab().setText("Verses Bookmark"));
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Chapters"));
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Verses"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

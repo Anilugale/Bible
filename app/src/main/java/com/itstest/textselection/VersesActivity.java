@@ -133,7 +133,7 @@ public class VersesActivity extends AppCompatActivity {
                 storyAdapter.notifyDataSetChanged();
                 break;
             case R.id.bookmark:
-                Toast.makeText(this, "marked as bookmarked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "marked as Save Chapter", Toast.LENGTH_SHORT).show();
                 DatabaseHelper db=new DatabaseHelper(this);
                 if(dataStory!=null)
                     db.makeChapterBookmark(bookId,chapterId,lang);

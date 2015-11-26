@@ -26,43 +26,6 @@
         android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.CardView
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:descendantFocusability="blocksDescendants"
-            android:gravity="center_vertical"
-
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            card_view:cardElevation="2dp"
-            card_view:cardBackgroundColor="@android:color/white"
-            card_view:cardCornerRadius="4dp">
-            <RelativeLayout
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/contact_us"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/primary_text_material_light"
-                    android:text="Contact No. - +91  9822915522"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/email_us"
-                    android:layout_below="@+id/contact_us"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/primary_text_material_light"
-                    android:text="  Email ID  -  ss12r06@gmail.com"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
         <ScrollView
 
             android:layout_margin="@dimen/margin_chapter"
@@ -74,7 +37,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <android.support.v7.widget.CardView
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:descendantFocusability="blocksDescendants"
+                    android:gravity="center_vertical"
 
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    card_view:cardElevation="2dp"
+                    card_view:cardBackgroundColor="@android:color/white"
+                    card_view:cardCornerRadius="4dp">
+                    <RelativeLayout
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/contact_us"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/primary_text_material_light"
+                            android:text="Contact No. - +91  9822915522"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/email_us"
+                            android:layout_below="@+id/contact_us"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/primary_text_material_light"
+                            android:text="  Email ID  -  ss12r06@gmail.com"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"

@@ -212,6 +212,12 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "Please wait... Getting Podcast..", Toast.LENGTH_SHORT).show();
+    }
+
     private void playMusic(final String url) {
         fab.setText("Pause");
         pd=ProgressDialog.show(this,"","Please wait… Fetching Devotions…",true,false);
@@ -360,7 +366,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
 
-        if (back == 2) {
+        if (back == 3) {
 
             if(mediaPlayer.isPlaying())
                 mediaPlayer.stop();

@@ -10,8 +10,8 @@
     <string name="font1">A+</string>
     <string name="font2">A++</string>
     <string name="font3">A+++</string>
-    <string name="podcast">Listen </string>
-    <string name="bookmark">Bookmark</string>
+    <string name="podcast">Devotions </string>
+    <string name="bookmark">Bookmarks</string>
     <string name="search">Search</string>
     <string name="title_activity_choose">ChooseActivity</string>
     <string name="title_activity_music_plaer">MusicPlaer</string>

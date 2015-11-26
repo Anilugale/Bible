@@ -129,7 +129,7 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
                 break;
 
             case  R.id.bookmark:
-                Toast.makeText(getActivity(), "Saving Bookmark...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Verse Saved", Toast.LENGTH_SHORT).show();
                 int update=0;
                 if(verse.getBookmar()==0)
                     update=1;

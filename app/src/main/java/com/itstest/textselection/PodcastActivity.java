@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -58,7 +59,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         }
     };
     private boolean playPause;
-    ProgressBar progress;
+    RelativeLayout progress;
 
 
     private boolean intialStage = true;
@@ -76,7 +77,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
         floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
-        progress=(ProgressBar) findViewById(R.id.progress);
+        progress=(RelativeLayout) findViewById(R.id.progress);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
