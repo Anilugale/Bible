@@ -30,6 +30,7 @@ public class BookActivity extends AppCompatActivity {
 
 
     public static String lang="lang";
+    public static String book_name="book_name";
     public static String isChapterBookmark="isChapterBookmark";
     public static String isVersesBookMark="isVersesBookMark";
     @Override

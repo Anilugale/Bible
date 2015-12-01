@@ -47,8 +47,9 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     private char lang;
     private int lastPosition = -1;
     private int color;
+    String book_name;
 
-    public ChapterAdapter(ChapterActivity context, List<Verse> par, char lang,int book_id,int color) {
+    public ChapterAdapter(ChapterActivity context, List<Verse> par, char lang,int book_id,int color, String book_name) {
         this.context = context;
         this.mLst = par;
         this.mLst_bk=new ArrayList<>();
@@ -56,6 +57,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
         this.lang=lang;
         this.book_id=book_id;
         this.color=color;
+        this.book_name=book_name;
     }
 
 
@@ -89,6 +91,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
                         .putExtra(VersesActivity.BOOK_ID, book_id)
                         .putExtra(BookActivity.lang, lang)
                         .putExtra(MainActivity.COLOR, color)
+                        .putExtra(BookActivity.book_name,book_name)
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getId()));
             }
         });

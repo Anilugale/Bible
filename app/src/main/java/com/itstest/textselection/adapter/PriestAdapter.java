@@ -93,8 +93,9 @@ public class PriestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
           PriestAdapter.ViewHolder  holder1=(PriestAdapter.ViewHolder) holder;
 
-          holder1.gdName.setText(mLst.get(position).getPr_name());
-          holder1.singerName.setText("");
+          holder1.gdName.setText(mLst.get(position).getPr_title()
+          );
+          holder1.singerName.setText(mLst.get(position).getPr_name());
           holder1.gdName.setTextColor(color);
           holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
               @Override

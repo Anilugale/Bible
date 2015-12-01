@@ -51,7 +51,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
         }
     };
     private boolean playPause;
-    RelativeLayout progress;
+
 
 
     private boolean intialStage = true;
@@ -69,7 +69,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
        // floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
-        progress=(RelativeLayout) findViewById(R.id.progress);
+
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
@@ -119,13 +119,13 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
     }
 
     public void setError() {
-        progress.setVisibility(View.GONE);
+
         recyclerView.setVisibility(View.GONE);
         error.setVisibility(View.VISIBLE);
     }
 
     private void setData() {
-        progress.setVisibility(View.GONE);
+
         recyclerView.setVisibility(View.VISIBLE);
         PriestAdapter storyAdapter = new PriestAdapter(this, dataPodcast,lang,color);
         recyclerView.setAdapter(storyAdapter);

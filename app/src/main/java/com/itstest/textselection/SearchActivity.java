@@ -7,8 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itstest.textselection.adapter.ChapterAdapter;
@@ -47,6 +50,16 @@ public class SearchActivity extends AppCompatActivity {
         searchEdt=(EditText) findViewById(R.id.searchEdt);
         db=new DatabaseHelper(this);
 
+        searchEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search(searchEdt);
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 

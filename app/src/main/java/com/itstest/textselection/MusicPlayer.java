@@ -26,9 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MusicPlayer extends AppCompatActivity implements View.OnClickListener {
 
-
-
-    static int back = 0;
+   static int back = 0;
     public static Music music;
     public static char lang;
     boolean isPause;

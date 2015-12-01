@@ -32,12 +32,13 @@ public class VersesActivity extends AppCompatActivity {
     List<Verse> dataStory;
     int bookId,chapterId;
     char lang;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verses);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-        String name=getIntent().getStringExtra("tittle");
+        name=getIntent().getStringExtra(BookActivity.book_name);
         toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
         bookId=getIntent().getIntExtra(BOOK_ID, 0);
         chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
@@ -134,7 +135,7 @@ public class VersesActivity extends AppCompatActivity {
                 break;
             case R.id.bookmark:
                 if(dataStory!=null) {
-                    Toast.makeText(this, "marked as Chapter "+dataStory.get(0).getChapter_id()+" Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, name+" "+dataStory.get(0).getChapter_id()+" Saved", Toast.LENGTH_SHORT).show();
                     DatabaseHelper db = new DatabaseHelper(this);
                     if (dataStory != null)
                         db.makeChapterBookmark(bookId, chapterId, lang);

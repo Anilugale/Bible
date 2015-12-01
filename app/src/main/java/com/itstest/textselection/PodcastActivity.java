@@ -60,7 +60,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         }
     };
     private boolean playPause;
-    RelativeLayout progress;
+
 
 
     private boolean intialStage = true;
@@ -78,7 +78,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
         floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
-        progress=(RelativeLayout) findViewById(R.id.progress);
+
         pd=ProgressDialog.show(this,"","Please Wait. fetching devotions..",true,false);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -102,7 +102,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
 
     private void downloadMusicData() {
 
-        NetworkRequest.SimpleJsonRequest(this, new JSONObject(), NetworkRequest.SongSrc + "?index=1&language="+ CommanMethod.languageCode(lang), this, RequestCodePodcast, 1);
+        NetworkRequest.SimpleJsonRequest(this, new JSONObject(), NetworkRequest.SongSrc + "?index=1&id="+id+"&language="+ CommanMethod.languageCode(lang), this, RequestCodePodcast, 1);
     }
 
 
@@ -131,13 +131,13 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     }
 
     public void setError() {
-        progress.setVisibility(View.GONE);
+
         recyclerView.setVisibility(View.GONE);
         error.setVisibility(View.VISIBLE);
     }
 
     private void setData() {
-        progress.setVisibility(View.GONE);
+
         recyclerView.setVisibility(View.VISIBLE);
         PodcastAdapter storyAdapter = new PodcastAdapter(this, dataPodcast,lang,color);
         recyclerView.setAdapter(storyAdapter);
