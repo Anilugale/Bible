@@ -20,9 +20,7 @@ import java.util.List;
 public class BookmarkActivity extends AppCompatActivity {
 
 
-    private BookmarkAdapter adapter;
-    RecyclerView recyclerView ;
-    LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +85,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_verses, menu);
         return true;
@@ -113,7 +111,33 @@ public class BookmarkActivity extends AppCompatActivity {
 
         }
         return  true;
+    }*//* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_verses, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId())
+        {
+            case R.id.font1:
+                adapter.setFont(1);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.font2:
+                adapter.setFont(2);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.font3:
+                adapter.setFont(3);
+                adapter.notifyDataSetChanged();
+                break;
+
+        }
+        return  true;
+    }*/
 
 
 

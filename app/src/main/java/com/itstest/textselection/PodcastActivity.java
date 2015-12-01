@@ -48,6 +48,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     int RequestCodePodcast=121212;
     List<Music> dataPodcast;
     TextView error;
+    ProgressDialog pd;
 
     private String downloadCompleteIntentName = DownloadManager.ACTION_DOWNLOAD_COMPLETE;
     private IntentFilter downloadCompleteIntentFilter = new IntentFilter(downloadCompleteIntentName);
@@ -78,6 +79,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
         progress=(RelativeLayout) findViewById(R.id.progress);
+        pd=ProgressDialog.show(this,"","Please Wait. fetching devotions..",true,false);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
@@ -108,6 +110,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     @Override
     public void success(JSONArray response, int responseCode) {
 
+        pd.dismiss();
         if(RequestCodePodcast==responseCode)
         {
             System.out.println(response.toString());
@@ -122,7 +125,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     }
     @Override
     public void failer(VolleyError response, int responseCode) {
-
+        pd.dismiss();
         setError();
         response.printStackTrace();
     }

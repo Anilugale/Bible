@@ -15,6 +15,7 @@ public class Verse {
     private int chapter_id;
     private int verses_id;
 
+
     public int getColor() {
         return color;
     }

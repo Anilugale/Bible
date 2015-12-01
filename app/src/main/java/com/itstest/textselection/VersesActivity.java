@@ -133,12 +133,14 @@ public class VersesActivity extends AppCompatActivity {
                 storyAdapter.notifyDataSetChanged();
                 break;
             case R.id.bookmark:
-                Toast.makeText(this, "marked as Save Chapter", Toast.LENGTH_SHORT).show();
-                DatabaseHelper db=new DatabaseHelper(this);
-                if(dataStory!=null)
-                    db.makeChapterBookmark(bookId,chapterId,lang);
+                if(dataStory!=null) {
+                    Toast.makeText(this, "marked as Chapter "+dataStory.get(0).getChapter_id()+" Saved", Toast.LENGTH_SHORT).show();
+                    DatabaseHelper db = new DatabaseHelper(this);
+                    if (dataStory != null)
+                        db.makeChapterBookmark(bookId, chapterId, lang);
 
-                db.close();
+                    db.close();
+                }
                 break;
 
         }
@@ -147,7 +149,10 @@ public class VersesActivity extends AppCompatActivity {
 
 
 
-    public void onResumeList() {
+    public void onResumeList(int position,int color) {
+
+        System.out.println(color+"color");
+        dataStory.get(position).setColor(color);
         storyAdapter.notifyDataSetChanged();
     }
 }

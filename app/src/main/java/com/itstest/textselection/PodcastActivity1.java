@@ -1,6 +1,7 @@
 package com.itstest.textselection;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +40,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
     int RequestCodePodcast=121212;
     List<Priest> dataPodcast;
     TextView error;
-
+    ProgressDialog pd;
     private String downloadCompleteIntentName = DownloadManager.ACTION_DOWNLOAD_COMPLETE;
     private IntentFilter downloadCompleteIntentFilter = new IntentFilter(downloadCompleteIntentName);
     private BroadcastReceiver downloadCompleteReceiver = new BroadcastReceiver() {
@@ -64,7 +65,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast);
 
-
+        pd=ProgressDialog.show(this,"","Please Wait. fetching devotions..",true,false);
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
        // floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
@@ -97,7 +98,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
 
     @Override
     public void success(JSONArray response, int responseCode) {
-
+        pd.dismiss();
         if(RequestCodePodcast==responseCode)
         {
             System.out.println(response.toString());
@@ -112,7 +113,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
     }
     @Override
     public void failer(VolleyError response, int responseCode) {
-
+        pd.dismiss();
         setError();
         response.printStackTrace();
     }

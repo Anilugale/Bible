@@ -220,7 +220,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
     private void playMusic(final String url) {
         fab.setText("Pause");
-        pd=ProgressDialog.show(this,"","Please wait… Fetching Devotions…",true,false);
+        pd=ProgressDialog.show(this,"","Audio will start shortly",true,false);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -366,7 +366,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
 
-        if (back == 3) {
+        if (back == 1) {
 
             if(mediaPlayer.isPlaying())
                 mediaPlayer.stop();

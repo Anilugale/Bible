@@ -37,6 +37,7 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
     private Verse verse;
     ImageView bookmark_icon;
     char lang;
+    int position;
     DatabaseHelper db;
 
     public ShareDialog() { }
@@ -69,6 +70,8 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
             public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
                 Log.d("Anil", "onCreateActionMode");
                 menu.removeItem(android.R.id.selectAll);
+                menu.removeItem(android.R.id.copy);
+                menu.clear();
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.style, menu);
                 return true;
@@ -93,12 +96,43 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         verseName.setText(ssb);
                         db=new DatabaseHelper(getActivity());
-                        db.updateHightLight(lang, verse.getId(), start, end);
+                        db.updateHightLight(lang, verse.getId(), start, end,1);
                         verse.setStart(start);
                         verse.setEnd(end);
-                        ((VersesActivity)getActivity()).onResumeList();
+                        ((VersesActivity)getActivity()).onResumeList(position,1);
                         db.close();
-                       return true;
+
+                    break;
+                    case R.id.hightlight1:
+                        verseName.setText(ssb);
+                        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(getActivity(), R.color.fifth)),
+                                start,
+                                end,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        verseName.setText(ssb);
+                        db=new DatabaseHelper(getActivity());
+                        db.updateHightLight(lang, verse.getId(), start, end,2);
+                        verse.setStart(start);
+                        verse.setEnd(end);
+                        ((VersesActivity)getActivity()).onResumeList(position,2);
+                        db.close();
+
+                    break;
+                    case R.id.hightlight2:
+                        verseName.setText(ssb);
+                        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(getActivity(), R.color.six)),
+                                start,
+                                end,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        verseName.setText(ssb);
+                        db=new DatabaseHelper(getActivity());
+                        db.updateHightLight(lang, verse.getId(), start, end,3);
+                        verse.setStart(start);
+                        verse.setEnd(end);
+                        ((VersesActivity)getActivity()).onResumeList(position,3);
+                        db.close();
+
+                        break;
                 }
                 return false;
             }
@@ -108,10 +142,11 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener 
         return view;
     }
 
-    public void setData(Verse verse,char lang) {
+    public void setData(Verse verse,char lang,int position ) {
 
         this.verse=verse;
         this.lang=lang;
+        this.position=position;
 
     }
 

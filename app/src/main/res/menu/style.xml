@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/hightlight"
-        app:showAsAction="always"
+        yourapp:showAsAction="always"
         android:icon="@mipmap/ic_hightlight"
-        android:title="Italic"/>
+        android:title=""/>
+    <item android:id="@+id/hightlight1"
+        yourapp:showAsAction="always"
+        android:icon="@mipmap/h1"
+        android:title=""/>
+    <item android:id="@+id/hightlight2"
+        yourapp:showAsAction="always"
+        android:icon="@mipmap/h2"
+        android:title=""/>
+
 
 </menu>

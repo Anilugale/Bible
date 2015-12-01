@@ -94,25 +94,38 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(mLst.get(position));
+                showDialog(mLst.get(position),position);
             }
         });
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(mLst.get(position));
+                showDialog(mLst.get(position),position);
             }
         });
 
 
-
-
         SpannableStringBuilder ssb = new SpannableStringBuilder(mLst.get(position).getName());
         holder.gdName.setText(ssb);
-        ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, R.color.holo_orange_light)),
-                mLst.get(position).getStart(),
-                mLst.get(position).getEnd(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Log.e("color",mLst.get(position).getColor()+"");
+        if(   mLst.get(position).getColor()==1) {
+            ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, R.color.holo_orange_light)),
+                    mLst.get(position).getStart(),
+                    mLst.get(position).getEnd(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else
+        if(mLst.get(position).getColor()==2) {
+            ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, R.color.fifth)),
+                    mLst.get(position).getStart(),
+                    mLst.get(position).getEnd(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }else
+      {
+            ssb.setSpan(new BackgroundColorSpan(ContextCompat.getColor(context, R.color.six)),
+                    mLst.get(position).getStart(),
+                    mLst.get(position).getEnd(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         holder.gdName.setText(ssb);
 
     }
@@ -149,11 +162,11 @@ public class VersesAdapter extends RecyclerView.Adapter<VersesAdapter.ViewHolder
 
 
 
-    void showDialog(Verse verse)
+    void showDialog(Verse verse,int i)
     {
         FragmentManager fm = context.getSupportFragmentManager();
         ShareDialog editNameDialog = new ShareDialog();
-        editNameDialog.setData(verse,lang);
+        editNameDialog.setData(verse,lang,i);
         editNameDialog.show(fm, "fragment_dialog");
     }
     public  void filter(String data)

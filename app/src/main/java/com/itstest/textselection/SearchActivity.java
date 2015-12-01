@@ -51,11 +51,16 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(View view) {
-        List<Search> data=db.getSearch(lang,searchEdt.getText().toString().trim());
 
-        if(data.size()>0){
-            storyAdapter = new SearchAdapter(SearchActivity.this, data,lang,getIntent().getIntExtra(MainActivity.COLOR,0));
-            recyclerView.setAdapter(storyAdapter);
+        if(searchEdt.getText().length()>3) {
+            List<Search> data = db.getSearch(lang, searchEdt.getText().toString().trim());
+
+            if (data.size() > 0) {
+                storyAdapter = new SearchAdapter(SearchActivity.this, data, lang, getIntent().getIntExtra(MainActivity.COLOR, 0));
+                recyclerView.setAdapter(storyAdapter);
+            }
         }
+        else
+            Toast.makeText(SearchActivity.this, "Enter At lest 3 characters", Toast.LENGTH_SHORT).show();
     }
 }
