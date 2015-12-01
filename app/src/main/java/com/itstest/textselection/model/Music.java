@@ -18,6 +18,16 @@ public class Music
 
     private String url;
 
+    public String getDate_added() {
+        return date_added;
+    }
+
+    public void setDate_added(String date_added) {
+        this.date_added = date_added;
+    }
+
+    private String date_added;
+
     public String getSinger_mobile_no ()
     {
         return singer_mobile_no;

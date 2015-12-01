@@ -93,6 +93,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
           holder1.gdName.setText(mLst.get(position).getName());
           holder1.singerName.setText(mLst.get(position).getSinger_name());
+          holder1.date.setText(mLst.get(position).getDate_added());
+          holder1.date.setVisibility(View.VISIBLE);
           holder1.gdName.setTextColor(color);
           holder1.relativeLayout.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -153,7 +155,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     static class ViewHolder extends  RecyclerView.ViewHolder
     {
 
-        protected TextView gdName,singerName;
+        protected TextView gdName,singerName,date;
         protected CardView relativeLayout;
 
         public ViewHolder(View itemView) {
@@ -162,6 +164,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             relativeLayout=(CardView) itemView.findViewById(R.id.goodies_list_item);
             gdName = (TextView) itemView.findViewById(R.id.gdName);
             singerName = (TextView) itemView.findViewById(R.id.singerName);
+            date = (TextView) itemView.findViewById(R.id.date);
 
 
         }
