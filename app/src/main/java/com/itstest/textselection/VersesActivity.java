@@ -1,6 +1,9 @@
 package com.itstest.textselection;
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,19 +37,23 @@ public class VersesActivity extends AppCompatActivity {
     int bookId,chapterId;
     char lang;
     String name;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verses);
-        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
         name=getIntent().getStringExtra(BookActivity.book_name);
-        toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
+        final int color=getIntent().getIntExtra(MainActivity.COLOR, 0);
+        toolbar.setBackgroundColor(color);
         bookId=getIntent().getIntExtra(BOOK_ID, 0);
         chapterId=getIntent().getIntExtra(CHAPTER_ID,0);
         lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         V_ID=getIntent().getIntExtra("V_ID", 0);
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
-        searchEdt=(EditText) findViewById(R.id.searchEdt);
+  /*      searchEdt=(EditText) findViewById(R.id.searchEdt);
 
         searchEdt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,7 +72,7 @@ public class VersesActivity extends AppCompatActivity {
                 storyAdapter.filter(searchEdt.getText().toString().trim());
 
             }
-        });
+        });*/
         linearLayoutManager=new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -107,6 +115,87 @@ public class VersesActivity extends AppCompatActivity {
             }
         }
 
+        //Initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()){
+
+                    case R.id.language:
+                        Toast.makeText(getApplicationContext(),"language",Toast.LENGTH_SHORT).show();
+                        Intent a = new Intent(VersesActivity.this,MainActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(a);
+                        break;
+                    case R.id.music:
+                        startActivity(new Intent(VersesActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bookmark:
+                        startActivity(new Intent(VersesActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bible:
+                        /*startActivity(new Intent(BookActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();*/
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.search:
+                        startActivity(new Intent(VersesActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+
+
+                }
+                return true;
+            }
+        });
+
+        // Initializing Drawer Layout and ActionBarToggle
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.font1, R.string.font1){
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessay or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
 
     }
 

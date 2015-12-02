@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.itstest.textselection.adapter.BookAdapter;
 import com.itstest.textselection.adapter.ChapterAdapter;
 import com.itstest.textselection.adapter.VersesAdapter;
 import com.itstest.textselection.database.DatabaseHelper;
@@ -39,9 +40,10 @@ public class ChapterActivity extends AppCompatActivity {
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         name=getIntent().getStringExtra(BookActivity.book_name);
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);
-        toolbar.setBackgroundColor(getIntent().getIntExtra(MainActivity.COLOR,0));
+        final int color=getIntent().getIntExtra(MainActivity.COLOR, 0);
+        toolbar.setBackgroundColor(color);
 
-        char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
+       final char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -113,13 +115,41 @@ public class ChapterActivity extends AppCompatActivity {
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()){
 
-
+                    case R.id.language:
+                        Toast.makeText(getApplicationContext(),"language",Toast.LENGTH_SHORT).show();
+                        Intent a = new Intent(ChapterActivity.this,MainActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(a);
+                        break;
+                    case R.id.music:
+                        startActivity(new Intent(ChapterActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                                  Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bookmark:
+                        startActivity(new Intent(ChapterActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bible:
+                        startActivity(new Intent(ChapterActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.search:
+                        startActivity(new Intent(ChapterActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        break;
 
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
-                        return true;
+
 
                 }
+                return true;
             }
         });
 

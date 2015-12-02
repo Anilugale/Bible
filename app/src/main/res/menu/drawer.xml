@@ -4,18 +4,32 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/inbox"
+            android:id="@+id/language"
             android:checked="false"
-            android:icon="@drawable/ic_share"
-            android:title="share" />
+            android:icon="@drawable/language"
+            android:title="Language" />
 
         <item
-            android:id="@+id/starred"
+            android:id="@+id/music"
             android:checked="false"
-            android:icon="@drawable/ic_share"
-            android:title="share" />
+            android:icon="@drawable/music"
+            android:title="Listen" />
+        <item
+            android:id="@+id/bookmark"
+            android:checked="false"
+            android:icon="@drawable/bookmark_icon"
+            android:title="Bookmarks" />
+        <item
+            android:id="@+id/bible"
+            android:checked="false"
+            android:icon="@drawable/bible_icon"
+            android:title="Bible" />
 
-
+        <item
+            android:id="@+id/search"
+            android:checked="false"
+            android:icon="@mipmap/ic_search"
+            android:title="Search" />
 
     </group>
 </menu>
