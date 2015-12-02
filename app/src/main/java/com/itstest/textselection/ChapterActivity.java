@@ -140,8 +140,8 @@ public class ChapterActivity extends AppCompatActivity {
                     case R.id.search:
                         startActivity(new Intent(ChapterActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
-                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+
                         break;
 
                     default:

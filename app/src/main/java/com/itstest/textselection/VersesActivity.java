@@ -31,7 +31,7 @@ public class VersesActivity extends AppCompatActivity {
     private VersesAdapter storyAdapter;
     int V_ID;
     RecyclerView recyclerView ;
-    EditText searchEdt;
+
     LinearLayoutManager linearLayoutManager;
     List<Verse> dataStory;
     int bookId,chapterId;
@@ -161,8 +161,8 @@ public class VersesActivity extends AppCompatActivity {
                     case R.id.search:
                         startActivity(new Intent(VersesActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
-                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
