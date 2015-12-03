@@ -1,14 +1,20 @@
 package com.itstest.textselection;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.itstest.textselection.adapter.BookmarkAdapter;
 import com.itstest.textselection.adapter.PagerAdapter;
@@ -20,18 +26,19 @@ import java.util.List;
 public class BookmarkActivity extends AppCompatActivity {
 
 
-
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
-        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-        String name=getIntent().getStringExtra("tittle");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        String name = getIntent().getStringExtra("tittle");
         toolbar.setTitle(name);
-        int color=getIntent().getIntExtra(MainActivity.COLOR, 0);
+        final int color = getIntent().getIntExtra(MainActivity.COLOR, 0);
         toolbar.setBackgroundColor(color);
         setSupportActionBar(toolbar);
-        char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
+        final char lang = getIntent().getCharExtra(BookActivity.lang, 'X');
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setBackgroundColor(color);
@@ -41,7 +48,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(),lang,color);
+                (getSupportFragmentManager(), lang, color);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -62,83 +69,89 @@ public class BookmarkActivity extends AppCompatActivity {
         });
 
 
+        //Initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation);
 
-       /* recyclerView=(RecyclerView)findViewById(R.id.list_verses);
-        linearLayoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-         int color=getIntent().getIntExtra(MainActivity.COLOR,0);
-        toolbar.setBackgroundColor(color);
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-        DatabaseHelper db=new DatabaseHelper(this);
-        try {
-            List<Verse> databookmark= db.getBookMarkVerse(lang);
-            adapter=new BookmarkAdapter(this,databookmark,lang,color);
-            recyclerView.setAdapter(adapter);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        db.close();
-*/
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
 
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()){
+
+                    case R.id.language:
+                        Toast.makeText(getApplicationContext(),"language",Toast.LENGTH_SHORT).show();
+                        Intent a = new Intent(BookmarkActivity.this,MainActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(a);
+                        break;
+                    case R.id.music:
+                        startActivity(new Intent(BookmarkActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bookmark:
+                        startActivity(new Intent(BookmarkActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bible:
+                       /* startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();*/
+                        break;
+                    case R.id.search:
+                        startActivity(new Intent(BookmarkActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    default:
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+
+
+                }
+                return true;
+            }
+        });
+
+        // Initializing Drawer Layout and ActionBarToggle
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.font1, R.string.font1){
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessay or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
 
     }
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_verses, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch(item.getItemId())
-        {
-            case R.id.font1:
-                adapter.setFont(1);
-                adapter.notifyDataSetChanged();
-                break;
-            case R.id.font2:
-                adapter.setFont(2);
-                adapter.notifyDataSetChanged();
-                break;
-            case R.id.font3:
-                adapter.setFont(3);
-                adapter.notifyDataSetChanged();
-                break;
-
-        }
-        return  true;
-    }*//* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_verses, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch(item.getItemId())
-        {
-            case R.id.font1:
-                adapter.setFont(1);
-                adapter.notifyDataSetChanged();
-                break;
-            case R.id.font2:
-                adapter.setFont(2);
-                adapter.notifyDataSetChanged();
-                break;
-            case R.id.font3:
-                adapter.setFont(3);
-                adapter.notifyDataSetChanged();
-                break;
-
-        }
-        return  true;
-    }*/
-
-
 
 }

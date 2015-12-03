@@ -204,6 +204,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     {
         MusicPlayer.music=verse;
         MusicPlayer.lang=lang;
+        MusicPlayer.color=color;
         context.startActivity(new Intent(context, MusicPlayer.class));
     }
 

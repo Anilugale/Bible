@@ -12,16 +12,21 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
@@ -47,7 +52,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     String id;
     int RequestCodePodcast=121212;
     List<Music> dataPodcast;
-    TextView error;
+ //   TextView error;
     ProgressDialog pd;
 
     private String downloadCompleteIntentName = DownloadManager.ACTION_DOWNLOAD_COMPLETE;
@@ -61,7 +66,8 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     };
     private boolean playPause;
 
-
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
     private boolean intialStage = true;
     FloatingActionButton floatingActionButton;
@@ -76,14 +82,14 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
 
 
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
-        floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
+        //floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);
 
         pd=ProgressDialog.show(this,"","Please Wait. fetching devotions..",true,false);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-        error =(TextView) findViewById(R.id.error);
+
         setSupportActionBar(toolbar);
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
@@ -97,7 +103,87 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         {
             downloadMusicData();
         }
+        //Initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation);
 
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()){
+
+                    case R.id.language:
+                        Toast.makeText(getApplicationContext(),"language",Toast.LENGTH_SHORT).show();
+                        Intent a = new Intent(PodcastActivity.this,MainActivity.class);
+                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(a);
+                        break;
+                    case R.id.music:
+             /*           startActivity(new Intent(PodcastActivity1.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();*/
+                        break;
+                    case R.id.bookmark:
+                        startActivity(new Intent(PodcastActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.bible:
+                        startActivity(new Intent(PodcastActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.search:
+                        startActivity(new Intent(PodcastActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
+                                .putExtra(MainActivity.COLOR, color));
+                        Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    default:
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+
+
+                }
+                return true;
+            }
+        });
+
+        // Initializing Drawer Layout and ActionBarToggle
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.font1, R.string.font1){
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessay or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
     }
 
     private void downloadMusicData() {
@@ -133,7 +219,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     public void setError() {
 
         recyclerView.setVisibility(View.GONE);
-        error.setVisibility(View.VISIBLE);
+     //   error.setVisibility(View.VISIBLE);
     }
 
     private void setData() {
