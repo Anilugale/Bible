@@ -6,7 +6,7 @@
     android:background="#fff"
     android:id="@+id/goodies_list_item"
     android:gravity="center_vertical"
-    android:layout_margin="5dp"
+    android:layout_margin="2dp"
     card_view:cardElevation="2dp"
     card_view:cardCornerRadius="4dp">
     <RelativeLayout

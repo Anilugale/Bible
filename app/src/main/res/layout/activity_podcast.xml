@@ -27,13 +27,30 @@
                 android:background="?attr/colorPrimaryDark"/>
         </android.support.design.widget.AppBarLayout>
 
+        <RelativeLayout
 
+            android:id="@+id/error"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="#f3de040f"
+                android:textStyle="bold"
+                android:text="“No Devotions available” should be displayed."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
         <android.support.v7.widget.RecyclerView
+
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_margin="5dp"
             android:id="@+id/list_podcast"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
+
 
         </android.support.v7.widget.RecyclerView>
 

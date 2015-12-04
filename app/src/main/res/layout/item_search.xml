@@ -7,7 +7,7 @@
     android:id="@+id/goodies_list_item"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
-    android:layout_margin="5dp"
+    android:layout_margin="2dp"
     card_view:cardElevation="2dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"

@@ -87,10 +87,10 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.bible:
-                       /* startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
+                        startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
 
-                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();*/
+                        Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.search:
                         startActivity(new Intent(ChooseActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)

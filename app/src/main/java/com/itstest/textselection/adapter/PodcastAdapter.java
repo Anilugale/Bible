@@ -92,7 +92,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
           PodcastAdapter.ViewHolder  holder1=(PodcastAdapter.ViewHolder) holder;
 
           holder1.gdName.setText(mLst.get(position).getName());
-          holder1.singerName.setText(mLst.get(position).getSinger_name());
+        //  holder1.singerName.setText(mLst.get(position).getSinger_name());
+          holder1.singerName.setVisibility(View.GONE);
           holder1.date.setText(mLst.get(position).getDate_added());
           holder1.date.setVisibility(View.VISIBLE);
           holder1.gdName.setTextColor(color);

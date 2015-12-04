@@ -55,12 +55,6 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
             System.out.println(intent.getExtras());
         }
     };
-    private boolean playPause;
-
-
-
-    private boolean intialStage = true;
-    FloatingActionButton floatingActionButton;
 
     RecyclerView recyclerView ;
     LinearLayoutManager linearLayoutManager;
@@ -209,7 +203,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
     public void setError() {
 
         recyclerView.setVisibility(View.GONE);
-        error.setVisibility(View.VISIBLE);
+        findViewById(R.id.error).setVisibility(View.VISIBLE);
     }
 
     private void setData() {

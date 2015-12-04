@@ -219,7 +219,7 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
     public void setError() {
 
         recyclerView.setVisibility(View.GONE);
-     //   error.setVisibility(View.VISIBLE);
+        findViewById(R.id.error).setVisibility(View.VISIBLE);
     }
 
     private void setData() {
