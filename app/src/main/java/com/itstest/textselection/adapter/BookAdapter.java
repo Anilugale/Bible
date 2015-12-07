@@ -56,7 +56,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
 
-       holder.gdName.setText(mLst.get(position).getName());
+       holder.gdName.setText(mLst.get(position).getName().trim());
         holder.gdName.setTextColor(color);
        holder.gdPoint.setText(mLst.get(position).getChapter_num() + "");
        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

@@ -302,12 +302,12 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "Please wait... Getting Podcast..", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Please wait... Getting Podcast..", Toast.LENGTH_SHORT).show();
     }
 
     private void playMusic(final String url) {
         fab.setText("Pause");
-        pd=ProgressDialog.show(this,"","Audio will start shortly",true,false);
+        pd=ProgressDialog.show(this,"","Please wait while audio starts",true,false);
         new Thread(new Runnable() {
             @Override
             public void run() {

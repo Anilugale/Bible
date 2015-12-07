@@ -2,6 +2,7 @@ package com.itstest.textselection;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,6 +42,7 @@ public class BookActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,8 @@ public class BookActivity extends AppCompatActivity {
 
     private void loadData() {
       final   ProgressDialog pd=ProgressDialog.show(this,"","Loading...",true,false);
+        sp=getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+        sp.edit().putBoolean("isdbopen",true).apply();
 
         new Thread(new Runnable() {
             @Override

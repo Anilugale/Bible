@@ -1,6 +1,7 @@
 package com.itstest.textselection;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -28,6 +29,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,113 +47,123 @@ public class BookmarkActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Saved Chapters"));
         tabLayout.addTab(tabLayout.newTab().setText("Saved Verses"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), lang, color);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        sp = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        if (sp.getBoolean("isdbopen", false)) {
 
 
-        //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navigation);
+            final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+            final PagerAdapter adapter = new PagerAdapter
+                    (getSupportFragmentManager(), lang, color);
+            viewPager.setAdapter(adapter);
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
 
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
 
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
 
 
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if(menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
+            //Initializing NavigationView
+            navigationView = (NavigationView) findViewById(R.id.navigation);
 
-                //Closing drawer on item click
-                drawerLayout.closeDrawers();
+            //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()){
+                // This method will trigger on item Click of navigation menu
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                    case R.id.language:
-                        Toast.makeText(getApplicationContext(),"language",Toast.LENGTH_SHORT).show();
-                        Intent a = new Intent(BookmarkActivity.this,MainActivity.class);
-                        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(a);
-                        break;
-                    case R.id.music:
-                        startActivity(new Intent(BookmarkActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
-                                .putExtra(MainActivity.COLOR, color));
-                        Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.bookmark:
-                        startActivity(new Intent(BookmarkActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
-                                .putExtra(MainActivity.COLOR, color));
-                        Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.bible:
+
+                    //Checking if the item is in checked state or not, if not make it in checked state
+                    if (menuItem.isChecked()) menuItem.setChecked(false);
+                    else menuItem.setChecked(true);
+
+                    //Closing drawer on item click
+                    drawerLayout.closeDrawers();
+
+                    //Check to see which item was being clicked and perform appropriate action
+                    switch (menuItem.getItemId()) {
+
+                        case R.id.language:
+                            Toast.makeText(getApplicationContext(), "language", Toast.LENGTH_SHORT).show();
+                            Intent a = new Intent(BookmarkActivity.this, MainActivity.class);
+                            a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(a);
+                            break;
+                        case R.id.music:
+                            startActivity(new Intent(BookmarkActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
+                                    .putExtra(MainActivity.COLOR, color));
+                            Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.bookmark:
+                            startActivity(new Intent(BookmarkActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
+                                    .putExtra(MainActivity.COLOR, color));
+                            Toast.makeText(getApplicationContext(), "bookmark", Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.bible:
                        /* startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
 
                         Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();*/
-                        break;
-                    case R.id.search:
-                        startActivity(new Intent(BookmarkActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
-                                .putExtra(MainActivity.COLOR, color));
-                        Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.search:
+                            startActivity(new Intent(BookmarkActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
+                                    .putExtra(MainActivity.COLOR, color));
+                            Toast.makeText(getApplicationContext(), "search", Toast.LENGTH_SHORT).show();
 
-                        break;
+                            break;
 
-                    default:
-                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                        default:
+                            Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
 
 
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
 
-        // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.font1, R.string.font1){
+            // Initializing Drawer Layout and ActionBarToggle
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.font1, R.string.font1) {
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                    super.onDrawerClosed(drawerView);
+                }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
 
-                super.onDrawerOpened(drawerView);
-            }
-        };
+                    super.onDrawerOpened(drawerView);
+                }
+            };
 
-        //Setting the actionbarToggle to drawer layout
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+            //Setting the actionbarToggle to drawer layout
+            drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
-        //calling sync state is necessay or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();
+            //calling sync state is necessay or else your hamburger icon wont show up
+            actionBarDrawerToggle.syncState();
 
+        }
+        else
+        {
+            Toast.makeText(BookmarkActivity.this, "Read Bible first", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
+
 
 }

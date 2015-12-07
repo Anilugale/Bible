@@ -13,7 +13,7 @@
             android:id="@+id/music"
             android:checked="false"
             android:icon="@drawable/music"
-            android:title="Listen" />
+            android:title="Devotion" />
         <item
             android:id="@+id/bookmark"
             android:checked="false"

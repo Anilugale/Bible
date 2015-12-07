@@ -66,7 +66,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast);
 
-        pd=ProgressDialog.show(this,"","Please Wait. fetching devotions..",true,false);
+        pd=ProgressDialog.show(this,"","Please wait fetching Priest",true,false);
         registerReceiver(downloadCompleteReceiver, downloadCompleteIntentFilter);
        // floatingActionButton=(FloatingActionButton) findViewById(R.id.myFAB);
         recyclerView=(RecyclerView)findViewById(R.id.list_podcast);

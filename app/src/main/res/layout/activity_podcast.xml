@@ -37,7 +37,7 @@
                 android:layout_centerInParent="true"
                 android:textColor="#f3de040f"
                 android:textStyle="bold"
-                android:text="“No Devotions available” should be displayed."
+                android:text="No Devotions available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
