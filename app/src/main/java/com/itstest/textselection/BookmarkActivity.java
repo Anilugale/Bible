@@ -36,7 +36,7 @@ public class BookmarkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         String name = getIntent().getStringExtra("tittle");
-        toolbar.setTitle(name);
+        toolbar.setTitle("Book");
         final int color = getIntent().getIntExtra(MainActivity.COLOR, 0);
         toolbar.setBackgroundColor(color);
         setSupportActionBar(toolbar);

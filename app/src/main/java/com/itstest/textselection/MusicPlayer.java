@@ -307,7 +307,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
     private void playMusic(final String url) {
         fab.setText("Pause");
-        pd=ProgressDialog.show(this,"","Please wait while audio starts",true,false);
+        pd=ProgressDialog.show(this,"","Please wait while audio starts",true,true);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -316,15 +316,19 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                     mediaPlayer.setDataSource(url);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
+                    pd.dismiss();
                     Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
                 } catch (SecurityException e) {
                     e.printStackTrace();
+                    pd.dismiss();
                     Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
                 } catch (IllegalStateException e) {
                     e.printStackTrace();
+                    pd.dismiss();
                     Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    pd.dismiss();
 
                 }
                 try {
@@ -332,6 +336,7 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                     // progressBar(true);
                 } catch (IllegalStateException e) {
                     e.printStackTrace();
+                    pd.dismiss();
                     Toast.makeText(MusicPlayer.this, "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
                 }
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

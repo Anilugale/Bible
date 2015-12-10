@@ -76,7 +76,7 @@ public class VersesActivity extends AppCompatActivity {
         linearLayoutManager=new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setTitle(name);
+        toolbar.setTitle("Verses");
         setSupportActionBar(toolbar);
 
 

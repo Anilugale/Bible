@@ -54,10 +54,8 @@ public class BookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
-
+        toolbar.setTitle("Book");
         langugae = getIntent().getCharExtra(lang, 'x');
-
-
 
 
       loadData();

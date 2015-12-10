@@ -2,6 +2,7 @@ package com.itstest.textselection.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -15,12 +16,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.itstest.textselection.BookActivity;
 import com.itstest.textselection.BookmarkActivity;
+import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.VersesActivity;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.fragment.ShareDialog;
 import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +92,17 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                 db.close();
                 mLst.remove(position);
                 notifyDataSetChanged();
+            }
+        });
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommanMethod.versesBookmark=mLst.get(position);
+                CommanMethod.isVerses_BookMark=true;
+                CommanMethod.ischapter_book=false;
+                context.startActivity(new Intent(context, BookActivity.class).putExtra(BookActivity.lang, lang)
+                        .putExtra(MainActivity.COLOR, color).putExtra(BookActivity.isVersesBookMark,true));
             }
         });
 

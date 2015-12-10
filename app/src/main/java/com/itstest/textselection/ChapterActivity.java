@@ -42,12 +42,12 @@ public class ChapterActivity extends AppCompatActivity {
         int bookId=getIntent().getIntExtra(BOOK_ID, 0);
         final int color=getIntent().getIntExtra(MainActivity.COLOR, 0);
         toolbar.setBackgroundColor(color);
-
+        toolbar.setTitle("Chapter");
        final char lang=getIntent().getCharExtra(BookActivity.lang, 'X');
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setTitle(name);
+
         setSupportActionBar(toolbar);
 
 

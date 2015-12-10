@@ -74,12 +74,12 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-
+        toolbar.setTitle("Priest");
         setSupportActionBar(toolbar);
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
-        toolbar.setTitle(name);
+
         lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 
 
@@ -173,7 +173,7 @@ public class PodcastActivity1 extends AppCompatActivity implements JsonCallBack{
 
     private void downloadMusicData() {
 
-        NetworkRequest.SimpleJsonRequest(this, new JSONObject(), NetworkRequest.PREST , this, RequestCodePodcast, 1);
+        NetworkRequest.SimpleJsonRequest(this, new JSONObject(), NetworkRequest.PREST+"?language="+CommanMethod.languageCode(lang ) , this, RequestCodePodcast, 1);
     }
 
 

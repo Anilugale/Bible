@@ -31,7 +31,7 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
-        toolbar.setTitle(name);
+        toolbar.setTitle("Bible");
 
 
          lang=getIntent().getCharExtra(BookActivity.lang, 'X');

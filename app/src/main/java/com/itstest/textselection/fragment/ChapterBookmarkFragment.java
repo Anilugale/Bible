@@ -72,16 +72,12 @@ public class ChapterBookmarkFragment extends Fragment {
         }
         db.close();
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+   /*     recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(final View view, int position) {
-                CommanMethod.bookmarkCahpter=databookmark.get(position);
-                CommanMethod.isVerses_BookMark=false;
-                CommanMethod.ischapter_book=true;
-                        startActivity(new Intent(getActivity(), BookActivity.class).putExtra(BookActivity.lang, lang)
-                                .putExtra(MainActivity.COLOR, color));
+
             }
-        }));
+        }));*/
 
 
 

@@ -89,13 +89,13 @@ public class PodcastActivity extends AppCompatActivity implements JsonCallBack{
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-
+        toolbar.setTitle("Devotions");
         setSupportActionBar(toolbar);
         color=getIntent().getIntExtra(MainActivity.COLOR,0);
         toolbar.setBackgroundColor(color);
         String name=getIntent().getStringExtra("tittle");
         id=getIntent().getStringExtra(ID);
-        toolbar.setTitle(name);
+
         lang=getIntent().getCharExtra(BookActivity.lang, 'X');
 
 

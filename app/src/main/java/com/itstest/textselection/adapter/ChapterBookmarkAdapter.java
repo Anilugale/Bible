@@ -2,6 +2,7 @@ package com.itstest.textselection.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -11,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.itstest.textselection.BookActivity;
+import com.itstest.textselection.MainActivity;
 import com.itstest.textselection.R;
 import com.itstest.textselection.database.DatabaseHelper;
 import com.itstest.textselection.model.ChapterBookmark;
 import com.itstest.textselection.model.Verse;
+import com.itstest.textselection.util.CommanMethod;
 
 import java.util.List;
 
@@ -81,6 +85,17 @@ public class ChapterBookmarkAdapter extends RecyclerView.Adapter<ChapterBookmark
                 db.close();
                 mLst.remove(position);
                 notifyDataSetChanged();
+            }
+        });
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommanMethod.bookmarkCahpter=mLst.get(position);
+                CommanMethod.isVerses_BookMark=false;
+                CommanMethod.ischapter_book=true;
+                context.startActivity(new Intent(context, BookActivity.class).putExtra(BookActivity.lang, lang)
+                        .putExtra(MainActivity.COLOR, color));
             }
         });
 

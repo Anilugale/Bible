@@ -52,7 +52,8 @@ public  class CommanMethod {
         return fmtOut.format(date);
     }
 
-    public static int languageCode(char lang)
+    public static int
+    languageCode(char lang)
     {
 
          switch (lang)
@@ -60,12 +61,12 @@ public  class CommanMethod {
              case 'E':
                  return 1;
              case 'T':
-                 return 2;
+                 return 4;
 
              case 'H':
                  return 3;
              case 't':
-                return 4;
+                return 2;
 
              case 'K':
                  return 5;

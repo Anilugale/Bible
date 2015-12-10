@@ -69,15 +69,11 @@ public class VersesBookmarkFragment extends Fragment {
         }
         db.close();
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+       /* recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                CommanMethod.versesBookmark=databookmark.get(position);
-                CommanMethod.isVerses_BookMark=true;
-                CommanMethod.ischapter_book=false;
-                startActivity(new Intent(getActivity(), BookActivity.class).putExtra(BookActivity.lang, lang)
-                        .putExtra(MainActivity.COLOR, color).putExtra(BookActivity.isVersesBookMark,true));
+
             }
-        }));
+        }));*/
     }
 }

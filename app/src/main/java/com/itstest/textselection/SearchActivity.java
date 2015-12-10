@@ -53,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.list_verses);
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setTitle(name);
+        toolbar.setTitle("Search");
         setSupportActionBar(toolbar);
         searchEdt=(EditText) findViewById(R.id.searchEdt);
         db=new DatabaseHelper(this);
