@@ -100,6 +100,7 @@ public class BookmarkActivity extends AppCompatActivity {
                             Intent a = new Intent(BookmarkActivity.this, MainActivity.class);
                             a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(a);
+                            finish();
                             break;
                         case R.id.music:
                             startActivity(new Intent(BookmarkActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
@@ -110,6 +111,7 @@ public class BookmarkActivity extends AppCompatActivity {
                             startActivity(new Intent(BookmarkActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
                                     .putExtra(MainActivity.COLOR, color));
                             Toast.makeText(getApplicationContext(), "bookmark", Toast.LENGTH_SHORT).show();
+                            finish();
                             break;
                         case R.id.bible:
                        /* startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
@@ -121,6 +123,7 @@ public class BookmarkActivity extends AppCompatActivity {
                             startActivity(new Intent(BookmarkActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
                                     .putExtra(MainActivity.COLOR, color));
                             Toast.makeText(getApplicationContext(), "search", Toast.LENGTH_SHORT).show();
+                            finish();
 
                             break;
 

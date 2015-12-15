@@ -93,6 +93,8 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
                         .putExtra(MainActivity.COLOR, color)
                         .putExtra(BookActivity.book_name,book_name)
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getId()));
+                context.finish();
+
             }
         });
         GradientDrawable sd = (GradientDrawable) holder.leftArrow.getBackground().mutate();

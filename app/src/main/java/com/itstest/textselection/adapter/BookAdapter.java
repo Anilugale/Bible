@@ -68,6 +68,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                        ).putExtra(MainActivity.COLOR, color)
                        .putExtra(BookActivity.book_name,mLst.get(position).getName())
                        .putExtra(BookActivity.lang, lang));
+               context.finish();
+
            }
        });
 

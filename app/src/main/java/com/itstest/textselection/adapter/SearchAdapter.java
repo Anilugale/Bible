@@ -86,6 +86,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .putExtra(MainActivity.COLOR, color)
                         .putExtra("V_ID",  mLst.get(position).getVerse_id())
                         .putExtra(ChapterActivity.CHAPTER_ID, mLst.get(position).getChapter_id()));
+                context.finish();
+
             }
         });
 

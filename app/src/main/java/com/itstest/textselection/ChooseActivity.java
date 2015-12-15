@@ -75,27 +75,32 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
                         Intent a = new Intent(ChooseActivity.this,MainActivity.class);
                         a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(a);
+                        finish();
                         break;
                     case R.id.music:
                         startActivity(new Intent(ChooseActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.bookmark:
                         startActivity(new Intent(ChooseActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.bible:
                         startActivity(new Intent(ChooseActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
 
                         Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.search:
                         startActivity(new Intent(ChooseActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+                        finish();
 
                         break;
 
@@ -174,6 +179,7 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
                         .putExtra(MainActivity.COLOR, color));
                 break;
         }
+        finish();
         return true;
     }
 }

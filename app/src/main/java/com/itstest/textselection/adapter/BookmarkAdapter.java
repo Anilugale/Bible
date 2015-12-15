@@ -98,11 +98,14 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                System.out.println("cliclk");
                 CommanMethod.versesBookmark=mLst.get(position);
                 CommanMethod.isVerses_BookMark=true;
                 CommanMethod.ischapter_book=false;
                 context.startActivity(new Intent(context, BookActivity.class).putExtra(BookActivity.lang, lang)
                         .putExtra(MainActivity.COLOR, color).putExtra(BookActivity.isVersesBookMark,true));
+                context.finish();
             }
         });
 

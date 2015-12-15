@@ -72,7 +72,7 @@ public class ChapterActivity extends AppCompatActivity {
 
         db.close();
 
-        if(CommanMethod.ischapter_book)
+        if(CommanMethod.ischapter_book && CommanMethod.bookmarkCahpter!=null)
         {
             startActivity(new Intent(this, VersesActivity.class)
                     .putExtra(VersesActivity.BOOK_ID, CommanMethod.bookmarkCahpter.getBook_id())
@@ -80,15 +80,16 @@ public class ChapterActivity extends AppCompatActivity {
                     .putExtra(MainActivity.COLOR, getIntent().getIntExtra(MainActivity.COLOR,0))
                     .putExtra(ChapterActivity.CHAPTER_ID,CommanMethod.bookmarkCahpter.getChapter_id()));
             CommanMethod.bookmarkCahpter=null;
+            finish();
         }
-        if(CommanMethod.isVerses_BookMark)
+        if(CommanMethod.isVerses_BookMark && CommanMethod.versesBookmark!=null )
         {
             startActivity(new Intent(this, VersesActivity.class)
                     .putExtra(VersesActivity.BOOK_ID,CommanMethod.versesBookmark.getBook_id())
                     .putExtra(BookActivity.lang, lang)
                     .putExtra(MainActivity.COLOR, getIntent().getIntExtra(MainActivity.COLOR,0))
                     .putExtra(ChapterActivity.CHAPTER_ID,CommanMethod.versesBookmark.getChapter_id()));
-
+            finish();
         }
 
 
@@ -120,26 +121,31 @@ public class ChapterActivity extends AppCompatActivity {
                         Intent a = new Intent(ChapterActivity.this,MainActivity.class);
                         a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(a);
+                        finish();
                         break;
                     case R.id.music:
                         startActivity(new Intent(ChapterActivity.this, PodcastActivity1.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                                   Toast.makeText(getApplicationContext(), "music", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.bookmark:
                         startActivity(new Intent(ChapterActivity.this, BookmarkActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(),"bookmark",Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.bible:
                         startActivity(new Intent(ChapterActivity.this, BookActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(),"bible",Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                     case R.id.search:
                         startActivity(new Intent(ChapterActivity.this, SearchActivity.class).putExtra(BookActivity.lang, lang)
                                 .putExtra(MainActivity.COLOR, color));
                         Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+                        finish();
 
                         break;
 

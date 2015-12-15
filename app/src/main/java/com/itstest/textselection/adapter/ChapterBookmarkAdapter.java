@@ -96,6 +96,7 @@ public class ChapterBookmarkAdapter extends RecyclerView.Adapter<ChapterBookmark
                 CommanMethod.ischapter_book=true;
                 context.startActivity(new Intent(context, BookActivity.class).putExtra(BookActivity.lang, lang)
                         .putExtra(MainActivity.COLOR, color));
+                context.finish();
             }
         });
 

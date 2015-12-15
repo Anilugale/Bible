@@ -69,6 +69,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             public void onClick(View v) {
 
                 context.startActivity(new Intent(context, VersesActivity.class).putExtra("tittle",mLst.get(position).getTtl()));
+                context.finish();
             }
         });
 
